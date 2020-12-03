@@ -1,20 +1,33 @@
 .data
 .include "Sonica.s"
+.include "fundo1.s"
 
 .text
 .include "Macros.s"
 
+# Seta o Fundo
+GStart:	li t0 0xFF000000
+	li t1 0xFF012C00
+	la t3 fundo1
+	addi t3 t3 8
+DFundo: beq t0 t1 Transp
+	lw t2 0(t3)
+	sw t2 0(t0)
+	addi t0 t0 4
+	addi t3 t3 4
+	j DFundo
+
 # Seta Frame 1 como transparente
-	li t0 0xFF100000
+Transp:	li t0 0xFF100000
 	li t1 0xFF112C00
 	li t2 0xc7c7c7c7
-Loop: 	beq t0 t1 Fora
+Loop: 	beq t0 t1 Sonica0
 	sw t2 0(t0)
 	addi t0 t0 4
 	j Loop
 
 # Desenha a Sonica pela primeira vez numa posição específica (0,0) {t0, t1}
-Fora:	li t0 0
+Sonica0:li t0 0
 	li t1 0
 	la t4 Sonica
 	Desenhar(t0 t1 t4)
@@ -25,7 +38,7 @@ Fora:	li t0 0
 	li a0 250
 	ecall
 
-# Simula um game loop onde ela se move com ?X = 28 e ?Y = 19, a cada 250ms
+# Simula um game loop onde ela se move com dX = 28 e dY = 19, a cada 250ms
 	addi t5 zero 10
 GLoop:	beqz t5 Fim
 	addi t5 t5 -1
