@@ -47,7 +47,7 @@ INPUT_LOOP:
 	ecall	
 	blt a0, t0, INPUT_LOOP #Checa se passaram 200 ms
 	PROCESSAMENTO() #Chamar a função Processamento (Interpretar o input e o resultado da IA. escolher frames. checar hits)
-	DESENHAR() #Desenhar ambos os personagens em duas respectivas animações
+	DESENHAR_TUDO() #Desenhar ambos os personagens em duas respectivas animações
 	
 	
 	j GAMELOOP

@@ -1,6 +1,7 @@
 .data
+PosSonica:.word 0
 .include "Sonica.s"
-.include "fundo1.s"
+.include ".\Imagens\Fundos\fundo1.s"
 
 .text
 .include "Macros.s"
@@ -26,11 +27,12 @@ Loop: 	beq t0 t1 Sonica0
 	addi t0 t0 4
 	j Loop
 
-# Desenha a Sonica pela primeira vez numa posição específica (0,0) {t0, t1}
-Sonica0:li t0 0
-	li t1 0
-	la t4 Sonica
-	Desenhar(t0 t1 t4)
+# Desenha a Sonica pela primeira vez numa posição específica (t0), e salva isso na memória
+Sonica0:li t0 0xFF100000
+	li t2 0x10010000
+	sw t0 0(t2)
+	la t1 Sonica
+	Desenhar(t0 t1)
 	li t2 0xFF200604
 	addi t3 zero 1
 	sw t3 0(t2)
@@ -38,19 +40,66 @@ Sonica0:li t0 0
 	li a0 250
 	ecall
 
-# Simula um game loop onde ela se move com dX = 28 e dY = 19, a cada 250ms
-	addi t5 zero 10
-GLoop:	beqz t5 Fim
-	addi t5 t5 -1
-	addi t2 t0 28
-	addi t3 t1 19
-	li a7 32
+# Simula uma movimentação onde ela se move 2x pra direita, 2x pra baixo, 2x pra esquerda e 2x pra cima
+	la t2 PosSonica
+	la t3 Sonica
+	mv t4 t3
+	
+	li t0 32
+	li t1 0
+	Render(t0 t1 t2 t3 t4)
 	li a0 250
 	ecall
-	Mover(t0 t1 t2 t3 t4)
-	mv t0 t2
-	mv t1 t3
-	j GLoop
+	
+	li t0 0
+	li t1 32
+	Render(t0 t1 t2 t3 t4)
+	li a0 250
+	ecall
+	
+	li t0 -32
+	li t1 0
+	Render(t0 t1 t2 t3 t4)
+	li a0 250
+	ecall
+	
+	li t0 0
+	li t1 -32
+	Render(t0 t1 t2 t3 t4)
+	li a0 250
+	ecall
+	
+	li t0 32
+	li t1 32
+	Render(t0 t1 t2 t3 t4)
+	li a0 250
+	ecall
+	
+	li t0 -32
+	li t1 -32
+	Render(t0 t1 t2 t3 t4)
+	li a0 250
+	ecall
+	
+	li t0 32
+	li t1 0
+	Render(t0 t1 t2 t3 t4)
+	li a0 250
+	ecall
+	
+	li t0 -32
+	li t1 32
+	Render(t0 t1 t2 t3 t4)
+	li a0 250
+	ecall
+	
+	li t0 32
+	li t1 -32
+	Render(t0 t1 t2 t3 t4)
+	li a0 250
+	ecall
 
-Fim:	li a7 10
+################### Final da simulação ################### Final da simulação ################### Final da simulação ###################
+
+	li a7 10
 	ecall

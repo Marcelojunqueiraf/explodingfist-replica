@@ -194,7 +194,7 @@ SKIP_POINT:
 	ecall
 	
 .end_macro
-.macro DESENHAR()
+.macro DESENHAR_TUDO()
 # Desenha a Sonica pela primeira vez numa posição específica (0,0) {t0, t1}
 Sonica0:li t0 52
 	li t1 160
@@ -206,4 +206,107 @@ Sonica0:li t0 52
 .end_macro
 	
 .macro TELA_FINAL()
+.end_macro
+
+# Macro de limpar // Recebe %X - Tamanho X pra apagar, %Y - Tamanho Y pra apagar, %Z - Endereço do pixel 0
+.macro Limpar(%X %Y %Z)
+	mv a0 %X
+	mv a1 %Y
+	mv a2 %Z
+	mv a3 zero
+	li a4 0xC7C7C7C7
+	beqz a1 Fora
+LoopX:	beq a3 a0 LoopY
+	sw a4 0(a2)
+	addi a3 a3 4
+	addi a2 a2 4
+	j LoopX
+LoopY:	addi a1 a1 -1
+	mv a3 zero
+	beqz a1 Fora
+	sub a2 a2 a0
+	addi a2 a2 320
+	j LoopX
+Fora:	mv a0 zero
+	mv a2 zero
+	mv a4 zero
+.end_macro
+
+# Macro de desenhar imagem // Recebe %Z - Endere?o do p?xel 0, %Img - Imagem a desenhar
+.macro Desenhar(%Z %Img)
+	mv a4 zero
+	mv a3 %Z
+	lw a0 0(%Img)
+	lw a1 4(%Img)
+	addi a2 %Img 8
+LoopX:	beq a4 a0 LoopY
+	lw a5 0(a2)
+	sw a5 0(a3)
+	addi a4 a4 4
+	addi a2 a2 4
+	addi a3 a3 4
+	j LoopX
+LoopY:	addi a1 a1 -1
+	mv a4 zero
+	beqz a1 Fora
+	sub a3 a3 a0
+	addi a3 a3 320
+	j LoopX
+Fora:	mv a0 zero
+	mv a2 zero
+	mv a3 zero
+	mv a5 zero
+.end_macro
+
+# Macro de renderizar // Recebe %X - Delta X, %Y - Delta Y, %P0 - Endere?o da posi??o do obj. na mem?ria, %S0 - Endere?o Sprite 1 (apagar) na mem?ria, %S1 - Sprite 2 (desenhar) na mem?ria
+.macro Render(%X %Y %P0 %S0 %S1)
+	# Coleta posi??o na tela do objeto
+	lw a6 0(%P0)
+	# Ret?ngulo Vermelho
+	mv a2 a6
+	bltz %X XMenorR
+	lw a0 0(%S0)
+	sub a0 a0 %X
+	add a2 a2 %X
+	j FimRX
+XMenorR:lw a0 0(%S1)
+	add a0 a0 %X
+FimRX:	bltz %Y YMenorR
+	mv a1 %Y
+	j FimRY
+YMenorR:lw a1 4(%S0)
+	lw a3 4(%S1)
+	add a3 a3 %Y
+	sub a1 a1 a3
+	li a4 320
+	mul a3 a3 a4
+	add a2 a2 a3
+FimRY:	Limpar(a0 a1 a2)
+	# Ret?ngulo Azul
+	mv a3 a6
+	lw a2 4(%S0)
+	bltz %X XMenorB
+	mv a1 %X
+	j FimB
+XMenorB:lw a1 0(%S0)
+	sub a1 a1 a0
+	add a3 a3 a0
+FimB:	Limpar(a1 a2 a3)
+	# Desenhar pr?xima sprite
+	li a0 320
+	mul a1 %Y a0
+	add a1 a1 %X
+	add a1 a1 a6
+	sw a1 0(%P0) # Atualiza a posi??o do obj. na mem?ria
+	Desenhar(a1 %S1)
+	# Refresh
+	li a0 0xFF200604
+	li a1 0
+	sw a1 0(a0)
+	li a1 1
+	sw a1 0(a0)
+	# Limpa os Regs
+	mv a0 zero
+	mv a1 zero
+	mv a6 zero
 .end_macro
