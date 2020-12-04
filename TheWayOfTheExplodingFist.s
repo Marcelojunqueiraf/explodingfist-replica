@@ -17,8 +17,16 @@ MENU:	TELAINICIAL()
 	
 FASE_LOOP:
 	DESENHAR_FUNDO()
+
 	#ZerarPontuação()
+	li t0, 0x10000020 #Endereço da pontuação 0x10000022
+	lw t1, (t0)
+	li t2, 0xFFFF0000
+	and t1, t1, t2
+	sw t1, (t0)
+
 VIDA_LOOP:
+
 	#Reposicionar Jogadores()
 	#animação de saudação
 GAMELOOP:
@@ -32,7 +40,7 @@ INPUT_LOOP:
 	INPUT() #Get input #####
 	#Wait 10 ms
 	li a7, 32
-	li a0, 10
+	li a0, 50
 	ecall
 	#a0=current time
 	li a7, 30
@@ -44,9 +52,20 @@ INPUT_LOOP:
 	
 	j GAMELOOP
 FORA_GAMELOOP:
+
 	#Checar vitoria ou derrota
+	li t1, 0x10000020
+	lw t2, (t1) #(fundo,fase, pontuação player, pontuação enemy)
+	li t5, 0x0000FF00
+	and t3, t2, t5 #t3=Pontuação Player
+	srli t3, t3, 8
+	li t0, 4
+
+	
+	bge t3, t0, VITORIA
 	j VIDA_LOOP
 VITORIA:
+
 	#Mudar Fundo
 	#FaseAtual+=1
 	#Dificuldade+=1

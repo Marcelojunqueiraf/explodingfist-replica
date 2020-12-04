@@ -75,25 +75,28 @@ Fora:	mv a1 zero
 	ecall	
 	li a1,0xFF000000	
 	li a2,0xFF012C00	
-	lui a0, 0x10000   #carrega array
-	lui a3, 0x10000   #carrega contador
-	addi a3,a3, 100	 #
-	lw a4,(a3)  #deferencia a3
-	add a0, a4, a0
-	lw a0,(a0) #seleciona o fundo somando o contador 	
-	addi a0,a0,8		
+	li a0, 0x10000300   #carrega array
+	li a3, 0x10000020   #carrega contador
+	lw a4,(a3)  #A4 = contador
+	srli a4, a4, 24
+	add a0, a4, a0	#a0 = ponteiro do endereço do fundo a ser renderizado
+	lw a0,(a0) #a0 = endereço do fundo a ser renderizado 	
+	addi a0,a0,8	#pula os bytes que indicam o tamanho da imagem
 LOOP.FUNDOS: beq a1,a2,FORA.FUNDOS
 	lw a5,0(a0)		
 	sw a5,0(a1)		
 	addi a1,a1,4		
 	addi a0,a0,4
 	j LOOP.FUNDOS			
-FORA.FUNDOS: addi a4,a4,4
-	sw a4, (a3)	
+FORA.FUNDOS: 
+	addi a4,a4,4 #Selecionar o próximo fundo
+	li t0, 12 
+	rem a4, a4, t0 #Se passar do último fundo, voltar para o primeiro
+	slli a4, a4, 24
+	sw a4, (a3) #Escrever o fundo atual na memória
 	
-	li a0,0xFF200604
-	sw zero,0(a0)
-	mv ra, s2
+	li a2,0xFF200604	# frame 0 selecionado
+	sw zero,0(a2)
 .end_macro
 	
 .macro TELAINICIAL()
@@ -101,15 +104,15 @@ FORA.FUNDOS: addi a4,a4,4
 	li a0, 1
 	sw a0,0(s0)
 	li t1,0xFF000000	
-	li t2,0xFF012C00	
-	la s1,abertura		
+	li t2,0xFF012C00
+	la s1,abertura
 	addi s1,s1,8		
 LOOP1: 	beq t1,t2,FORA1
 	lw t3,0(s1)		
 	sw t3,0(t1)		
 	addi t1,t1,4		
 	addi s1,s1,4
-	j LOOP1			
+	j LOOP1	
 FORA1:	la a0,Aperte      #texto de apertar 1 
 	
 	sw zero,0(s0)
@@ -124,28 +127,77 @@ LOOP2: 	lw t0,0(t1)			# Le bit de Controle Teclado
 .end_macro
 	
 .macro INICIALIZACAO()
-	lui a0, 0x10000   #array dos fundos  0x100000000
+	li a0, 0x10000300   #array dos fundos  0x100000300
 	la t0, fundo1
 	sw t0, (a0)
 	la t0, fundo2
 	sw t0, 4(a0)
 	la t0, fundo3
 	sw t0, 8(a0)
-	lui a0, 0x10000    #contador dos fundos/fases 0x10000100
-	addi a0,a0,100     #
+	li a0, 0x10000020    #contador dos fundos 0x10000020
 	sw  zero, (a0)	   #zera contadpr
-	mv ra, s2
 .end_macro
 
 .macro INPUT() 
+	li t1, 0xFF200000		# carrega o endereï¿½o de controle do KDMMIO
+	li t2, 0x10000024
+	lw t0,0(t1)			# Le bit de Controle Teclado
+   	andi t0,t0,0x0001		# mascara o bit menos significativo¿½o volta ao loop
+   	beq zero, t0, SKIP_READING
+   	lw t3,4(t1)			# le o valor da tecla
+   	sw t3, (t2)
+SKIP_READING:
 .end_macro
 	
 .macro PROCESSAMENTO()
+.data
+BreakLine: .ascii "\n"
+Space: .ascii " "
+.text
+	li t1, 0x10000020
+	lw t0, 4(t1) #input
+	sw zero, 4(t1)
+	lw t2, (t1) #(fundo,fase, pontuação player, pontuação enemy)
+	li t5, 0x0000FF00
+	and t3, t2, t5 #t3=Pontuação Player
+	srli t3, t3, 8
+	srli t5, t5, 8 
+	and t4, t2, t5 #t4=Pontuação Enemy
+	li t2, 'd'
+	
+	bne t0, t2, SKIP_POINT #adicionar 1 à pontuação do player e sair gameloop
+	addi t3, t3, 4
+	lw t2, (t1)
+	li t5, 0xffff00ff
+	slli t3, t3, 8
+	and t2, t2,t5
+	add t2, t2, t3
+	srli t3, t3, 8
+	sw t2, (t1)
+
+	j FORA_GAMELOOP
+
+SKIP_POINT:
+	mv a0, t3
+	li a7, 1
+	ecall
+	la t0, Space
+	lb a0, (t0)
+	li a7, 11
+	ecall
+	mv a0, t4
+	li a7, 1
+	ecall
+	la t0, BreakLine
+	lb a0, (t0)
+	li a7, 11
+	ecall
+	
 .end_macro
 .macro DESENHAR()
 # Desenha a Sonica pela primeira vez numa posição específica (0,0) {t0, t1}
-Sonica0:li t0 100
-	li t1 100
+Sonica0:li t0 52
+	li t1 160
 	la t4 Sonica
 	Desenhar(t0 t1 t4)
 	li t2 0xFF200604
