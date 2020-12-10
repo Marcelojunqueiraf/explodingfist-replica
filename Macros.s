@@ -79,8 +79,8 @@ Fora:	mv a1 zero
 	li a3, 0x10000020   #carrega contador
 	lw a4,(a3)  #A4 = contador
 	srli a4, a4, 24
-	add a0, a4, a0	#a0 = ponteiro do endereço do fundo a ser renderizado
-	lw a0,(a0) #a0 = endereço do fundo a ser renderizado 	
+	add a0, a4, a0	#a0 = ponteiro do endereï¿½o do fundo a ser renderizado
+	lw a0,(a0) #a0 = endereï¿½o do fundo a ser renderizado 	
 	addi a0,a0,8	#pula os bytes que indicam o tamanho da imagem
 LOOP.FUNDOS: beq a1,a2,FORA.FUNDOS
 	lw a5,0(a0)		
@@ -89,11 +89,11 @@ LOOP.FUNDOS: beq a1,a2,FORA.FUNDOS
 	addi a0,a0,4
 	j LOOP.FUNDOS			
 FORA.FUNDOS: 
-	addi a4,a4,4 #Selecionar o próximo fundo
+	addi a4,a4,4 #Selecionar o prï¿½ximo fundo
 	li t0, 12 
-	rem a4, a4, t0 #Se passar do último fundo, voltar para o primeiro
+	rem a4, a4, t0 #Se passar do ï¿½ltimo fundo, voltar para o primeiro
 	slli a4, a4, 24
-	sw a4, (a3) #Escrever o fundo atual na memória
+	sw a4, (a3) #Escrever o fundo atual na memï¿½ria
 	
 	li a2,0xFF200604	# frame 0 selecionado
 	sw zero,0(a2)
@@ -114,10 +114,38 @@ LOOP1: 	beq t1,t2,FORA1
 	addi s1,s1,4
 	j LOOP1	
 FORA1:	la a0,Aperte      #texto de apertar 1 
-	
+	la a0,Aperte      #texto de apertar 1 
+	li a1, 140
+	li a2, 220
+	li a3, 0xFF00
+	li a4, 0
+	li a7, 104
+	ecall
 	sw zero,0(s0)
+		
+	la s0,NUMNOTAS 	#parte da mÃºsica
+	lw s1,0(s0)
+	la s0,NOTAS		# define o endereÃ§o das notas
+	li a2,1			# instrumento
+	li a3,127		# volume
+	li s2,0			#contador da nota
+	LOOP2:  blt  s2,s1,RESETM	#reseta musica
+	li s2,0
+	la s0,NOTAS
+RESETM:	lw a0,0(s0)		# le o valor da nota
+	lw a1,4(s0)		# le a duracao da nota
+	li a7,31		# define a chamada de syscall
+	ecall	
+	li s3, 2000
+	bgt a1,s3,ACORDE
+	mv a0,a1		# passa a duraï¿½ï¿½o da nota para a pausa
+	li a7,32		# define a chamada de syscal 
+	ecall			# realiza uma pausa de a0 ms
+ACORDE:	addi s0,s0,8		# incrementa para o endereï¿½o da prï¿½xima nota
+	addi s2,s2,1  	#terimna parte da musica
+	
 	li t1,0xFF200000		# carrega o endereï¿½o de controle do KDMMIO
-LOOP2: 	lw t0,0(t1)			# Le bit de Controle Teclado
+	lw t0,0(t1)			# Le bit de Controle Teclado
    	andi t0,t0,0x0001		# mascara o bit menos significativo
    	beq t0,zero,LOOP2		# nï¿½o tem tecla pressionada entï¿½o volta ao loop
    	lw t2,4(t1)			# le o valor da tecla
@@ -142,7 +170,7 @@ LOOP2: 	lw t0,0(t1)			# Le bit de Controle Teclado
 	li t1, 0xFF200000		# carrega o endereï¿½o de controle do KDMMIO
 	li t2, 0x10000024
 	lw t0,0(t1)			# Le bit de Controle Teclado
-   	andi t0,t0,0x0001		# mascara o bit menos significativo¿½o volta ao loop
+   	andi t0,t0,0x0001		# mascara o bit menos significativoï¿½ï¿½o volta ao loop
    	beq zero, t0, SKIP_READING
    	lw t3,4(t1)			# le o valor da tecla
    	sw t3, (t2)
@@ -157,15 +185,15 @@ Space: .ascii " "
 	li t1, 0x10000020
 	lw t0, 4(t1) #input
 	sw zero, 4(t1)
-	lw t2, (t1) #(fundo,fase, pontuação player, pontuação enemy)
+	lw t2, (t1) #(fundo,fase, pontuaï¿½ï¿½o player, pontuaï¿½ï¿½o enemy)
 	li t5, 0x0000FF00
-	and t3, t2, t5 #t3=Pontuação Player
+	and t3, t2, t5 #t3=Pontuaï¿½ï¿½o Player
 	srli t3, t3, 8
 	srli t5, t5, 8 
-	and t4, t2, t5 #t4=Pontuação Enemy
+	and t4, t2, t5 #t4=Pontuaï¿½ï¿½o Enemy
 	li t2, 'd'
 	
-	bne t0, t2, SKIP_POINT #adicionar 1 à pontuação do player e sair gameloop
+	bne t0, t2, SKIP_POINT #adicionar 1 ï¿½ pontuaï¿½ï¿½o do player e sair gameloop
 	addi t3, t3, 4
 	lw t2, (t1)
 	li t5, 0xffff00ff
@@ -195,7 +223,7 @@ SKIP_POINT:
 	
 .end_macro
 .macro DESENHAR_TUDO()
-# Desenha a Sonica pela primeira vez numa posição específica (0,0) {t0, t1}
+# Desenha a Sonica pela primeira vez numa posiï¿½ï¿½o especï¿½fica (0,0) {t0, t1}
 Sonica0:li t0 52
 	li t1 160
 	la t4 Sonica
@@ -208,7 +236,7 @@ Sonica0:li t0 52
 .macro TELA_FINAL()
 .end_macro
 
-# Macro de limpar // Recebe %X - Tamanho X pra apagar, %Y - Tamanho Y pra apagar, %Z - Endereço do pixel 0
+# Macro de limpar // Recebe %X - Tamanho X pra apagar, %Y - Tamanho Y pra apagar, %Z - Endereï¿½o do pixel 0
 .macro Limpar(%X %Y %Z)
 	mv a0 %X
 	mv a1 %Y

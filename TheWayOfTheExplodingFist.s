@@ -6,6 +6,8 @@
 .include ".\Imagens\Fundos\fundo2.s"
 .include ".\Imagens\Fundos\fundo3.s"
 .include "Sonica.s"
+NUMNOTAS: .word 54
+NOTAS: 60,2856,67,357,69,357,71,1428,71,357,71,357,62,2856,71,714,69,178,67,178,65,178,67,178,69,1785,62,2856,65,357,67,357,69,357,71,714,69,357,67,357,60,2856,65,535,64,357,65,178,67,1963,60,2856,64,357,67,178,65,178,67,178,69,178,67,178,71,357,74,535,75,357,74,178,62,2856,72,357,67,357,69,357,71,357,67,892,71,357,69,178,62,2856,67,357,71,535,65,535,69,535,63,357,65,178,67,178,60,2856,65,178
 Aperte: .string "Aperte 1 para iniciar"
 
 .text	
@@ -13,13 +15,13 @@ Aperte: .string "Aperte 1 para iniciar"
 		
 
 MENU:	TELAINICIAL()
-	INICIALIZACAO() #Setagem de todos os arrays e valores salvos na memória
+	INICIALIZACAO() #Setagem de todos os arrays e valores salvos na memï¿½ria
 	
 FASE_LOOP:
 	DESENHAR_FUNDO()
 
-	#ZerarPontuação()
-	li t0, 0x10000020 #Endereço da pontuação 0x10000022
+	#ZerarPontuaï¿½ï¿½o()
+	li t0, 0x10000020 #Endereï¿½o da pontuaï¿½ï¿½o 0x10000022
 	lw t1, (t0)
 	li t2, 0xFFFF0000
 	and t1, t1, t2
@@ -28,9 +30,9 @@ FASE_LOOP:
 VIDA_LOOP:
 
 	#Reposicionar Jogadores()
-	#animação de saudação
+	#animaï¿½ï¿½o de saudaï¿½ï¿½o
 GAMELOOP:
-	#IA() #Calcula próxima ação da IA
+	#IA() #Calcula prï¿½xima aï¿½ï¿½o da IA
 	
 	#a0=current time
 	li a7, 30
@@ -46,8 +48,8 @@ INPUT_LOOP:
 	li a7, 30
 	ecall	
 	blt a0, t0, INPUT_LOOP #Checa se passaram 200 ms
-	PROCESSAMENTO() #Chamar a função Processamento (Interpretar o input e o resultado da IA. escolher frames. checar hits)
-	DESENHAR_TUDO() #Desenhar ambos os personagens em duas respectivas animações
+	PROCESSAMENTO() #Chamar a funï¿½ï¿½o Processamento (Interpretar o input e o resultado da IA. escolher frames. checar hits)
+	DESENHAR_TUDO() #Desenhar ambos os personagens em duas respectivas animaï¿½ï¿½es
 	
 	
 	j GAMELOOP
@@ -55,9 +57,9 @@ FORA_GAMELOOP:
 
 	#Checar vitoria ou derrota
 	li t1, 0x10000020
-	lw t2, (t1) #(fundo,fase, pontuação player, pontuação enemy)
+	lw t2, (t1) #(fundo,fase, pontuaï¿½ï¿½o player, pontuaï¿½ï¿½o enemy)
 	li t5, 0x0000FF00
-	and t3, t2, t5 #t3=Pontuação Player
+	and t3, t2, t5 #t3=Pontuaï¿½ï¿½o Player
 	srli t3, t3, 8
 	li t0, 4
 
