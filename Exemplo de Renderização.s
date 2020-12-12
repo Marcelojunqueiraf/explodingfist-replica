@@ -1,7 +1,8 @@
 .data
-PosSonica:.word 0
 .include "Sonica.s"
 .include ".\Imagens\Fundos\fundo1.s"
+Player:.word 0, 0, 0, 0
+Anim: .word 32, 0, 0x10010000, 0, 32, 0x10010000, -32, 0, 0x10010000, 0, -32, 0x10010000, 32, 32, 0x10010000, -32, -32, 0x10010000, 32, 0, 0x10010000, -32, 32, 0x10010000, 32, -32, 0x10010000
 
 .text
 .include "Macros.s"
@@ -29,9 +30,10 @@ Loop: 	beq t0 t1 Sonica0
 
 # Desenha a Sonica pela primeira vez numa posição específica (t0), e salva isso na memória
 Sonica0:li t0 0xFF100000
-	li t2 0x10010000
-	sw t0 0(t2)
 	la t1 Sonica
+	la t2 Player
+	sw t0 8(t2)
+	sw t1 12(t2)
 	Desenhar(t0 t1)
 	li t2 0xFF200604
 	addi t3 zero 1
@@ -41,65 +43,18 @@ Sonica0:li t0 0xFF100000
 	ecall
 
 # Simula uma movimentação onde ela se move 2x pra direita, 2x pra baixo, 2x pra esquerda e 2x pra cima
-	la t2 PosSonica
-	la t3 Sonica
-	mv t4 t3
-	
-	li t0 32
-	li t1 0
-	Render(t0 t1 t2 t3 t4)
+	li s0 9
+Loop0:	beqz s0 Fim
+	la t0 Player
+	la t1 Anim
+	Render(t0 t1)
+	# Delay
+	li a7 32
 	li a0 250
 	ecall
+	addi s0 s0 -1
+	j Loop0
 	
-	li t0 0
-	li t1 32
-	Render(t0 t1 t2 t3 t4)
-	li a0 250
-	ecall
-	
-	li t0 -32
-	li t1 0
-	Render(t0 t1 t2 t3 t4)
-	li a0 250
-	ecall
-	
-	li t0 0
-	li t1 -32
-	Render(t0 t1 t2 t3 t4)
-	li a0 250
-	ecall
-	
-	li t0 32
-	li t1 32
-	Render(t0 t1 t2 t3 t4)
-	li a0 250
-	ecall
-	
-	li t0 -32
-	li t1 -32
-	Render(t0 t1 t2 t3 t4)
-	li a0 250
-	ecall
-	
-	li t0 32
-	li t1 0
-	Render(t0 t1 t2 t3 t4)
-	li a0 250
-	ecall
-	
-	li t0 -32
-	li t1 32
-	Render(t0 t1 t2 t3 t4)
-	li a0 250
-	ecall
-	
-	li t0 32
-	li t1 -32
-	Render(t0 t1 t2 t3 t4)
-	li a0 250
-	ecall
-
 ################### Final da simulação ################### Final da simulação ################### Final da simulação ###################
-
-	li a7 10
+Fim:	li a7 10
 	ecall
