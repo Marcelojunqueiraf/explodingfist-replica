@@ -286,7 +286,7 @@ Fora:	mv a0 zero
 	mv a5 zero
 .end_macro
 
-# Macro de renderizar // Recebe %X - Delta X, %Y - Delta Y, %P0 - Endere?o da posi??o do obj. na mem?ria, %S0 - Endere?o Sprite 1 (apagar) na mem?ria, %S1 - Sprite 2 (desenhar) na mem?ria
+# Macro de renderizar // Recebe %X - Delta X, %Y - Delta Y, %P0 - Endere?o do obj. na mem?ria, %S0 - Endere?o Sprite 1 (apagar) na mem?ria, %S1 - Sprite 2 (desenhar) na mem?ria
 .macro Render(%X %Y %P0 %S0 %S1)
 	# Coleta posi??o na tela do objeto
 	lw a6 0(%P0)
