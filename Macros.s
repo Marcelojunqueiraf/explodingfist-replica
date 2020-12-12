@@ -1,70 +1,3 @@
-# Macro de desenhar imagem
-.macro Desenhar(%X %Y %Img)
-	mv a4 zero
-	addi a5 zero 320
-	mul a1 a5 %Y
-	add a0 %X a1
-	li a3 0xFF100000
-	add a3 a0 a3
-	lw a0 0(%Img)
-	lw a1 4(%Img)
-	addi a2 %Img 8
-LoopX:	beq a4 a0 LoopY
-	lw a5 0(a2)
-	sw a5 0(a3)
-	addi a4 a4 4
-	addi a2 a2 4
-	addi a3 a3 4
-	j LoopX
-LoopY:	addi a1 a1 -1
-	mv a4 zero
-	beqz a1 Fora
-	sub a3 a3 a0
-	addi a3 a3 320
-	j LoopX
-Fora:	mv a0 zero
-	mv a2 zero
-	mv a3 zero
-	mv a5 zero
-.end_macro
-
-# Macro de movimentar
-.macro Mover(%X0 %Y0 %X1 %Y1 %Img)
-	li a0 0xFF200604
-	li a1 0xC7C7C7C7
-	li a2 0xFF100000
-	add a2 a2 %X0
-	addi a3 zero 320
-	mul a3 a3 %Y0
-	add a2 a2 a3
-	addi a3 zero 0
-	sw a3 0(a0)
-	lw a3 0(%Img)
-	lw a4 4(%Img)
-	mul a4 a3 a4
-	addi a5 zero 0
-LoopX:	beq a5 a3 LoopY
-	sw a1 0(a2)
-	addi a2 a2 4
-	addi a4 a4 -4
-	addi a5 a5 4
-	j LoopX
-LoopY:	addi a5 zero 0
-	beqz a4 Fora
-	sub a2 a2 a3
-	addi a2 a2 320
-	j LoopX
-Fora:	mv a1 zero
-	mv a2 zero
-	mv a3 zero
-	Desenhar(%X1 %Y1 %Img)
-	li a0 0xFF200604
-	addi a1 zero 1
-	sw a1 0(a0)
-	mv a0 zero
-	mv a1 zero
-.end_macro
-
 .macro DESENHAR_FUNDO()
 	li a2,0xFF200604	# frame 1 selecionado
 	li a0, 1
@@ -163,7 +96,7 @@ ACORDE:	addi s0,s0,8		# incrementa para o endere�o da pr�xima nota
 	la t0, fundo3
 	sw t0, 8(a0)
 	li a0, 0x10000020    #contador dos fundos 0x10000020
-	sw  zero, (a0)	   #zera contadpr
+	sw  zero, (a0)	   #zera contador
 .end_macro
 
 .macro INPUT() 
@@ -223,7 +156,7 @@ SKIP_POINT:
 	
 .end_macro
 .macro DESENHAR_TUDO()
-# Desenha a Sonica pela primeira vez numa posi��o espec�fica (0,0) {t0, t1}
+# Desenha a Sonica pela primeira vez numa posicao especifica (0,0) {t0, t1}
 Sonica0:li t0 52
 	li t1 160
 	la t4 Sonica
@@ -236,7 +169,7 @@ Sonica0:li t0 52
 .macro TELA_FINAL()
 .end_macro
 
-# Macro de limpar // Recebe %X - Tamanho X pra apagar, %Y - Tamanho Y pra apagar, %Z - Endere�o do pixel 0
+# Macro de limpar // Recebe %X - Tamanho X pra apagar, %Y - Tamanho Y pra apagar, %Z - Endereco do pixel 0
 .macro Limpar(%X %Y %Z)
 	mv a0 %X
 	mv a1 %Y
@@ -260,7 +193,7 @@ Fora:	mv a0 zero
 	mv a4 zero
 .end_macro
 
-# Macro de desenhar imagem // Recebe %Z - Endere?o do p?xel 0, %Img - Imagem a desenhar
+# Macro de desenhar imagem // Recebe %Z - Endereco do pixel 0, %Img - Imagem a desenhar
 .macro Desenhar(%Z %Img)
 	mv a4 zero
 	mv a3 %Z
@@ -286,47 +219,50 @@ Fora:	mv a0 zero
 	mv a5 zero
 .end_macro
 
-# Macro de renderizar // Recebe %X - Delta X, %Y - Delta Y, %P0 - Endere?o do obj. na mem?ria, %S0 - Endere?o Sprite 1 (apagar) na mem?ria, %S1 - Sprite 2 (desenhar) na mem?ria
-.macro Render(%X %Y %P0 %S0 %S1)
-	# Coleta posi??o na tela do objeto
-	lw a6 0(%P0)
-	# Ret?ngulo Vermelho
+# Macro de renderizar // Recebe %Obj - Endereco do obj. na memoria, %Anim - Endereco da animacao na memoria
+.macro Render(%Obj %Anim) #(dX = t4, dY = t5, P0 = a6, S0 = a7, S1 = t6)
+	lw t4 0(%Anim) # dX
+	lw t5 4(%Anim) # dY
+	lw a6 8(%Obj) # P0
+	lw a7 12(%Obj) # S0
+	lw t6 8(%Anim) # S1
+	# Retangulo Vermelho
 	mv a2 a6
-	bltz %X XMenorR
-	lw a0 0(%S0)
-	sub a0 a0 %X
-	add a2 a2 %X
+	bltz t4 XMenorR
+	lw a0 0(a7)
+	sub a0 a0 t4
+	add a2 a2 t4
 	j FimRX
-XMenorR:lw a0 0(%S1)
-	add a0 a0 %X
-FimRX:	bltz %Y YMenorR
-	mv a1 %Y
+XMenorR:lw a0 0(t6)
+	add a0 a0 t4
+FimRX:	bltz t5 YMenorR
+	mv a1 t5
 	j FimRY
-YMenorR:lw a1 4(%S0)
-	lw a3 4(%S1)
-	add a3 a3 %Y
+YMenorR:lw a1 4(a7)
+	lw a3 4(t6)
+	add a3 a3 t5
 	sub a1 a1 a3
 	li a4 320
 	mul a3 a3 a4
 	add a2 a2 a3
 FimRY:	Limpar(a0 a1 a2)
-	# Ret?ngulo Azul
+	# Retangulo Azul
 	mv a3 a6
-	lw a2 4(%S0)
-	bltz %X XMenorB
-	mv a1 %X
+	lw a2 4(a7)
+	bltz t2 XMenorB
+	mv a1 t2
 	j FimB
-XMenorB:lw a1 0(%S0)
+XMenorB:lw a1 0(a7)
 	sub a1 a1 a0
 	add a3 a3 a0
 FimB:	Limpar(a1 a2 a3)
-	# Desenhar pr?xima sprite
+	# Desenhar proxima sprite
 	li a0 320
-	mul a1 %Y a0
-	add a1 a1 %X
+	mul a1 t5 a0
+	add a1 a1 t4
 	add a1 a1 a6
-	sw a1 0(%P0) # Atualiza a posi??o do obj. na mem?ria
-	Desenhar(a1 %S1)
+	sw a1 8(%Obj) # Atualiza a posicao do obj. na memoria
+	Desenhar(a1 t6)
 	# Refresh
 	li a0 0xFF200604
 	li a1 0
@@ -337,4 +273,5 @@ FimB:	Limpar(a1 a2 a3)
 	mv a0 zero
 	mv a1 zero
 	mv a6 zero
+	mv a7 zero
 .end_macro
