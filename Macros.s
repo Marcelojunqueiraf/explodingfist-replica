@@ -1,69 +1,3 @@
-# Macro de desenhar imagem
-.macro Desenhar(%X %Y %Img)
-	mv a4 zero
-	addi a5 zero 320
-	mul a1 a5 %Y
-	add a0 %X a1
-	li a3 0xFF100000
-	add a3 a0 a3
-	lw a0 0(%Img)
-	lw a1 4(%Img)
-	addi a2 %Img 8
-LoopX:	beq a4 a0 LoopY
-	lw a5 0(a2)
-	sw a5 0(a3)
-	addi a4 a4 4
-	addi a2 a2 4
-	addi a3 a3 4
-	j LoopX
-LoopY:	addi a1 a1 -1
-	mv a4 zero
-	beqz a1 Fora
-	sub a3 a3 a0
-	addi a3 a3 320
-	j LoopX
-Fora:	mv a0 zero
-	mv a2 zero
-	mv a3 zero
-	mv a5 zero
-.end_macro
-
-# Macro de movimentar
-.macro Mover(%X0 %Y0 %X1 %Y1 %Img)
-	li a0 0xFF200604
-	li a1 0xC7C7C7C7
-	li a2 0xFF100000
-	add a2 a2 %X0
-	addi a3 zero 320
-	mul a3 a3 %Y0
-	add a2 a2 a3
-	addi a3 zero 0
-	sw a3 0(a0)
-	lw a3 0(%Img)
-	lw a4 4(%Img)
-	mul a4 a3 a4
-	addi a5 zero 0
-LoopX:	beq a5 a3 LoopY
-	sw a1 0(a2)
-	addi a2 a2 4
-	addi a4 a4 -4
-	addi a5 a5 4
-	j LoopX
-LoopY:	addi a5 zero 0
-	beqz a4 Fora
-	sub a2 a2 a3
-	addi a2 a2 320
-	j LoopX
-Fora:	mv a1 zero
-	mv a2 zero
-	mv a3 zero
-	Desenhar(%X1 %Y1 %Img)
-	li a0 0xFF200604
-	addi a1 zero 1
-	sw a1 0(a0)
-	mv a0 zero
-	mv a1 zero
-.end_macro
 
 .macro DESENHAR_FUNDO()
 	li a2,0xFF200604	# frame 1 selecionado
@@ -178,6 +112,13 @@ SKIP_READING:
 .end_macro
 	
 .macro PROCESSAMENTO()
+	la t2, FRAME
+	lw t0, 0(t2) #t0 = frame atual
+	la t1, SIZE 
+	lw t1, 0(t1) #t1 = Tamanho da animação atual
+	blt t0, t1, SKIP #Se a animação não tiver terminado pule
+	sw zero, 0(t2) #Zera o contador (frame atual)
+SKIP:
 .data
 BreakLine: .ascii "\n"
 Space: .ascii " "
@@ -223,14 +164,26 @@ SKIP_POINT:
 	
 .end_macro
 .macro DESENHAR_TUDO()
-# Desenha a Sonica pela primeira vez numa posiï¿½ï¿½o especï¿½fica (0,0) {t0, t1}
-Sonica0:li t0 52
-	li t1 160
-	la t4 Sonica
-	Desenhar(t0 t1 t4)
-	li t2 0xFF200604
-	addi t3 zero 1
-	sw t3 0(t2)
+	la t0, PLAYER
+	lw t1, 20(t0) #t1 = animacao atual
+	li t2, 8
+	mul t1, t1, t2 #t1 = t1*8
+	la t2, ANIMACOES
+	add t1, t1, t2 #t1 = endereço do endereço da animação atual
+	lw t1, 0(t1) #t1 = endereço da animação
+	li t2, 12
+	la t4, FRAME
+	lw t3, 0(t4) #t3 = numero do frame atual
+	mul t2, t2, t3
+	addi t3, t3, 1 #Adicionar 1 ao frame
+	lw t3, 0(t4) #Salvar o novo numero de frames na memória
+	add t1, t1, t2 #t1=endereco do frame atual
+	Render(t0, t1)
+	#Alterar X0 e Y0
+	lw t1, 8(t1)
+	sw t1, 12(t0) #Img0 = Img
+	
+
 .end_macro
 	
 .macro TELA_FINAL()

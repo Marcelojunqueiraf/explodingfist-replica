@@ -5,10 +5,20 @@
 .include ".\Imagens\Fundos\fundo1.s"
 .include ".\Imagens\Fundos\fundo2.s"
 .include ".\Imagens\Fundos\fundo3.s"
-.include "Sonica.s"
+#.include "Sonica.s"
 NUMNOTAS: .word 54
 NOTAS: 60,2856,67,357,69,357,71,1428,71,357,71,357,62,2856,71,714,69,178,67,178,65,178,67,178,69,1785,62,2856,65,357,67,357,69,357,71,714,69,357,67,357,60,2856,65,535,64,357,65,178,67,1963,60,2856,64,357,67,178,65,178,67,178,69,178,67,178,71,357,74,535,75,357,74,178,62,2856,72,357,67,357,69,357,71,357,67,892,71,357,69,178,62,2856,67,357,71,535,65,535,69,535,63,357,65,178,67,178,60,2856,65,178
 Aperte: .string "Aperte 1 para iniciar"
+#X0, Y0, P0, Img0, Frame, Anim, Size
+PLAYER:0, 0, 0, 0, 0, 0, 0
+ENEMY: 0, 0, 0, 0, 0, 0, 0
+ANIMACOES: 0, 0
+FUNDO: 0
+FASE: 0
+PONTUACAOPLAYER: 0
+PONTUACAOENEMY: 0
+SCORE: 0
+
 
 .text	
 .include "Macros.s"	
