@@ -9,11 +9,11 @@
 	li a1,0xFF000000	
 	li a2,0xFF012C00	
 	la a0, Fundos   #carrega array
+	lw a0, (a0) #a0 = endereco do array de fundos
 	la a3, Fundo   #carrega contador
 	lw a4,(a3)  #A4 = contador
-	srli a4, a4, 24
-	add a0, a4, a0	#a0 = ponteiro do endereï¿½o do fundo a ser renderizado
-	lw a0,(a0) #a0 = endereï¿½o do fundo a ser renderizado 	
+	add a0, a0, a4 #a0 = endereco do endereço fundo a ser renderizado
+	lw a0,(a0) #a0 = endereço do fundo
 	addi a0,a0,8	#pula os bytes que indicam o tamanho da imagem
 Loop.Fundos: beq a1,a2,Fora.Fundos
 	lw a5,0(a0)		
@@ -25,7 +25,6 @@ Fora.Fundos:
 	addi a4,a4,4 #Selecionar o prï¿½ximo fundo
 	li t0, 12 
 	rem a4, a4, t0 #Se passar do ï¿½ltimo fundo, voltar para o primeiro
-	slli a4, a4, 24
 	sw a4, (a3) #Escrever o fundo atual na memï¿½ria
 	
 	li a2,0xFF200604	# frame 0 selecionado
@@ -92,8 +91,9 @@ Acorde:	addi s0,s0,8		# incrementa para o endereï¿½o da prï¿½xima nota
 	
 	#Criacao do array de fundos
 	la a0, Fundos
+	lw a0, (a0)
 	la t0, fundo1
-	sw t0, (a0)
+	sw t0, 0(a0)
 	la t0, fundo2
 	sw t0, 4(a0)
 	la t0, fundo3
@@ -127,9 +127,10 @@ Acorde:	addi s0,s0,8		# incrementa para o endereï¿½o da prï¿½xima nota
 	lw t0,0(t1)			# Le bit de Controle Teclado
    	andi t0,t0,0x0001		# mascara o bit menos significativoï¿½ï¿½o volta ao loop
    	beq zero, t0, SkipReading
-   	lw t3,4(t1)			# le o valor da tecla
+   	lw a0,4(t1)			# le o valor da tecla
    	la t2, Input
-   	sw t3, (t2) #Salva tecla no endereco de input
+   	sw a0, (t2) #Salva tecla no endereco de input
+   	
 SkipReading:
 .end_macro
 	
@@ -142,7 +143,7 @@ SkipReading:
 	blt t0, t1, Skip #Se a animação não tiver terminado pule
 	sw zero, 16(t2) #Zera o contador (frame atual)
 	
-Skip:	# Tempo para dar pra ver a saudacao!!!
+Skip:	
 	la t1, PontuacaoPlayer
 	lw t3, (t1) #t3 = Pontuacao do Player
 	la t1, PontuacaoEnemy
@@ -153,6 +154,7 @@ Skip:	# Tempo para dar pra ver a saudacao!!!
 	sw zero, (t1) #zerar input
 	li t2, 'd'
 	bne t0, t2, SkipPoint #Checar se o input é 'd'
+	la t1, PontuacaoPlayer
 	lw t2, (t1) #Ler Pontuacao Player
 	addi t2, t2, 4 #Adicionar 4
 	sw t2, (t1) #Salvar pontuacao nova Player
