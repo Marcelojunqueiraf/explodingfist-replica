@@ -1,4 +1,3 @@
-
 .macro DESENHAR_FUNDO()
 	li a2,0xFF200604	# frame 1 selecionado
 	li a0, 1
@@ -89,6 +88,26 @@ ACORDE:	addi s0,s0,8		# incrementa para o endereï¿½o da prï¿½xima nota
 .end_macro
 	
 .macro INICIALIZACAO()
+	la a1, ANIMACOESPLAYER
+	lw a4, 0(a1) #a0 = endereco do inicio da animacao
+	la a3, PLAYER
+		
+	la t0, ola1
+	sw t0, 12(a3)
+	sw t0, 8(a4) 
+	
+	la t0, ola2
+	sw t0, 20(a4) 
+	
+	la t0, ola3
+	sw t0, 32(a4)
+	 
+	la t0, ola4
+	sw t0, 44(a4) 
+	
+	li a7 10
+	ecall
+	
 	li a0, 0x10000300   #array dos fundos  0x100000300
 	la t0, fundo1
 	sw t0, (a0)
@@ -112,17 +131,20 @@ SKIP_READING:
 .end_macro
 	
 .macro PROCESSAMENTO()
-	la t2, FRAME
-	lw t0, 0(t2) #t0 = frame atual
-	la t1, SIZE 
-	lw t1, 0(t1) #t1 = Tamanho da animação atual
-	blt t0, t1, SKIP #Se a animação não tiver terminado pule
-	sw zero, 0(t2) #Zera o contador (frame atual)
-SKIP:
-.data
-BreakLine: .ascii "\n"
-Space: .ascii " "
 .text
+	la t2, PLAYER
+	lw t0, 16(t2) #t0 = frame atual 
+	li a7, 1
+	mv a0, t0
+	ecall 
+	
+	lw t1, 24(t2) #t1 = Tamanho da animação atual
+	blt t0, t1, SKIP #Se a animação não tiver terminado pule
+	li a0, 9
+	li a7, 1
+	ecall
+	sw zero, 16(t2) #Zera o contador (frame atual)
+SKIP:
 	li t1, 0x10000020
 	lw t0, 4(t1) #input
 	sw zero, 4(t1)
@@ -147,44 +169,27 @@ Space: .ascii " "
 	j FORA_GAMELOOP
 
 SKIP_POINT:
-	mv a0, t3
-	li a7, 1
-	ecall
-	la t0, Space
-	lb a0, (t0)
-	li a7, 11
-	ecall
-	mv a0, t4
-	li a7, 1
-	ecall
-	la t0, BreakLine
-	lb a0, (t0)
-	li a7, 11
-	ecall
 	
 .end_macro
-.macro DESENHAR_TUDO()
-	la t0, PLAYER
-	lw t1, 20(t0) #t1 = animacao atual
-	li t2, 8
-	mul t1, t1, t2 #t1 = t1*8
-	la t2, ANIMACOES
-	add t1, t1, t2 #t1 = endereço do endereço da animação atual
-	lw t1, 0(t1) #t1 = endereço da animação
-	li t2, 12
-	la t4, FRAME
-	lw t3, 0(t4) #t3 = numero do frame atual
-	mul t2, t2, t3
-	addi t3, t3, 1 #Adicionar 1 ao frame
-	lw t3, 0(t4) #Salvar o novo numero de frames na memória
-	add t1, t1, t2 #t1=endereco do frame atual
-	Render(t0, t1)
+#Recebe %obj=Objeto, %array=array de animacoes do objeto
+.macro DESENHAR_FRAME(%obj, %array)
+	lw a1, 20(%obj) #t1 = animacao atual
+	li a2, 8
+	mul a1, a1, a2 #t1 = t1*8
+	add a1, a1, %array #t1 = endereço do endereço da animação atual
+	lw a1, 0(a1) #t1 = endereço da animação (Array de frames)
+	li a2, 12
+	lw a3, 16(%obj) #a3 = numero do frame atual
+	mul a2, a2, a3
+	addi a3, a3, 1 #Adicionar 1 ao frame
+	sw a3, 16(%obj) #Salvar o novo numero de frames na memória
+	add a1, a1, a2 #t1=endereco do frame atual
+	mv t1, a1
+
+	Render(%obj, t1)
 	#Alterar X0 e Y0
 	lw t1, 8(t1)
-	sw t1, 12(t0) #Img0 = Img
-	
-
-
+	sw t1, 12(%obj) #Img0 = Img
 .end_macro
 	
 .macro TELA_FINAL()
@@ -216,6 +221,10 @@ Fora:	mv a0 zero
 
 # Macro de desenhar imagem // Recebe %Z - Endereco do pixel 0, %Img - Imagem a desenhar
 .macro Desenhar(%Z %Img)
+	li a0, 5
+	li a0, 5000
+	li a7, 32
+	ecall
 	mv a4 zero
 	mv a3 %Z
 	lw a0 0(%Img)
