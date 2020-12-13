@@ -382,10 +382,4 @@ FimB:	Limpar(a1 a2 a3)
 	sw a1 8(%Obj) # Atualiza a posicao do obj. na memoria
 	sw t6 12(%Obj) # Atualiza a imagem do obj. na memoria
 	Desenhar(a1 t6)
-	# Refresh
-	li a0 0xFF200604
-	li a1 0
-	sw a1 0(a0)
-	li a1 1
-	sw a1 0(a0)
 .end_macro

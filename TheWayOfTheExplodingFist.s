@@ -79,7 +79,13 @@ InputLoop:
 	la t0, Enemy
 	la t1, AnimacoesEnemy
 	DesenharFrame(t0, t1)
-	
+	# Refresh Screen
+	li a0 0xFF200604
+	li a1 0
+	sw a1 0(a0)
+	li a1 1
+	sw a1 0(a0)
+
 	j GameLoop
 ForaGameLoop:
 
