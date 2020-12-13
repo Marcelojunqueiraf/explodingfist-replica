@@ -33,6 +33,12 @@ Fora.Fundos:
 
 
 .macro TelaInicial()
+	li a7, 30
+	ecall 
+	la t0, TempoMusica
+	sw a0, (t0) #seta Temoo Musica como tempo atual
+
+
 	li s0,0xFF200604	# frame 0
 	li a0, 1
 	sw a0,0(s0)
@@ -56,27 +62,9 @@ Fora1:	la a0,Aperte      #texto de apertar 1
 	ecall
 	sw zero,0(s0)
 		
-	la s0,NumNotas 	#parte da mÃºsica
-	lw s1,0(s0)
-	la s0,Notas		# define o endereÃ§o das notas
-	li a2,1			# instrumento
-	li a3,127		# volume
-	li s2,0			#contador da nota
-Loop2:  blt  s2,s1,ResetM	#reseta musica
-	li s2,0
-	la s0,Notas
-ResetM:	lw a0,0(s0)		# le o valor da nota
-	lw a1,4(s0)		# le a duracao da nota
-	li a7,31		# define a chamada de syscall
-	ecall	
-	li s3, 2000
-	bgt a1,s3,Acorde
-	mv a0,a1		# passa a duraï¿½ï¿½o da nota para a pausa
-	li a7,32		# define a chamada de syscal 
-	ecall			# realiza uma pausa de a0 ms
-Acorde:	addi s0,s0,8		# incrementa para o endereï¿½o da prï¿½xima nota
-	addi s2,s2,1  		#terimna parte da musica
-	
+Loop2:
+	la t0, Notas
+	PlayMusic(t0)
 	li t1,0xFF200000		# carrega o endereï¿½o de controle do KDMMIO
 	lw t0,0(t1)			# Le bit de Controle Teclado
    	andi t0,t0,0x0001		# mascara o bit menos significativo
@@ -84,6 +72,42 @@ Acorde:	addi s0,s0,8		# incrementa para o endereï¿½o da prï¿½xima nota
    	lw t2,4(t1)			# le o valor da tecla
    	li a0,49
    	bne t2,a0,Loop2
+   	la t0, NotaAtual
+   	sw zero(t0)
+.end_macro 
+
+.macro PlayMusic(%Musica)
+	li a7, 30
+	ecall #a0 = Tempo atual
+	la a5, TempoMusica
+
+	lw a5, (a5) #a5 = Tempo de inicio da próxima nota
+	blt a0, a5, Skip #Checa se já é hora de tocar a nota
+
+	la a4, NotaAtual
+	lw a4, (a4) #a4 = nota atual * 8
+
+	add %Musica, %Musica, a4 #%Musica = endereço na nota a ser tocada
+	lw a0, 0(%Musica) #a0 = nota a ser tocada
+	lw a1, 4(%Musica) #a1 = tempo da nota a ser tocada
+
+	bge a1, zero, NotNegative #Checa se a duração da nota é negativa, ou seja, a musica acabou
+	la a4, NotaAtual
+	sw zero, (a4) #Zerar Nota atual (Recomeca a musica)
+	j Skip
+NotNegative: 
+	
+	li a2, 1 #Seleciona o instrumento 1
+	li a3, 127 #Volume máximo
+	li a7, 31 #sys call de midi
+	ecall
+	la a3, TempoMusica
+	add a0, a5, a1
+	sw a0, (a3) #Atualizar Tempo Musica
+	la a3, NotaAtual
+	addi a4, a4, 8
+	sw a4, (a3) #Adicionar 8 a Nota Atual
+Skip:	
 .end_macro
 	
 	
