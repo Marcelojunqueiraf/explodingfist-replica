@@ -1,4 +1,4 @@
-.macro DESENHAR_FUNDO()
+.macro DesenharFundo()
 	li a2,0xFF200604	# frame 1 selecionado
 	li a0, 1
 	sw a0,0(a2)
@@ -15,13 +15,13 @@
 	add a0, a4, a0	#a0 = ponteiro do endereï¿½o do fundo a ser renderizado
 	lw a0,(a0) #a0 = endereï¿½o do fundo a ser renderizado 	
 	addi a0,a0,8	#pula os bytes que indicam o tamanho da imagem
-LOOP.FUNDOS: beq a1,a2,FORA.FUNDOS
+Loop.Fundos: beq a1,a2,Fora.Fundos
 	lw a5,0(a0)		
 	sw a5,0(a1)		
 	addi a1,a1,4		
 	addi a0,a0,4
-	j LOOP.FUNDOS			
-FORA.FUNDOS: 
+	j Loop.Fundos			
+Fora.Fundos: 
 	addi a4,a4,4 #Selecionar o prï¿½ximo fundo
 	li t0, 12 
 	rem a4, a4, t0 #Se passar do ï¿½ltimo fundo, voltar para o primeiro
@@ -31,8 +31,9 @@ FORA.FUNDOS:
 	li a2,0xFF200604	# frame 0 selecionado
 	sw zero,0(a2)
 .end_macro
-	
-.macro TELAINICIAL()
+
+
+.macro TelaInicial()
 	li s0,0xFF200604	# frame 0
 	li a0, 1
 	sw a0,0(s0)
@@ -40,13 +41,13 @@ FORA.FUNDOS:
 	li t2,0xFF012C00
 	la s1,abertura
 	addi s1,s1,8		
-LOOP1: 	beq t1,t2,FORA1
+Loop1: 	beq t1,t2,Fora1
 	lw t3,0(s1)		
 	sw t3,0(t1)		
 	addi t1,t1,4		
 	addi s1,s1,4
-	j LOOP1	
-FORA1:	la a0,Aperte      #texto de apertar 1 
+	j Loop1	
+Fora1:	la a0,Aperte      #texto de apertar 1 
 	la a0,Aperte      #texto de apertar 1 
 	li a1, 140
 	li a2, 220
@@ -56,41 +57,42 @@ FORA1:	la a0,Aperte      #texto de apertar 1
 	ecall
 	sw zero,0(s0)
 		
-	la s0,NUMNOTAS 	#parte da mÃºsica
+	la s0,NumNotas 	#parte da mÃºsica
 	lw s1,0(s0)
-	la s0,NOTAS		# define o endereÃ§o das notas
+	la s0,Notas		# define o endereÃ§o das notas
 	li a2,1			# instrumento
 	li a3,127		# volume
 	li s2,0			#contador da nota
-	LOOP2:  blt  s2,s1,RESETM	#reseta musica
+Loop2:  blt  s2,s1,ResetM	#reseta musica
 	li s2,0
-	la s0,NOTAS
-RESETM:	lw a0,0(s0)		# le o valor da nota
+	la s0,Notas
+ResetM:	lw a0,0(s0)		# le o valor da nota
 	lw a1,4(s0)		# le a duracao da nota
 	li a7,31		# define a chamada de syscall
 	ecall	
 	li s3, 2000
-	bgt a1,s3,ACORDE
+	bgt a1,s3,Acorde
 	mv a0,a1		# passa a duraï¿½ï¿½o da nota para a pausa
 	li a7,32		# define a chamada de syscal 
 	ecall			# realiza uma pausa de a0 ms
-ACORDE:	addi s0,s0,8		# incrementa para o endereï¿½o da prï¿½xima nota
-	addi s2,s2,1  	#terimna parte da musica
+Acorde:	addi s0,s0,8		# incrementa para o endereï¿½o da prï¿½xima nota
+	addi s2,s2,1  		#terimna parte da musica
 	
 	li t1,0xFF200000		# carrega o endereï¿½o de controle do KDMMIO
 	lw t0,0(t1)			# Le bit de Controle Teclado
    	andi t0,t0,0x0001		# mascara o bit menos significativo
-   	beq t0,zero,LOOP2		# nï¿½o tem tecla pressionada entï¿½o volta ao loop
+   	beq t0,zero,Loop2		# nï¿½o tem tecla pressionada entï¿½o volta ao loop
    	lw t2,4(t1)			# le o valor da tecla
    	li a0,49
-   	bne t2,a0,LOOP2
-
+   	bne t2,a0,Loop2
 .end_macro
 	
-.macro INICIALIZACAO()
-	la a1, ANIMACOESPLAYER
+	
+.macro Inicializacao()
+	la a1, AnimacoesPlayer
 	lw a4, 0(a1) #a0 = endereco do inicio da animacao
-	la a3, PLAYER
+	la a3, Player
+		
 		
 	la t0, ola1
 	sw t0, 12(a3)
@@ -105,8 +107,6 @@ ACORDE:	addi s0,s0,8		# incrementa para o endereï¿½o da prï¿½xima nota
 	la t0, ola4
 	sw t0, 44(a4) 
 	
-	li a7 10
-	ecall
 	
 	li a0, 0x10000300   #array dos fundos  0x100000300
 	la t0, fundo1
@@ -116,35 +116,35 @@ ACORDE:	addi s0,s0,8		# incrementa para o endereï¿½o da prï¿½xima nota
 	la t0, fundo3
 	sw t0, 8(a0)
 	li a0, 0x10000020    #contador dos fundos 0x10000020
-	sw  zero, (a0)	   #zera contador
+	sw zero, (a0)	   #zera contador
 .end_macro
 
-.macro INPUT() 
+
+.macro Input() 
 	li t1, 0xFF200000		# carrega o endereï¿½o de controle do KDMMIO
 	li t2, 0x10000024
 	lw t0,0(t1)			# Le bit de Controle Teclado
    	andi t0,t0,0x0001		# mascara o bit menos significativoï¿½ï¿½o volta ao loop
-   	beq zero, t0, SKIP_READING
+   	beq zero, t0, SkipReading
    	lw t3,4(t1)			# le o valor da tecla
    	sw t3, (t2)
-SKIP_READING:
+SkipReading:
 .end_macro
 	
-.macro PROCESSAMENTO()
-.text
-	la t2, PLAYER
-	lw t0, 16(t2) #t0 = frame atual 
-	li a7, 1
-	mv a0, t0
-	ecall 
 	
+.macro Processamento()
+.text
+	la t2, Player
+	lw t0, 16(t2) #t0 = frame atual 
 	lw t1, 24(t2) #t1 = Tamanho da animação atual
-	blt t0, t1, SKIP #Se a animação não tiver terminado pule
-	li a0, 9
-	li a7, 1
-	ecall
+	blt t0, t1, Skip #Se a animação não tiver terminado pule
 	sw zero, 16(t2) #Zera o contador (frame atual)
-SKIP:
+	
+Skip:	# Tempo para dar pra ver a saudacao!!!
+	li a7 32
+	li a0 500
+	ecall
+	
 	li t1, 0x10000020
 	lw t0, 4(t1) #input
 	sw zero, 4(t1)
@@ -156,7 +156,7 @@ SKIP:
 	and t4, t2, t5 #t4=Pontuaï¿½ï¿½o Enemy
 	li t2, 'd'
 	
-	bne t0, t2, SKIP_POINT #adicionar 1 ï¿½ pontuaï¿½ï¿½o do player e sair gameloop
+	bne t0, t2, SkipPoint #adicionar 1 ï¿½ pontuaï¿½ï¿½o do player e sair gameloop
 	addi t3, t3, 4
 	lw t2, (t1)
 	li t5, 0xffff00ff
@@ -166,34 +166,36 @@ SKIP:
 	srli t3, t3, 8
 	sw t2, (t1)
 
-	j FORA_GAMELOOP
+	j ForaGameLoop
 
-SKIP_POINT:
-	
+SkipPoint:
 .end_macro
+
+
 #Recebe %obj=Objeto, %array=array de animacoes do objeto
-.macro DESENHAR_FRAME(%obj, %array)
-	lw a1, 20(%obj) #t1 = animacao atual
+.macro DesenharFrame(%obj, %array)
+	lw a1, 20(%obj) #a1 = animacao atual
 	li a2, 8
-	mul a1, a1, a2 #t1 = t1*8
-	add a1, a1, %array #t1 = endereço do endereço da animação atual
-	lw a1, 0(a1) #t1 = endereço da animação (Array de frames)
+	mul a1, a1, a2 #a1 = a1*8
+	add a1, a1, %array #a1 = endereço do endereço da animação atual
+	lw a1, 0(a1) #a1 = endereço da animação (Array de frames)
 	li a2, 12
 	lw a3, 16(%obj) #a3 = numero do frame atual
 	mul a2, a2, a3
 	addi a3, a3, 1 #Adicionar 1 ao frame
 	sw a3, 16(%obj) #Salvar o novo numero de frames na memória
-	add a1, a1, a2 #t1=endereco do frame atual
+	add a1, a1, a2 #a1=endereco do frame atual
 	mv t1, a1
-
 	Render(%obj, t1)
+	
 	#Alterar X0 e Y0
-	lw t1, 8(t1)
-	sw t1, 12(%obj) #Img0 = Img
+	
 .end_macro
 	
-.macro TELA_FINAL()
+	
+.macro TelaFinal()
 .end_macro
+
 
 # Macro de limpar // Recebe %X - Tamanho X pra apagar, %Y - Tamanho Y pra apagar, %Z - Endereco do pixel 0
 .macro Limpar(%X %Y %Z)
@@ -201,7 +203,7 @@ SKIP_POINT:
 	mv a1 %Y
 	mv a2 %Z
 	mv a3 zero
-	li a4 0xC7C7C7C7
+	li a4 0xc7c7c7c7
 	beqz a1 Fora
 LoopX:	beq a3 a0 LoopY
 	sw a4 0(a2)
@@ -214,17 +216,12 @@ LoopY:	addi a1 a1 -1
 	sub a2 a2 a0
 	addi a2 a2 320
 	j LoopX
-Fora:	mv a0 zero
-	mv a2 zero
-	mv a4 zero
+Fora:
 .end_macro
+
 
 # Macro de desenhar imagem // Recebe %Z - Endereco do pixel 0, %Img - Imagem a desenhar
 .macro Desenhar(%Z %Img)
-	li a0, 5
-	li a0, 5000
-	li a7, 32
-	ecall
 	mv a4 zero
 	mv a3 %Z
 	lw a0 0(%Img)
@@ -243,11 +240,9 @@ LoopY:	addi a1 a1 -1
 	sub a3 a3 a0
 	addi a3 a3 320
 	j LoopX
-Fora:	mv a0 zero
-	mv a2 zero
-	mv a3 zero
-	mv a5 zero
+Fora:
 .end_macro
+
 
 # Macro de renderizar // Recebe %Obj - Endereco do obj. na memoria, %Anim - Endereco da animacao na memoria
 .macro Render(%Obj %Anim) #(dX = t4, dY = t5, P0 = a6, S0 = a7, S1 = t6)
@@ -279,8 +274,8 @@ FimRY:	Limpar(a0 a1 a2)
 	# Retangulo Azul
 	mv a3 a6
 	lw a2 4(a7)
-	bltz t2 XMenorB
-	mv a1 t2
+	bltz t4 XMenorB
+	mv a1 t4
 	j FimB
 XMenorB:lw a1 0(a7)
 	sub a1 a1 a0
@@ -292,6 +287,7 @@ FimB:	Limpar(a1 a2 a3)
 	add a1 a1 t4
 	add a1 a1 a6
 	sw a1 8(%Obj) # Atualiza a posicao do obj. na memoria
+	sw t6 12(%Obj) # Atualiza a imagem do obj. na memoria
 	Desenhar(a1 t6)
 	# Refresh
 	li a0 0xFF200604
@@ -299,9 +295,4 @@ FimB:	Limpar(a1 a2 a3)
 	sw a1 0(a0)
 	li a1 1
 	sw a1 0(a0)
-	# Limpa os Regs
-	mv a0 zero
-	mv a1 zero
-	mv a6 zero
-	mv a7 zero
 .end_macro

@@ -1,12 +1,12 @@
 .data
+Player: .word 0, 0, 0, 0, 0, 0, 0 #X0, Y0, P0, Img0, Frame, Anim, Size
+AnimacoesPlayer: .word 0x10010024, 9
+Anim: .word 32, 0, 0x10010090, 0, 32, 0x10010090, -32, 0, 0x10010090, 0, -32, 0x10010090, 32, 32, 0x10010090, -32, -32, 0x10010090, 32, 0, 0x10010090, -32, 32, 0x10010090, 32, -32, 0x10010090
 .include "Sonica.s"
 .include ".\Imagens\Fundos\fundo1.s"
-Player:.word 0, 0, 0, 0
-Anim: .word 32, 0, 0x10010000, 0, 32, 0x10010000, -32, 0, 0x10010000, 0, -32, 0x10010000, 32, 32, 0x10010000, -32, -32, 0x10010000, 32, 0, 0x10010000, -32, 32, 0x10010000, 32, -32, 0x10010000
 
 .text
 .include "Macros.s"
-
 # Seta o Fundo
 GStart:	li t0 0xFF000000
 	li t1 0xFF012C00
@@ -36,25 +36,28 @@ Sonica0:li t0 0xFF100000
 	sw t1 12(t2)
 	Desenhar(t0 t1)
 	li t2 0xFF200604
-	addi t3 zero 1
+	li t3 1
 	sw t3 0(t2)
+	# Delay
 	li a7 32
 	li a0 250
 	ecall
 
-# Simula uma movimentação onde ela se move 2x pra direita, 2x pra baixo, 2x pra esquerda e 2x pra cima
+# Simula uma animação onde ela se move 2x pra direita, 2x pra baixo, 2x pra esquerda e 2x pra cima
 	li s0 9
+	la s1 Player
+	la s2 AnimacoesPlayer
+	lw t0 4(s2)
+	sw t0 24(s1)
 Loop0:	beqz s0 Fim
-	la t0 Player
-	la t1 Anim
-	Render(t0 t1)
+	DesenharFrame(s1 s2)
 	# Delay
 	li a7 32
 	li a0 250
 	ecall
 	addi s0 s0 -1
 	j Loop0
-	
-################### Final da simulação ################### Final da simulação ################### Final da simulação ###################
+
+# Termina o programa
 Fim:	li a7 10
 	ecall
