@@ -8,8 +8,8 @@
 	ecall	
 	li a1,0xFF000000	
 	li a2,0xFF012C00	
-	li a0, 0x10000300   #carrega array
-	li a3, 0x10000020   #carrega contador
+	la a0, Fundos   #carrega array
+	la a3, Fundo   #carrega contador
 	lw a4,(a3)  #A4 = contador
 	srli a4, a4, 24
 	add a0, a4, a0	#a0 = ponteiro do endereï¿½o do fundo a ser renderizado
@@ -89,45 +89,47 @@ Acorde:	addi s0,s0,8		# incrementa para o endereï¿½o da prï¿½xima nota
 	
 	
 .macro Inicializacao()
-	la a1, AnimacoesPlayer
-	lw a4, 0(a1) #a0 = endereco do inicio da animacao
-	la a3, Player
-		
-		
-	la t0, ola1
-	sw t0, 12(a3)
-	sw t0, 8(a4) 
 	
-	la t0, ola2
-	sw t0, 20(a4) 
-	
-	la t0, ola3
-	sw t0, 32(a4)
-	 
-	la t0, ola4
-	sw t0, 44(a4) 
-	
-	
-	li a0, 0x10000300   #array dos fundos  0x100000300
+	#Criacao do array de fundos
+	la a0, Fundos
 	la t0, fundo1
 	sw t0, (a0)
 	la t0, fundo2
 	sw t0, 4(a0)
 	la t0, fundo3
 	sw t0, 8(a0)
-	li a0, 0x10000020    #contador dos fundos 0x10000020
+	la a0, Fundo    #contador dos fundos 0x10000020
 	sw zero, (a0)	   #zera contador
+	
+	#Animacoes player
+	la a1, AnimacoesPlayer #a1= endereço da lista de animacoes do player
+	
+	lw a4, 0(a1) #a4 = endereco de inicio da primeira animacao (Saudacao)
+	la a3, Player
+	la t0, ola1 #t0=endereço da imagem
+	sw t0, 12(a3) #Img0 = t0
+	sw t0, 8(a4) #Salvar imagem no frame da animação
+	la t0, ola2 #t0=endereço da imagem
+	sw t0, 20(a4) #Salvar imagem no frame da animação
+	la t0, ola3 #t0=endereço da imagem
+	sw t0, 32(a4) #Salvar imagem no frame da animação
+	la t0, ola4 #t0=endereço da imagem
+	sw t0, 44(a4) #Salvar imagem no frame da animação
+	
+	li t0, 4 #t0 = tamahno da animacao
+	sw t0, 4(a1) #Salvar o tamanho na lista de animacoes
+	
 .end_macro
 
 
 .macro Input() 
 	li t1, 0xFF200000		# carrega o endereï¿½o de controle do KDMMIO
-	li t2, 0x10000024
 	lw t0,0(t1)			# Le bit de Controle Teclado
    	andi t0,t0,0x0001		# mascara o bit menos significativoï¿½ï¿½o volta ao loop
    	beq zero, t0, SkipReading
    	lw t3,4(t1)			# le o valor da tecla
-   	sw t3, (t2)
+   	la t2, Input
+   	sw t3, (t2) #Salva tecla no endereco de input
 SkipReading:
 .end_macro
 	
@@ -141,33 +143,20 @@ SkipReading:
 	sw zero, 16(t2) #Zera o contador (frame atual)
 	
 Skip:	# Tempo para dar pra ver a saudacao!!!
-	li a7 32
-	li a0 500
-	ecall
-	
-	li t1, 0x10000020
-	lw t0, 4(t1) #input
-	sw zero, 4(t1)
-	lw t2, (t1) #(fundo,fase, pontuaï¿½ï¿½o player, pontuaï¿½ï¿½o enemy)
-	li t5, 0x0000FF00
-	and t3, t2, t5 #t3=Pontuaï¿½ï¿½o Player
-	srli t3, t3, 8
-	srli t5, t5, 8 
-	and t4, t2, t5 #t4=Pontuaï¿½ï¿½o Enemy
+	la t1, PontuacaoPlayer
+	lw t3, (t1) #t3 = Pontuacao do Player
+	la t1, PontuacaoEnemy
+	lw t4, (t1) #t4 = Pontuacao do Enemy
+	#Pegar input salvo na memória
+	la t1, Input
+	lw t0, (t1) #armazenar valor do input
+	sw zero, (t1) #zerar input
 	li t2, 'd'
-	
-	bne t0, t2, SkipPoint #adicionar 1 ï¿½ pontuaï¿½ï¿½o do player e sair gameloop
-	addi t3, t3, 4
-	lw t2, (t1)
-	li t5, 0xffff00ff
-	slli t3, t3, 8
-	and t2, t2,t5
-	add t2, t2, t3
-	srli t3, t3, 8
-	sw t2, (t1)
-
+	bne t0, t2, SkipPoint #Checar se o input é 'd'
+	lw t2, (t1) #Ler Pontuacao Player
+	addi t2, t2, 4 #Adicionar 4
+	sw t2, (t1) #Salvar pontuacao nova Player
 	j ForaGameLoop
-
 SkipPoint:
 .end_macro
 
