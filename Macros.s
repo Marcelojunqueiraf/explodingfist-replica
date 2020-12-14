@@ -31,7 +31,6 @@ Fora.Fundos:
 	sw zero,0(a2)
 .end_macro
 
-
 .macro TelaInicial()
 	li s0,0xFF200604	
 	li a0, 1
@@ -122,7 +121,6 @@ Skip:
 	
 	
 .macro Inicializacao()
-	
 	#Criacao do array de fundos
 	la a0, Fundos
 	lw a0, (a0)
@@ -137,11 +135,13 @@ Skip:
 	
 	#Animacoes player
 	la a1, AnimacoesPlayer #a1= endere�o da lista de animacoes do player
-	
+	#lw a4, n*4(a1)
 	lw a4, 0(a1) #a4 = endereco de inicio da primeira animacao (Saudacao)
 	la a3, Player
+	la a5, Enemy
 	la t0, ola1 #t0=endere�o da imagem
 	sw t0, 12(a3) #Img0 = t0
+	sw t0, 12(a5) #Img0 = t0
 	sw t0, 8(a4) #Salvar imagem no frame da anima��o
 	la t0, ola2 #t0=endere�o da imagem
 	sw t0, 20(a4) #Salvar imagem no frame da anima��o
@@ -153,31 +153,109 @@ Skip:
 	li t0, 4 #t0 = tamahno da animacao
 	sw t0, 4(a1) #Salvar o tamanho na lista de animacoes
 	
+		#Animacoes Enemy
+	la a1, AnimacoesEnemy #a1= endere�o da lista de animacoes do player
+	#lw a4, n*4(a1)
+	lw a4, 0(a1) #a4 = endereco de inicio da primeira animacao (Saudacao)
+	la a5, Enemy
+	la t0, ola1 #t0=endere�o da imagem
+	sw t0, 12(a5) #Img0 = t0
+	sw t0, 8(a4) #Salvar imagem no frame da anima��o
+	la t0, ola2 #t0=endere�o da imagem
+	sw t0, 20(a4) #Salvar imagem no frame da anima��o
+	la t0, ola3 #t0=endere�o da imagem
+	sw t0, 32(a4) #Salvar imagem no frame da anima��o
+	la t0, ola4 #t0=endere�o da imagem
+	sw t0, 44(a4) #Salvar imagem no frame da anima��o
+	
+	li t0, 4 #t0 = tamahno da animacao
+	sw t0, 4(a1) #Salvar o tamanho na lista de animacoes
 .end_macro
-
 
 .macro Input() 
 	li t1, 0xFF200000		# carrega o endere�o de controle do KDMMIO
 	lw t0,0(t1)			# Le bit de Controle Teclado
    	andi t0,t0,0x0001		# mascara o bit menos significativo��o volta ao loop
    	beq zero, t0, SkipReading
-   	lw a0,4(t1)			# le o valor da tecla
    	la t2, Input
-   	sw a0, (t2) #Salva tecla no endereco de input
-   	
+   	lw a0,4(t1)			# a0 = valor da tecla
+   	li t0, 'd'
+   	bne a0, t0, Skip1
+   	li t0, 0
+   	sw t0, (t2)
+   	j SkipReading
+Skip1: 	li t0, 'e'
+   	bne a0, t0, Skip2
+   	li t0, 4
+   	sw t0, (t2)
+   	j SkipReading
+Skip2:   li t0, 'w'
+   	bne a0, t0, Skip3
+   	li t0, 8
+   	sw t0, (t2)
+   	j SkipReading
+Skip3: 	li t0, 'q'
+   	bne a0, t0, Skip4
+   	li t0, 12
+   	sw t0, (t2)
+   	j SkipReading
+Skip4:   li t0, 'a'
+   	bne a0, t0, Skip5
+   	li t0, 16
+   	sw t0, (t2)
+   	j SkipReading
+Skip5: 	li t0, 'z'
+   	bne a0, t0, Skip6
+   	li t0, 20
+   	sw t0, (t2)
+   	j SkipReading
+Skip6:   li t0, 'x'
+   	bne a0, t0, Skip7
+   	li t0, 24
+   	sw t0, (t2)
+   	j SkipReading
+Skip7: 	li t0, 'c'
+   	bne a0, t0, Skip8
+   	li t0, 28
+   	sw t0, (t2)
+   	j SkipReading
+Skip8:   li t0, 'f'
+   	bne a0, t0, SkipReading
+   	li t0, 32
+   	sw t0, 4(t2)
 SkipReading:
 .end_macro
 	
 	
 .macro Processamento()
-.text
+.text	#Seletor de animacao
 	la t2, Player
 	lw t0, 16(t2) #t0 = frame atual 
 	lw t1, 24(t2) #t1 = Tamanho da anima��o atual
-	blt t0, t1, Skip #Se a anima��o n�o tiver terminado pule
+	blt t0, t1, Skip1 #Se a anima��o n�o tiver terminado pule
 	sw zero, 16(t2) #Zera o contador (frame atual)
+Skip1:	
+	la t2, Enemy
+	lw t0, 16(t2) #t0 = frame atual
+	lw t1, 24(t2) #t1 = Tamanho da anima��o atual
+	blt t0, t1, Skip2 #Se a anima��o n�o tiver terminado pule
+	sw zero, 16(t2) #Zera o contador (frame atual)
+Skip2:	
 	
-Skip:	
+	la t0, Input
+	lw a0, 0(t0)
+	li a7 1
+	ecall
+	li a0, ' '
+	li a7, 11
+	ecall
+	lw a0, 4(t0)
+	li a7, 1
+	ecall
+	li a0, '\n'
+	li a7, 11
+	ecall
+					
 	la t1, PontuacaoPlayer
 	lw t3, (t1) #t3 = Pontuacao do Player
 	la t1, PontuacaoEnemy
@@ -185,9 +263,10 @@ Skip:
 	#Pegar input salvo na mem�ria
 	la t1, Input
 	lw t0, (t1) #armazenar valor do input
-	sw zero, (t1) #zerar input
-	li t2, 'd'
-	bne t0, t2, SkipPoint #Checar se o input � 'd'
+	li t3, 64
+	sw t3, (t1) #zerar input
+	sw zero, 4(t1)
+	bne t0, zero, SkipPoint #Checar se o input � 'd'
 	la t1, PontuacaoPlayer
 	lw t2, (t1) #Ler Pontuacao Player
 	addi t2, t2, 4 #Adicionar 4
@@ -211,10 +290,8 @@ SkipPoint:
 	sw a3, 16(%obj) #Salvar o novo numero de frames na mem�ria
 	add a1, a1, a2 #a1=endereco do frame atual
 	mv t1, a1
-	Render(%obj, t1)
-	
-	#Alterar X0 e Y0
-	
+	Render(%obj, t1)	
+	#Alterar X0 e Y0	
 .end_macro
 	
 	
@@ -314,13 +391,8 @@ FimB:	Limpar(a1 a2 a3)
 	sw a1 8(%Obj) # Atualiza a posicao do obj. na memoria
 	sw t6 12(%Obj) # Atualiza a imagem do obj. na memoria
 	Desenhar(a1 t6)
-	# Refresh
-	li a0 0xFF200604
-	li a1 0
-	sw a1 0(a0)
-	li a1 1
-	sw a1 0(a0)
 .end_macro
+
 
 .macro IAcomport()    #flags aproximar, afastar, soco, chute
 	la a0, Player
@@ -347,5 +419,4 @@ D3:
 
 Dfim:
 .end_macro
-	
 	
