@@ -99,19 +99,23 @@ ACORDE:	addi s0,s0,8		# incrementa para o endereï¿½o da prï¿½xima nota
 	add %Musica, %Musica, a4 #%Musica = endereï¿½o na nota a ser tocada
 	lw a0, 0(%Musica) #a0 = nota a ser tocada
 	lw a1, 4(%Musica) #a1 = tempo da nota a ser tocada
-
+	
 	bge a1, zero, NotNegative #Checa se a duraï¿½ï¿½o da nota ï¿½ negativa, ou seja, a musica acabou
 	la a4, NotaAtual
 	sw zero, (a4) #Zerar Nota atual (Recomeca a musica)
 	j Skip
 NotNegative: 
-	
+	beq a0, zero, Pause #Checa se é uma pausa
 	li a2, 1 #Seleciona o instrumento 1
-	li a3, 127 #Volume mï¿½ximo
+	li a3, 100 #Volume mï¿½ximo
 	li a7, 31 #sys call de midi
 	ecall
+Pause:  mv t4, a1
+	li a7, 30
+	ecall
 	la a3, TempoMusica
-	add a0, a5, a1
+	add a0, a0, t4
+	addi a0, a0, 50
 	sw a0, (a3) #Atualizar Tempo Musica
 	la a3, NotaAtual
 	addi a4, a4, 8
