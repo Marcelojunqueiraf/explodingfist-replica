@@ -1,12 +1,16 @@
 .data
-.include ".\Imagens\Fundos\abertura.s"
-.include ".\Imagens\Fundos\fundo1.s"
-.include ".\Imagens\Fundos\fundo2.s"
-.include ".\Imagens\Fundos\fundo3.s"
-.include ".\Imagens\Sprites\Saudacao\ola1.s"
-.include ".\Imagens\Sprites\Saudacao\ola2.s"
-.include ".\Imagens\Sprites\Saudacao\ola3.s"
-.include ".\Imagens\Sprites\Saudacao\ola4.s"
+.include "./Imagens/Fundos/abertura.s"
+.include "./Imagens/Fundos/fundo1.s"
+.include "./Imagens/Fundos/fundo2.s"
+.include "./Imagens/Fundos/fundo3.s"
+.include "./Imagens/Sprites/Saudacao/ola1.s"
+.include "./Imagens/Sprites/Saudacao/ola2.s"
+.include "./Imagens/Sprites/Saudacao/ola3.s"
+.include "./Imagens/Sprites/Saudacao/ola4.s"
+.include "./Imagens/Sprites/Saudacao/P2ola1.s"
+.include "./Imagens/Sprites/Saudacao/P2ola2.s"
+.include "./Imagens/Sprites/Saudacao/P2ola3.s"
+.include "./Imagens/Sprites/Saudacao/P2ola4.s"
 #.include "Sonica.s"
 Numnotas: .word 54
 Notas: .word 60,2856,67,357,69,357,71,1428,71,357,71,357,62,2856,71,714,69,178,67,178,65,178,67,178,69,1785,62,2856,65,357,67,357,69,357,71,714,69,357,67,357,60,2856,65,535,64,357,65,178,67,1963,60,2856,64,357,67,178,65,178,67,178,69,178,67,178,71,357,74,535,75,357,74,178,62,2856,72,357,67,357,69,357,71,357,67,892,71,357,69,178,62,2856,67,357,71,535,65,535,69,535,63,357,65,178,67,178,60,2856,65,178,0,-1
@@ -16,13 +20,14 @@ Aperte: .string "Aperte 1 para iniciar"
 Player: .word 52, 180, 0xFF10E134, 0, 0, 0, 4
 Enemy: .word 104, 180, 0xFF10E168, 0, 0, 0, 4
 AnimacoesPlayer: .word 0x10000000, 4
-AnimacoesEnemy: .word 0x10000000, 4
+AnimacoesEnemy: .word  0x10000100, 4
 Fundos: .word 0x10002000
 Fundo: .word 0
 Fase: .word 0
 PontuacaoPlayer: .word 0
 PontuacaoEnemy: .word 0
 Score: .word 0
+HighScore: .word 0
 Tempo: .word 0
 TempoMusica: .word 0
 NotaAtual: .word 0
@@ -45,10 +50,11 @@ FaseLoop:
 	sw zero, (t0)
 
 VidaLoop:
+	Pontos() #Pontuacao (score e pontuacao)
 	#Reposicionar Jogadores()
 	#anima��o de sauda��o
 	#Medir tempo inicial
-	
+	#Função
 GameLoop:
 	IA() #Calcula pr�xima a��o da IA
 	#a0=current time

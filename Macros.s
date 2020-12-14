@@ -162,14 +162,14 @@ Skip:
 	#lw a4, n*4(a1)
 	lw a4, 0(a1) #a4 = endereco de inicio da primeira animacao (Saudacao)
 	la a5, Enemy
-	la t0, ola1 #t0=endere�o da imagem
+	la t0, P2ola1 #t0=endere�o da imagem
 	sw t0, 12(a5) #Img0 = t0
 	sw t0, 8(a4) #Salvar imagem no frame da anima��o
-	la t0, ola2 #t0=endere�o da imagem
+	la t0, P2ola2 #t0=endere�o da imagem
 	sw t0, 20(a4) #Salvar imagem no frame da anima��o
-	la t0, ola3 #t0=endere�o da imagem
+	la t0, P2ola3 #t0=endere�o da imagem
 	sw t0, 32(a4) #Salvar imagem no frame da anima��o
-	la t0, ola4 #t0=endere�o da imagem
+	la t0, P2ola4 #t0=endere�o da imagem
 	sw t0, 44(a4) #Salvar imagem no frame da anima��o
 	
 	li t0, 4 #t0 = tamahno da animacao
@@ -465,4 +465,20 @@ Alto:	li a0, 4
 	sw a0, (a4)
 	j Dfim
 Dfim:
+.end_macro
+
+.macro  Pontos()
+	li a7,101
+	li a1, 70
+	li a2, 50
+	li a3, 0xFF00
+	li a4, 0
+	la a0, Score
+	lw a0, (a0)
+	ecall
+	la a1, HighScore
+	lw a2, (a1)
+	blt a0,a1,Menos
+	sw a0, (a1)
+Menos:  #render de ponto do inimigo
 .end_macro
