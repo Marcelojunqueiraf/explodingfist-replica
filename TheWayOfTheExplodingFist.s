@@ -27,7 +27,8 @@ Tempo: .word 0
 TempoMusica: .word 0
 NotaAtual: .word 0
 Input: .word 64, 0
-
+IAinimigo: .word 0 #0 se aproximar, 1 se afastar, 2 ataque alto , 3 ataque baixo, 4 defesa
+VulnPlayer: .word 0  #0 vulenerável, 1 apenas em baixo, 2 ivulner
 
 .text	
 .include "MACROSv21.s"
@@ -49,7 +50,7 @@ VidaLoop:
 	#Medir tempo inicial
 	
 GameLoop:
-	#IA() #Calcula pr�xima a��o da IA
+	IA() #Calcula pr�xima a��o da IA
 	#a0=current time
 
 InputLoop:

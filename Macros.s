@@ -105,7 +105,7 @@ ACORDE:	addi s0,s0,8		# incrementa para o endere�o da pr�xima nota
 	sw zero, (a4) #Zerar Nota atual (Recomeca a musica)
 	j Skip
 NotNegative: 
-	beq a0, zero, Pause #Checa se � uma pausa
+	beq a0, zero, Pause #Checa se � uma pausa
 	li a2, 1 #Seleciona o instrumento 1
 	li a3, 100 #Volume m�ximo
 	li a7, 31 #sys call de midi
@@ -398,29 +398,71 @@ FimB:	Limpar(a1 a2 a3)
 .end_macro
 
 
-.macro IAcomport()    #flags aproximar, afastar, soco, chute
+.macro IA()    # IAinimigo -flag- aproximar, afastar, ataque alto, ataque baixo , defesa  , Distancias de aproximar devem ser testadas depois
 	la a0, Player
 	lw a1, 0(a0)  #x0 do player
 	la a0, Enemy
 	lw a2, 0(a0)  #x0 do inimigo
-	la a0, Fase
+	la a0, Fase    #contador da fase/dificuldade
+	lw a0, (a0)
+	la a4, IAinimigo
 	li a3,1
 	beq a0,a3,D2
 	li a1,2
-	beq a0,a3,D3	
-	#D1
+	beq a0,a3,D3	 
+	
+	#D1  		IA 1 - Se aproxima até 80, se afasta a partir de 50 ,sempre ataca alto entre as duas distancias
 	sub a3,a2,a1
-	li a0,40 
-	ble a3,a0, 
-	
-	
+	li a0,80      	#80 de distãncia, número arbitrário, tamanho médio de sprite = 40
+	ble a3,a0,PertoD1
+	sw zero,(a4)    #se aproxima caso esteja mais que isso
+	j Dfim 
+PertoD1:li a0,50
+	ble a3,a0,AfastarD1
+	li a0 ,3  #ataque alto 
+	sw a0,(a4)
+	j Dfim 
+AfastarD1:li a0, 1
+	sw a0, (a4)  #se afasta
 	j Dfim
-D2:	
 	
-	
+	#D2 		IA 2 - Se aproxima até 60 , se afasta a partir de 45, ataca alto e baixo randomicamente entre as duas distancias
+D2:	li a0,60
+	ble a3,a0,PertoD2
+	sw zero,(a4)
 	j Dfim
-D3:
-
+PertoD2:li a0,45
+	ble a3,a0,AfastarD2    
+	li a7,40   #seta nvoa seed randômica
+	ecall 
+	li a1,1
+	li a7,42
+	ecall   #rola int random de 0 a 1
+	addi a0,a0, 2  # adiciona 2 pra transformar em ataque / alto(3) ou ou baixo (4)
+	sw a0,(a4)
+	j Dfim
+AfastarD2:li a0, 1
+	sw a0, (a4)  #se afasta
+	j Dfim
+	
+	#D3  		IA 3- Se aproxima até 35~40?(testar), não se afasta,defende, ataca alto ou baixo  dependendo da Vulnerabilidade do player
+D3:	li a0, 40
+	ble a0,a3,PertoD3
+	sw zero,(a4)
+	j Dfim
+PertoD3:la a1,VulnPlayer  #checa a vulnerabilidade
+	lw a1, 0(a1)
+	beqz a1, Alto      #nenhuma defesa,ataca alto
+	li a2, 1	
+	beq a1, a2,Baixo   #defesa em cima, ataca em baixo
+	li a0,5 	   #ivunerável, defende	
+	sw a0, (a4)
+	j Dfim
+Baixo:	li a0, 3
+	sw a0, (a4)
+	j Dfim
+Alto:	li a0, 4
+	sw a0, (a4)
+	j Dfim
 Dfim:
 .end_macro
-	
