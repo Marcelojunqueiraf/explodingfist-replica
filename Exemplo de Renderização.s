@@ -28,7 +28,7 @@ Loop: 	beq t0 t1 Sonica0
 	addi t0 t0 4
 	j Loop
 
-# Desenha a Sonica pela primeira vez numa posição específica (t0), e salva isso na memória
+# Desenha a Sonica pela primeira vez numa posiÃ§Ã£o especÃ­fica (t0), e salva isso na memÃ³ria
 Sonica0:li t0 0xFF100000
 	la t1 Sonica
 	la t2 Player
@@ -43,7 +43,7 @@ Sonica0:li t0 0xFF100000
 	li a0 250
 	ecall
 
-# Simula uma animação onde ela se move 2x pra direita, 2x pra baixo, 2x pra esquerda e 2x pra cima
+# Simula uma animaÃ§Ã£o onde ela se move 2x pra direita, 2x pra baixo, 2x pra esquerda e 2x pra cima
 	li s0 9
 	la s1 Player
 	la s2 AnimacoesPlayer
@@ -51,6 +51,12 @@ Sonica0:li t0 0xFF100000
 	sw t0 24(s1)
 Loop0:	beqz s0 Fim
 	DesenharFrame(s1 s2)
+	# Refresh Screen
+	li a0 0xFF200604
+	li a1 0
+	sw a1 0(a0)
+	li a1 1
+	sw a1 0(a0)
 	# Delay
 	li a7 32
 	li a0 250
