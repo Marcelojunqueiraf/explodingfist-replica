@@ -451,10 +451,10 @@ Dfim:
 
 .macro Pontos()
 	li a7,101
-	li a1, 70
-	li a2, 50
-	li a3, 0xFF00
-	li a4, 0
+	li a1, 60
+	li a2, 40
+	li a3, 0xc700
+	li a4, 1
 	la a0, Score
 	lw a0, (a0)
 	ecall
@@ -513,9 +513,9 @@ SENfim:
 .macro Cronometro()
 	la a0,TempoLimite      #texto de tempo limite
 	li a1, 146
-	li a2, 30
-	li a3, 0xFF00
-	li a4, 0
+	li a2, 40
+	li a3, 0xc707
+	li a4, 1
 	li a7, 104
 	ecall
 	li a7, 30
@@ -529,9 +529,9 @@ SENfim:
 	bge a0,a5,Cronzero
 	li a7,101		#print do cronometro
 	li a1, 130
-	li a2, 30
-	li a3, 0xFF00
-	li a4, 0
+	li a2, 40
+	li a3, 0xc707
+	li a4, 1
 	ecall
 	j CronFim
 Cronzero:la a1, Relogio	
