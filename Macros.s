@@ -398,10 +398,10 @@ Dfim:
 
 .macro Pontos()
 	li a7,101
-	li a1, 70
-	li a2, 50
-	li a3, 0xFF00
-	li a4, 0
+	li a1, 60
+	li a2, 40
+	li a3, 0xc700
+	li a4, 1
 	la a0, Score
 	lw a0, (a0)
 	ecall
@@ -455,4 +455,34 @@ EN4pontos:Desenhar(t3,t1)	#4 ou mais pontos
 	addi t3, t3, 20
 	Desenhar(t3,t1)
 SENfim:
+.end_macro
+
+.macro Cronometro()
+	la a0,TempoLimite      #texto de tempo limite
+	li a1, 146
+	li a2, 40
+	li a3, 0xc707
+	li a4, 1
+	li a7, 104
+	ecall
+	li a7, 30
+	ecall
+	la a1 , TempoInicial
+	lw a1, (a1)
+	sub a0, a0, a1  #diferenca
+	li a1,1000	#transforma em segundos
+	div a0,a0,a1		
+	li a5, 31
+	bge a0,a5,Cronzero
+	li a7,101		#print do cronometro
+	li a1, 130
+	li a2, 40
+	li a3, 0xc707
+	li a4, 1
+	ecall
+	j CronFim
+Cronzero:la a1, Relogio	
+	li a0,1
+	sw a0(a1)
+CronFim:	
 .end_macro
