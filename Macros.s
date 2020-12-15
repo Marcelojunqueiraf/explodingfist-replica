@@ -245,35 +245,18 @@ Skip1:
 	blt t0, t1, Skip2 #Se a anima��o n�o tiver terminado pule
 	sw zero, 16(t2) #Zera o contador (frame atual)
 Skip2:	
-	
-	la t0, Input
-	lw a0, 0(t0)
-	li a7 1
-	ecall
-	li a0, ' '
-	li a7, 11
-	ecall
-	lw a0, 4(t0)
-	li a7, 1
-	ecall
-	li a0, '\n'
-	li a7, 11
-	ecall
 					
-	la t1, PontuacaoPlayer
-	lw t3, (t1) #t3 = Pontuacao do Player
-	la t1, PontuacaoEnemy
-	lw t4, (t1) #t4 = Pontuacao do Enemy
+	
 	#Pegar input salvo na mem�ria
 	la t1, Input
 	lw t0, (t1) #armazenar valor do input
 	li t3, 64
 	sw t3, (t1) #zerar input
 	sw zero, 4(t1)
-	bne t0, zero, SkipPoint #Checar se o input � 'd'
+	bne t0, zero, SkipPoint #Checar se o input eh 'd'
 	la t1, PontuacaoPlayer
 	lw t2, (t1) #Ler Pontuacao Player
-	addi t2, t2, 4 #Adicionar 4
+	addi t2, t2, 1 #Adicionar 1
 	sw t2, (t1) #Salvar pontuacao nova Player
 	j ForaGameLoop
 SkipPoint:
@@ -295,9 +278,8 @@ SkipPoint:
 	add a1, a1, a2 #a1=endereco do frame atual
 	mv t1, a1
 	Render(%obj, t1)	
-	#Alterar X0 e Y0	
+	#Alterar X0 e Y0
 .end_macro
-	
 	
 .macro TelaFinal()
 .end_macro
@@ -504,7 +486,8 @@ PL4pontos:Desenhar(t3,t1)	#4 ou mais pontos
 	addi t3, t3, 20
 	Desenhar(t3,t1)
 SPLfim:	la a0,PontuacaoEnemy	#inimigo
-	beqz a0,SPLfim 	 #zero pontos
+	lw a0, (a0)
+	beqz a0,SENfim 	 #zero pontos
 	li t3,0xFF0012E8
 	addi t3,t3, 176
 	li a2,2
@@ -513,7 +496,7 @@ SPLfim:	la a0,PontuacaoEnemy	#inimigo
 	beq a0,a2,EN3pontos
 	li a2,4
 	bge a0,a2,EN4pontos
-	Desenhar(t3,t0)	 #1 ponto
+	Desenhar(t3,t0)	 	#1 ponto
 	j SENfim
 EN2pontos:Desenhar(t3,t1)	#2 pontos
 	j SENfim

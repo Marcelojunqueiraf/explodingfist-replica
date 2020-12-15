@@ -4,6 +4,9 @@
 .include "./Imagens/Fundos/fundo2.s"
 .include "./Imagens/Fundos/fundo3.s"
 
+.include "./Imagens/yin.s"
+.include "./Imagens/yinyang.s"
+
 .include ".\Imagens\Sprites\Ataques\cambalhota1.s"
 .include ".\Imagens\Sprites\Ataques\cambalhota2.s"
 .include ".\Imagens\Sprites\Ataques\cambalhota3.s"
