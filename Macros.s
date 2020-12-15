@@ -509,3 +509,33 @@ EN4pontos:Desenhar(t3,t1)	#4 ou mais pontos
 	Desenhar(t3,t1)
 SENfim:
 .end_macro
+
+.macro Cronometro()
+	la a0,TempoLimite      #texto de tempo limite
+	li a1, 146
+	li a2, 30
+	li a3, 0xFF00
+	li a4, 0
+	li a7, 104
+	ecall
+	li a7, 30
+	ecall
+	la a1 , TempoInicial
+	lw a1, (a1)
+	sub a0, a0, a1  #diferenca
+	li a1,1000	#transforma em segundos
+	div a0,a0,a1		
+	li a5, 31
+	bge a0,a5,Cronzero
+	li a7,101		#print do cronometro
+	li a1, 130
+	li a2, 30
+	li a3, 0xFF00
+	li a4, 0
+	ecall
+	j CronFim
+Cronzero:la a1, Relogio	
+	li a0,1
+	sw a0(a1)
+CronFim:	
+.end_macro
