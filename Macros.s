@@ -122,59 +122,6 @@ Pause:  mv t4, a1
 	sw a4, (a3) #Adicionar 8 a Nota Atual
 Skip:	
 .end_macro
-	
-	
-.macro Inicializacao()
-	#Criacao do array de fundos
-	la a0, Fundos
-	lw a0, (a0)
-	la t0, fundo1
-	sw t0, 0(a0)
-	la t0, fundo2
-	sw t0, 4(a0)
-	la t0, fundo3
-	sw t0, 8(a0)
-	la a0, Fundo    #contador dos fundos 0x10000020
-	sw zero, (a0)	   #zera contador
-	
-	#Animacoes player
-	la a1, AnimacoesPlayer #a1= endere�o da lista de animacoes do player
-	#lw a4, n*4(a1)
-	lw a4, 0(a1) #a4 = endereco de inicio da primeira animacao (Saudacao)
-	la a3, Player
-	la a5, Enemy
-	la t0, ola1 #t0=endere�o da imagem
-	sw t0, 12(a3) #Img0 = t0
-	sw t0, 12(a5) #Img0 = t0
-	sw t0, 8(a4) #Salvar imagem no frame da anima��o
-	la t0, ola2 #t0=endere�o da imagem
-	sw t0, 20(a4) #Salvar imagem no frame da anima��o
-	la t0, ola3 #t0=endere�o da imagem
-	sw t0, 32(a4) #Salvar imagem no frame da anima��o
-	la t0, ola4 #t0=endere�o da imagem
-	sw t0, 44(a4) #Salvar imagem no frame da anima��o
-	
-	li t0, 4 #t0 = tamahno da animacao
-	sw t0, 4(a1) #Salvar o tamanho na lista de animacoes
-	
-		#Animacoes Enemy
-	la a1, AnimacoesEnemy #a1= endere�o da lista de animacoes do player
-	#lw a4, n*4(a1)
-	lw a4, 0(a1) #a4 = endereco de inicio da primeira animacao (Saudacao)
-	la a5, Enemy
-	la t0, P2ola1 #t0=endere�o da imagem
-	sw t0, 12(a5) #Img0 = t0
-	sw t0, 8(a4) #Salvar imagem no frame da anima��o
-	la t0, P2ola2 #t0=endere�o da imagem
-	sw t0, 20(a4) #Salvar imagem no frame da anima��o
-	la t0, P2ola3 #t0=endere�o da imagem
-	sw t0, 32(a4) #Salvar imagem no frame da anima��o
-	la t0, P2ola4 #t0=endere�o da imagem
-	sw t0, 44(a4) #Salvar imagem no frame da anima��o
-	
-	li t0, 4 #t0 = tamahno da animacao
-	sw t0, 4(a1) #Salvar o tamanho na lista de animacoes
-.end_macro
 
 .macro Input() 
 	li t1, 0xFF200000		# carrega o endere�o de controle do KDMMIO
