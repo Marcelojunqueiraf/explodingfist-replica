@@ -58,14 +58,14 @@
 	####Separacao de frame
 	la t0, voadora2 #t0=endereco da imagem
 	li t1, 0 #dx
-	li t2, 32 #dy
+	li t2, -32 #dy
 	sw t1, 0(a4) #img
 	sw t2, 4(a4) #dx
 	sw t0, 8(a4) #dy
 	####Separacao de frame
 	la t0, voadora2 #t0=endereco da imagem
 	li t1, 0 #dx
-	li t2, 4 #dy
+	li t2, -4 #dy
 	sw t1, 12(a4) #img
 	sw t2, 16(a4) #dx
 	sw t0, 20(a4) #dy
@@ -79,14 +79,14 @@
 	####Separacao de frame
 	la t0, voadora2 #t0=endereco da imagem
 	li t1, 0 #dx
-	li t2, -4 #dy
+	li t2, 4 #dy
 	sw t1, 36(a4) #img
 	sw t2, 40(a4) #dx
 	sw t0, 44(a4) #dy	
 	####Separacao de frame
 	la t0, voadora2 #t0=endereco da imagem
 	li t1, 0 #dx
-	li t2, -32 #dy
+	li t2, 32 #dy
 	sw t1, 48(a4) #img
 	sw t2, 52(a4) #dx
 	sw t0, 56(a4) #dy
@@ -103,28 +103,28 @@
 	####Separacao de frame
 	la t0, cambalhota1 #t0=endereco da imagem
 	li t1, 16 #dx
-	li t2, 32 #dy
+	li t2, -32 #dy
 	sw t1, 0(a4) #img
 	sw t2, 4(a4) #dx
 	sw t0, 8(a4) #dy	
 	####Separacao de frame
 	la t0, cambalhota2 #t0=endereco da imagem
 	li t1, 16 #dx
-	li t2, 16 #dy
+	li t2, -16 #dy
 	sw t1, 12(a4) #img
 	sw t2, 16(a4) #dx
 	sw t0, 20(a4) #dy
 	####Separacao de frame
 	la t0, misc1 #t0=endereco da imagem
 	li t1, 16 #dx
-	li t2, -16 #dy
+	li t2, 16 #dy
 	sw t1, 24(a4) #img
 	sw t2, 28(a4) #dx
 	sw t0, 32(a4) #dy
 	####Separacao de frame
 	la t0, cambalhota3 #t0=endereco da imagem
 	li t1, 16 #dx
-	li t2, -32 #dy
+	li t2, 32 #dy
 	sw t1, 36(a4) #img
 	sw t2, 40(a4) #dx
 	sw t0, 44(a4) #dy	
@@ -137,7 +137,6 @@
 	mul t4, t4, t0
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 32(a1) #a4 = endereco de inicio da animacao
-	lw a4, 0(a1) #a4 = endereco de inicio da primeira animacao (Saudacao)
 	la t0, andar6 #t0=endereco da imagem
 	sw t0, 8(a4) #Salvar imagem no frame da animacao
 	li t1, -16 #dx
@@ -158,28 +157,28 @@
 	####Separacao de frame
 	la t0, cambalhota3 #t0=endereco da imagem
 	li t1, -16 #dx
-	li t2, 32 #dy
+	li t2, -32 #dy
 	sw t1, 0(a4) #img
 	sw t2, 4(a4) #dx
 	sw t0, 8(a4) #dy	
 	####Separacao de frame
 	la t0, misc1 #t0=endereco da imagem
 	li t1, -16 #dx
-	li t2, 16 #dy
+	li t2, -16 #dy
 	sw t1, 12(a4) #img
 	sw t2, 16(a4) #dx
 	sw t0, 20(a4) #dy
 	####Separacao de frame
 	la t0, cambalhota2 #t0=endereco da imagem
 	li t1, -16 #dx
-	li t2, -16 #dy
+	li t2, 16 #dy
 	sw t1, 24(a4) #img
 	sw t2, 28(a4) #dx
 	sw t0, 32(a4) #dy
 	####Separacao de frame
 	la t0, cambalhota1 #t0=endereco da imagem
 	li t1, -16 #dx
-	li t2, -32 #dy
+	li t2, 32 #dy
 	sw t1, 36(a4) #img
 	sw t2, 40(a4) #dx
 	sw t0, 44(a4) #dy	
@@ -332,14 +331,14 @@
 	####Separacao de frame
 	la t0, voadora2 #t0=endereco da imagem
 	li t1, 8 #dx
-	li t2, 16 #dy
+	li t2, -16 #dy
 	sw t1, 0(a4) #img
 	sw t2, 4(a4) #dx
 	sw t0, 8(a4) #dy	
 	####Separacao de frame
 	la t0, voadora2 #t0=endereco da imagem
 	li t1, 8 #dx
-	li t2, 8 #dy
+	li t2, -8 #dy
 	sw t1, 12(a4) #img
 	sw t2, 16(a4) #dx
 	sw t0, 20(a4) #dy
@@ -353,14 +352,14 @@
 	####Separacao de frame
 	la t0, voadora2 #t0=endereco da imagem
 	li t1, -8 #dx
-	li t2, -8 #dy
+	li t2, 8 #dy
 	sw t1, 36(a4) #img
 	sw t2, 40(a4) #dx
 	sw t0, 44(a4) #dy	
 	####Separacao de frame
 	la t0, voadora2 #t0=endereco da imagem
 	li t1, -8 #dx
-	li t2, -16 #dy
+	li t2, 16 #dy
 	sw t1, 48(a4) #img
 	sw t2, 52(a4) #dx
 	sw t0, 56(a4) #dy
@@ -721,14 +720,14 @@
 	####Separacao de frame
 	la t0, P2voadora2 #t0=endereco da imagem
 	li t1, 0 #dx
-	li t2, 32 #dy
+	li t2, -32 #dy
 	sw t1, 0(a4) #img
 	sw t2, 4(a4) #dx
 	sw t0, 8(a4) #dy	
 	####Separacao de frame
 	la t0, P2voadora2 #t0=endereco da imagem
 	li t1, 0 #dx
-	li t2, 4 #dy
+	li t2, -4 #dy
 	sw t1, 12(a4) #img
 	sw t2, 16(a4) #dx
 	sw t0, 20(a4) #dy
@@ -742,14 +741,14 @@
 	####Separacao de frame
 	la t0, P2voadora2 #t0=endereco da imagem
 	li t1, 0 #dx
-	li t2, -4 #dy
+	li t2, 4 #dy
 	sw t1, 36(a4) #img
 	sw t2, 40(a4) #dx
 	sw t0, 44(a4) #dy	
 	####Separacao de frame
 	la t0, P2voadora2 #t0=endereco da imagem
 	li t1, 0 #dx
-	li t2, -32 #dy
+	li t2, 32 #dy
 	sw t1, 48(a4) #img
 	sw t2, 52(a4) #dx
 	sw t0, 56(a4) #dy
@@ -766,28 +765,28 @@
 	####Separacao de frame
 	la t0, P2cambalhota1 #t0=endereco da imagem
 	li t1, 16 #dx
-	li t2, 32 #dy
+	li t2, -32 #dy
 	sw t1, 0(a4) #img
 	sw t2, 4(a4) #dx
 	sw t0, 8(a4) #dy	
 	####Separacao de frame
 	la t0, P2cambalhota2 #t0=endereco da imagem
 	li t1, 16 #dx
-	li t2, 16 #dy
+	li t2, -16 #dy
 	sw t1, 12(a4) #img
 	sw t2, 16(a4) #dx
 	sw t0, 20(a4) #dy
 	####Separacao de frame
 	la t0, P2misc1 #t0=endereco da imagem
 	li t1, 16 #dx
-	li t2, -16 #dy
+	li t2, 16 #dy
 	sw t1, 24(a4) #img
 	sw t2, 28(a4) #dx
 	sw t0, 32(a4) #dy
 	####Separacao de frame
 	la t0, P2cambalhota3 #t0=endereco da imagem
 	li t1, 16 #dx
-	li t2, -32 #dy
+	li t2, 32 #dy
 	sw t1, 36(a4) #img
 	sw t2, 40(a4) #dx
 	sw t0, 44(a4) #dy	
@@ -800,7 +799,6 @@
 	mul t4, t4, t0
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 32(a1) #a4 = endereco de inicio da animacao
-	lw a4, 0(a1) #a4 = endereco de inicio da primeira animacao (Saudacao)
 	la t0, P2andar6 #t0=endereco da imagem
 	sw t0, 8(a4) #Salvar imagem no frame da animacao
 	li t1, -16 #dx
@@ -821,28 +819,28 @@
 	####Separacao de frame
 	la t0, P2cambalhota3 #t0=endereco da imagem
 	li t1, -16 #dx
-	li t2, 32 #dy
+	li t2, -32 #dy
 	sw t1, 0(a4) #img
 	sw t2, 4(a4) #dx
 	sw t0, 8(a4) #dy	
 	####Separacao de frame
 	la t0, P2misc1 #t0=endereco da imagem
 	li t1, -16 #dx
-	li t2, 16 #dy
+	li t2, -16 #dy
 	sw t1, 12(a4) #img
 	sw t2, 16(a4) #dx
 	sw t0, 20(a4) #dy
 	####Separacao de frame
 	la t0, P2cambalhota2 #t0=endereco da imagem
 	li t1, -16 #dx
-	li t2, -16 #dy
+	li t2, 16 #dy
 	sw t1, 24(a4) #img
 	sw t2, 28(a4) #dx
 	sw t0, 32(a4) #dy
 	####Separacao de frame
 	la t0, P2cambalhota1 #t0=endereco da imagem
 	li t1, -16 #dx
-	li t2, -32 #dy
+	li t2, 32 #dy
 	sw t1, 36(a4) #img
 	sw t2, 40(a4) #dx
 	sw t0, 44(a4) #dy	
@@ -995,14 +993,14 @@
 	####Separacao de frame
 	la t0, P2voadora2 #t0=endereco da imagem
 	li t1, 8 #dx
-	li t2, 16 #dy
+	li t2, -16 #dy
 	sw t1, 0(a4) #img
 	sw t2, 4(a4) #dx
 	sw t0, 8(a4) #dy	
 	####Separacao de frame
 	la t0, P2voadora2 #t0=endereco da imagem
 	li t1, 8 #dx
-	li t2, 8 #dy
+	li t2, -8 #dy
 	sw t1, 12(a4) #img
 	sw t2, 16(a4) #dx
 	sw t0, 20(a4) #dy
@@ -1016,14 +1014,14 @@
 	####Separacao de frame
 	la t0, P2voadora2 #t0=endereco da imagem
 	li t1, -8 #dx
-	li t2, -8 #dy
+	li t2, 8 #dy
 	sw t1, 36(a4) #img
 	sw t2, 40(a4) #dx
 	sw t0, 44(a4) #dy	
 	####Separacao de frame
 	la t0, P2voadora2 #t0=endereco da imagem
 	li t1, -8 #dx
-	li t2, -16 #dy
+	li t2, 16 #dy
 	sw t1, 48(a4) #img
 	sw t2, 52(a4) #dx
 	sw t0, 56(a4) #dy

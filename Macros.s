@@ -223,6 +223,12 @@ SkipPoint:
 	addi a3, a3, 1 #Adicionar 1 ao frame
 	sw a3, 16(%obj) #Salvar o novo numero de frames na memoria
 	add a1, a1, a2 #a1=endereco do frame atual
+	mv a0, a1
+	li a7, 34
+	ecall
+	li a0, '\n'
+	li a7, 11
+	ecall
 	mv t1, a1
 	#Alterar X0 e Y0
 .end_macro
