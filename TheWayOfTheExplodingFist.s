@@ -12,8 +12,8 @@ Perdeu:.string "Mas voce perdeu!"
 Parabens: .string "Parabens,"
 Ganhou:.string " Voce ganhou!"
 #X0, Y0, P0, Img0, Frame, Anim, Size
-Player: .word 52, 180, 0xFF10E134, 0, 0, 0, 3
-Enemy: .word 104, 180, 0xFF10E168, 0, 0, 0, 3
+Player: .word 52, 180, 0xFF10E164, 0, 0, 0, 72
+Enemy: .word 104, 180, 0xFF10E1A8, 0, 0, 0, 72
 AnimacoesPlayer: .word 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4
 AnimacoesEnemy: .word  0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4
 Fundos: .word 0x10002000
@@ -85,9 +85,16 @@ InputLoop:
 	
 	Processamento() #Chamar a fun��o Processamento (Interpretar o input e o resultado da IA. escolher frames. checar hits)
 	la t0, Player
+	lw a0, 20(t0)
+	li a7, 1
+	ecall
 	la t1, AnimacoesPlayer
 	DesenharFrame(t0, t1)
 	la t0, Enemy
+	lw a0, 20(t0)
+	li a7, 1
+	ecall
+
 	la t1, AnimacoesEnemy
 	DesenharFrame(t0, t1)
 	# Refresh Screen

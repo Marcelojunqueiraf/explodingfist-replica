@@ -215,13 +215,13 @@ SkipPoint:
 	lw a1, 20(%obj) #a1 = animacao atual
 	li a2, 8
 	mul a1, a1, a2 #a1 = a1*8
-	add a1, a1, %array #a1 = endere�o do endere�o da anima��o atual
+	add a1, a1, %array #a1 = endere�o do endereco da animacao atual
 	lw a1, 0(a1) #a1 = endere�o da anima��o (Array de frames)
 	li a2, 12
 	lw a3, 16(%obj) #a3 = numero do frame atual
 	mul a2, a2, a3
 	addi a3, a3, 1 #Adicionar 1 ao frame
-	sw a3, 16(%obj) #Salvar o novo numero de frames na mem�ria
+	sw a3, 16(%obj) #Salvar o novo numero de frames na memoria
 	add a1, a1, a2 #a1=endereco do frame atual
 	mv t1, a1
 	Render(%obj, t1)	
