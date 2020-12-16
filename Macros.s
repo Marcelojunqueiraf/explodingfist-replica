@@ -414,7 +414,7 @@ Menos:  la a0,PontuacaoPlayer  #jogador
 	la t0, yin
 	la t1, yinyang
 	beqz a0,SPLfim  #zero pontos
-	li t3,0xFF0012E8
+	li t3,0xFF1012E8
 	li a2,2
 	beq a0,a2,PL2pontos
 	li a2,3
@@ -435,7 +435,7 @@ PL4pontos:Desenhar(t3,t1)	#4 ou mais pontos
 SPLfim:	la a0,PontuacaoEnemy	#inimigo
 	lw a0, (a0)
 	beqz a0,SENfim 	 #zero pontos
-	li t3,0xFF0012E8
+	li t3,0xFF1012E8
 	addi t3,t3, 176
 	li a2,2
 	beq a0,a2,EN2pontos

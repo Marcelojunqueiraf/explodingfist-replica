@@ -43,9 +43,11 @@ Menu:	Inicializacao() #Setagem de todos os arrays e valores salvos na memoria
 	
 FaseLoop:
 	DesenharFundo()
-
-	#ZerarPontua��o()
+Reset:		#Reset de fase 
+				#ZerarPontua��o()
 	la t0, PontuacaoPlayer #Endere�o da pontuaacao 0x10000022
+	sw zero, (t0)
+	la t0, PontuacaoEnemy
 	sw zero, (t0)
 	#Medir tempo inicial
 	li a7, 30
@@ -114,13 +116,23 @@ FimTempo:la a1, PontuacaoEnemy
 	lw a1, (a1)
 	bgt a0,a1 Derrota
 	blt a0, a1, Vitoria
-	#j resetafase   # se o tempo acabar e a pontuacao estiver igual, reseta a fase, a ser feito ainda
+	li a0,0xc7    #limpagem de tela pra tirar scores anteriores
+	li a7,148
+	li a1,1
+	ecall
+	j Reset      # se o tempo acabar e a pontuacao estiver igual, reseta a fase
+	
 Vitoria:
-
-	#Mudar Fundo
-	#FaseAtual+=1
-	#Dificuldade+=1
-	j FaseLoop
+  	li a0, 2
+  	la a2, Fase
+  	lw a1, (a2)
+  	bge a1,a0, Ganhador
+  	addi a1,a1,1
+  	sw a1,(a2)
+	j FaseLoop  	 	#Mudar Fundo	#FaseAtual+=1 #Dificuldade+=1	
+Ganhador:la a0 ,Vencer
+	li a1, 1
+	sw a1, (a0)
 Derrota:
 	TelaFinal()
 	
