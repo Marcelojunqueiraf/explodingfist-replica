@@ -43,9 +43,11 @@ Menu:	Inicializacao() #Setagem de todos os arrays e valores salvos na memoria
 	
 FaseLoop:
 	DesenharFundo()
-
-	#ZerarPontuaï¿½ï¿½o()
+Reset:		#Reset de fase 
+				#ZerarPontuaï¿½ï¿½o()
 	la t0, PontuacaoPlayer #Endereï¿½o da pontuaacao 0x10000022
+	sw zero, (t0)
+	la t0, PontuacaoEnemy
 	sw zero, (t0)
 	#Medir tempo inicial
 	li a7, 30
@@ -84,25 +86,43 @@ InputLoop:
 	sw t0, 0(t1)
 	
 	Processamento() #Chamar a funï¿½ï¿½o Processamento (Interpretar o input e o resultado da IA. escolher frames. checar hits)
-	la t0, Player
-	lw a0, 20(t0)
-	li a7, 1
-	ecall
-	la t1, AnimacoesPlayer
-	DesenharFrame(t0, t1)
-	la t0, Enemy
-	lw a0, 20(t0)
-	li a7, 1
-	ecall
-
-	la t1, AnimacoesEnemy
-	DesenharFrame(t0, t1)
+	### Renderização
+	# Limpa Player
+	la s0 Player
+	la t1 AnimacoesPlayer
+	LimparFrame(s0 t1)
+	Render(s0 t1)
+	# Limpa Enemy
+	la s1 Enemy
+	lw a2 8(s1) # Carrega a posicao do obj. da memoria
+	lw t6 12(s1) # Carrega a imagem do obj. da memoria
+	lw a0 0(t6)
+	lw a1 4(t6)
+	Limpar(a0 a1 a2)
+	# Printa Player
+	lw a1 8(s0) # Carrega a posicao do obj. da memoria
+	lw t6 12(s0) # Carrega a imagem do obj. da memoria
+	Desenhar(a1 t6)
 	# Refresh Screen
 	li a0 0xFF200604
 	li a1 0
 	sw a1 0(a0)
 	li a1 1
 	sw a1 0(a0)
+	# Printa Enemy
+	la t1 AnimacoesEnemy
+	LimparFrame(s1 t1)
+	lw a1 8(s1) # Carrega a posicao do obj. da memoria
+	lw a0 0(t1)
+	add a1 a1 a0
+	lw a0 4(t1)
+	li t6 320
+	mul a0 a0 t6
+	add a1 a1 a0
+	sw a1 8(s1) # Atualiza a posicao do obj. da memoria
+	lw t6 8(t1) # Carrega a imagem do obj. a ser escrita
+	sw t6 12(s1) # Atualiza a imagem do obj. da memoria
+	Desenhar(a1 t6)
 	
 	la a0, Relogio   
 	lw a0, (a0)
@@ -121,13 +141,23 @@ FimTempo:la a1, PontuacaoEnemy
 	lw a1, (a1)
 	bgt a0,a1 Derrota
 	blt a0, a1, Vitoria
-	#j resetafase   # se o tempo acabar e a pontuacao estiver igual, reseta a fase, a ser feito ainda
+	li a0,0xc7    #limpagem de tela pra tirar scores anteriores
+	li a7,148
+	li a1,1
+	ecall
+	j Reset      # se o tempo acabar e a pontuacao estiver igual, reseta a fase
+	
 Vitoria:
-
-	#Mudar Fundo
-	#FaseAtual+=1
-	#Dificuldade+=1
-	j FaseLoop
+  	li a0, 2
+  	la a2, Fase
+  	lw a1, (a2)
+  	bge a1,a0, Ganhador
+  	addi a1,a1,1
+  	sw a1,(a2)
+	j FaseLoop  	 	#Mudar Fundo	#FaseAtual+=1 #Dificuldade+=1	
+Ganhador:la a0 ,Vencer
+	li a1, 1
+	sw a1, (a0)
 Derrota:
 	TelaFinal()
 	
