@@ -11,7 +11,8 @@ Pena: .string "Uma pena,"
 Perdeu:.string "Mas voce perdeu!"
 Parabens: .string "Parabens,"
 Ganhou:.string " Voce ganhou!"
-#X0, Y0, P0, Img0, Frame, Anim, Size
+#0   4   8   12    16     20    24    28      32    36        40  44
+#X0, Y0, P0, Img0, Frame, Anim, Size, estado, alvo, framehit, x0, xf
 Player: .word 100, 180, 0xFF10E164, 0, 0, 128, 1
 Enemy: .word 168, 180, 0xFF10E1A8, 0, 0, 128, 1
 AnimacoesPlayer: .word 0x10001000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4
