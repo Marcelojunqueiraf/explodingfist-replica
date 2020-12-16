@@ -221,7 +221,7 @@ SkipPoint:
 
 
 #Recebe %obj=Objeto, %array=array de animacoes do objeto
-.macro LimparFrame(%obj, %array)
+.macro ProcessaFrame(%obj, %array)
 	lw a1, 20(%obj) #a1 = animacao atual
 	add a1, a1, %array #a1 = endere�o do endereco da animacao atual
 	lw a1, 0(a1) #a1 = endere�o da anima��o (Array de frames)
@@ -238,6 +238,7 @@ SkipPoint:
 	li a7, 11
 	ecall
 	mv t1, a1
+	Render(%obj t1)
 	#Alterar X0 e Y0
 .end_macro
 	
@@ -294,45 +295,19 @@ Fora:
 
 # Macro de renderizar // Recebe %Obj - Endereco do obj. na memoria, %Anim - Endereco da animacao na memoria
 .macro Render(%Obj %Anim) #(dX = t4, dY = t5, P0 = a6, S0 = a7, S1 = t6)
-	lw t4 0(%Anim) # dX
+	lw a5 0(%Anim) # dX
 	lw t5 4(%Anim) # dY
 	lw a6 8(%Obj) # P0
 	lw a7 12(%Obj) # S0
 	lw t6 8(%Anim) # S1
 	# Retangulo Vermelho
-	mv a2 a6
-	bltz t4 XMenorR
-	lw a0 0(a7)
-	sub a0 a0 t4
-	add a2 a2 t4
-	j FimRX
-XMenorR:lw a0 0(t6)
-	add a0 a0 t4
-FimRX:	bltz t5 YMenorR
-	mv a1 t5
-	j FimRY
-YMenorR:lw a1 4(a7)
-	lw a3 4(t6)
-	add a3 a3 t5
-	sub a1 a1 a3
-	li a4 320
-	mul a3 a3 a4
-	add a2 a2 a3
-FimRY:	Limpar(a0 a1 a2)
-	# Retangulo Azul
-	mv a3 a6
+	lw a1 0(a7)
 	lw a2 4(a7)
-	bltz t4 XMenorB
-	mv a1 t4
-	j FimB
-XMenorB:lw a1 0(a7)
-	sub a1 a1 a0
-	add a3 a3 a0
-FimB:	Limpar(a1 a2 a3)
+	Limpar(a1 a2 a6)
 	# Desenhar proxima sprite
 	li a0 320
 	mul a1 t5 a0
-	add a1 a1 t4
+	add a1 a1 a5
 	add a1 a1 a6
 	sw a1 8(%Obj) # Atualiza a posicao do obj. na memoria
 	sw t6 12(%Obj) # Atualiza a imagem do obj. na memoria
