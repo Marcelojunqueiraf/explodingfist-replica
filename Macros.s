@@ -186,8 +186,12 @@ SkipReading:
 	blt t0, t1, Skip1 #Se a animaï¿½ï¿½o naoo tiver terminado pule
 	la t0, Input
 	lw t1, (t0) #direção
+	li t3, 64
+	bgt t1, t3, SkipFire
 	lw t3, 4(t0) #FireButton
+	sw zero, 4(t0)
 	add t1, t1, t3 #Soma os dois
+SkipFire:
 	sw t1, 20(t2) #Muda a Animação
 	sw zero, 16(t2) #Zera o contador (frame atual)
 	la t0, AnimacoesPlayer
@@ -207,8 +211,7 @@ Skip2:
 	la t1, Input
 	lw t0, (t1) #armazenar valor do input
 	li t3, 128
-	sw t3, (t1) #zerar input
-	sw zero, 4(t1)
+	sw t3, (t1) #limpar input
 	li t6, 'p'
 	bne t0, t6, SkipPoint #Checar se o input eh 'p'
 	la t1, PontuacaoPlayer
