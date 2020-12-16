@@ -34,7 +34,6 @@
         li t0, 0 #xf
         sw t0, 16(a5)
 
-
 	la t0, andar6 #t0=endereco da imagem
 	sw t0, 8(a4) #Salvar imagem no frame da animacao
 	li t1, 16 #dx
@@ -46,7 +45,6 @@
 	
 	li t0, 3 #t0 = tamahno da animacao
 	sw t0, 4(a1) #Salvar o tamanho na lista de animacoes
-	
 
 #High Punch (Soco Alto)
 #jab1,jab2
@@ -75,13 +73,13 @@
 	
 	li t0, 3 #t0 = tamahno da animacao
 	sw t0, 12(a1) #Salvar o tamanho na lista de animacoes
+	
 #Jump
 #voadora2
 	li t4, 12
 	mul t4, t4, t0
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 16(a1) #a4 = endereco de inicio da animacao
-	
 	
         li t0, 0 #estado
         sw t0, 48(a5)
@@ -94,7 +92,6 @@
         li t0, 0 #xf
         sw t0, 64(a5)
 
-	
 	####Separacao de frame
 	la t0, voadora2 #t0=endereco da imagem
 	li t1, 0 #dx
@@ -141,19 +138,17 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 24(a1) #a4 = endereco de inicio da animacao
 	
-	
         li t0, 0 #estado
-        sw t0, 96(a5)
+        sw t0, 72(a5)
         li t0, 0 #alvo
-        sw t0, 100(a5)
+        sw t0, 76(a5)
         li t0, 0 #framehit
-        sw t0, 104(a5)
+        sw t0, 80(a5)
         li t0, 0 #x0
-        sw t0, 108(a5)
+        sw t0, 84(a5)
         li t0, 0 #xf
-        sw t0, 112(a5)
+        sw t0, 88(a5)
 
-	
 	####Separacao de frame
 	la t0, cambalhota1 #t0=endereco da imagem
 	li t1, 16 #dx
@@ -185,6 +180,7 @@
 		
 	li t0, 4 #t0 = tamahno da animacao
 	sw t0, 28(a1) #Salvar o tamanho na lista de animacoes
+	
 #Walk Back (Mesmo do Andar)
 #andar6, andar5 andar6
 	li t4, 12
@@ -193,16 +189,15 @@
 	sw a4, 32(a1) #a4 = endereco de inicio da animacao
 	
         li t0, 0 #estado
-        sw t0, 120(a5)
+        sw t0, 96(a5)
         li t0, 0 #alvo
-        sw t0, 124(a5)
+        sw t0, 100(a5)
         li t0, 0 #framehit
-        sw t0, 128(a5)
+        sw t0, 104(a5)
         li t0, 0 #x0
-        sw t0, 132(a5)
+        sw t0, 108(a5)
         li t0, 0 #xf
-        sw t0, 136(a5)
-
+        sw t0, 112(a5)
 	
 	la t0, andar6 #t0=endereco da imagem
 	sw t0, 8(a4) #Salvar imagem no frame da animacao
@@ -215,6 +210,7 @@
 	
 	li t0, 3 #t0 = tamahno da animacao
 	sw t0, 36(a1) #Salvar o tamanho na lista de animacoes
+	
 #Back Somersault (cambalhota para trás)
 #cambalhota3, misc1, cambalhota2, cambalhota1
 	li t4, 12
@@ -222,17 +218,16 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 40(a1) #a4 = endereco de inicio da animacao
 	
-	
         li t0, 0 #estado
-        sw t0, 144(a5)
+        sw t0, 120(a5)
         li t0, 0 #alvo
-        sw t0, 148(a5)
+        sw t0, 124(a5)
         li t0, 0 #framehit
-        sw t0, 152(a5)
+        sw t0, 128(a5)
         li t0, 0 #x0
-        sw t0, 156(a5)
+        sw t0, 132(a5)
         li t0, 0 #xf
-        sw t0, 160(a5)
+        sw t0, 136(a5)
 
 	####Separacao de frame
 	la t0, cambalhota3 #t0=endereco da imagem
@@ -265,6 +260,7 @@
 		
 	li t0, 4 #t0 = tamahno da animacao
 	sw t0, 44(a1) #Salvar o tamanho na lista de animacoes
+	
 #Crouch (Agaixar)
 #defesasentado
 	li t4, 12
@@ -273,15 +269,15 @@
 	sw a4, 48(a1) #a4 = endereco de inicio da animacao
 	
         li t0, 0 #estado
-        sw t0, 168(a5)
+        sw t0, 144(a5)
         li t0, 0 #alvo
-        sw t0, 172(a5)
+        sw t0, 148(a5)
         li t0, 0 #framehit
-        sw t0, 176(a5)
+        sw t0, 152(a5)
         li t0, 0 #x0
-        sw t0, 180(a5)
+        sw t0, 156(a5)
         li t0, 0 #xf
-        sw t0, 184(a5)
+        sw t0, 160(a5)
 
 	####Separacao de frame
 	la t0, defesasentado #t0=endereco da imagem
@@ -314,6 +310,7 @@
 		
 	li t0, 4 #t0 = tamahno da animacao
 	sw t0, 52(a1) #Salvar o tamanho na lista de animacoes
+	
 #jab (Soco médio) Pra gente vai ser soco baixo
 #jab1, socoacachado
 	li t4, 12
@@ -322,15 +319,15 @@
 	sw a4, 56(a1) #a4 = endereco de inicio da animacao
 	
         li t0, 0 #estado
-        sw t0, 192(a5)
+        sw t0, 168(a5)
         li t0, 0 #alvo
-        sw t0, 196(a5)
+        sw t0, 172(a5)
         li t0, 0 #framehit
-        sw t0, 200(a5)
+        sw t0, 176(a5)
         li t0, 0 #x0
-        sw t0, 204(a5)
+        sw t0, 180(a5)
         li t0, 0 #xf
-        sw t0, 208(a5)
+        sw t0, 184(a5)
 
 	####Separacao de frame
 	la t0, jab1 #t0=endereco da imagem
@@ -364,17 +361,16 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 64(a1) #a4 = endereco de inicio da animacao
 	
-			
-        li t0, 0 #estado
-        sw t0, 216(a5)
+	li t0, 0 #estado
+        sw t0, 192(a5)
         li t0, 0 #alvo
-        sw t0, 220(a5)
+        sw t0, 196(a5)
         li t0, 0 #framehit
-        sw t0, 224(a5)
+        sw t0, 200(a5)
         li t0, 0 #x0
-        sw t0, 228(a5)
+        sw t0, 204(a5)
         li t0, 0 #xf
-        sw t0, 232(a5)
+        sw t0, 208(a5)
 
 	####Separacao de frame
 	la t0, highkick1 #t0=endereco da imagem
@@ -416,15 +412,15 @@
 	sw a4, 72(a1) #a4 = endereco de inicio da animacao
 	
 	li t0, 0 #estado
-        sw t0, 240(a5)
+        sw t0, 216(a5)
         li t0, 0 #alvo
-        sw t0, 244(a5)
+        sw t0, 220(a5)
         li t0, 0 #framehit
-        sw t0, 248(a5)
+        sw t0, 224(a5)
         li t0, 0 #x0
-        sw t0, 252(a5)
+        sw t0, 228(a5)
         li t0, 0 #xf
-        sw t0, 256(a5)
+        sw t0, 232(a5)
 	
 	####Separacao de frame
 	la t0, highkick1 #t0=endereco da imagem
@@ -465,17 +461,16 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 80(a1) #a4 = endereco de inicio da animacao
 	
-	
-        li t0, 0 #estado
-        sw t0, 264(a5)
+	li t0, 0 #estado
+        sw t0, 240(a5)
         li t0, 0 #alvo
-        sw t0, 268(a5)
+        sw t0, 244(a5)
         li t0, 0 #framehit
-        sw t0, 272(a5)
+        sw t0, 248(a5)
         li t0, 0 #x0
-        sw t0, 276(a5)
+        sw t0, 252(a5)
         li t0, 0 #xf
-        sw t0, 280(a5)
+        sw t0, 256(a5)
 	
 	####Separacao de frame
 	la t0, voadora2 #t0=endereco da imagem
@@ -524,15 +519,15 @@
 	sw a4, 88(a1) #a4 = endereco de inicio da animacao
 	
 	li t0, 0 #estado
-        sw t0, 288(a5)
+        sw t0, 264(a5)
         li t0, 0 #alvo
-        sw t0, 292(a5)
+        sw t0, 268(a5)
         li t0, 0 #framehit
-        sw t0, 296(a5)
+        sw t0, 272(a5)
         li t0, 0 #x0
-        sw t0, 300(a5)
+        sw t0, 276(a5)
         li t0, 0 #xf
-        sw t0, 304(a5)
+        sw t0, 280(a5)
 	
 	####Separacao de frame
 	la t0, prepvoltachuteatras #t0=endereco da imagem
@@ -574,15 +569,15 @@
 	sw a4, 96(a1) #a4 = endereco de inicio da animacao 
 	
 	li t0, 0 #estado
-        sw t0, 312(a5)
+        sw t0, 288(a5)
         li t0, 0 #alvo
-        sw t0, 316(a5)
+        sw t0, 292(a5)
         li t0, 0 #framehit
-        sw t0, 320(a5)
+        sw t0, 296(a5)
         li t0, 0 #x0
-        sw t0, 324(a5)
+        sw t0, 300(a5)
         li t0, 0 #xf
-        sw t0, 328(a5)
+        sw t0, 304(a5)
         
 	####Separacao de frame
 	la t0, chutegirando1 #t0=endereco da imagem
@@ -645,15 +640,15 @@
 	sw a4, 104(a1) #a4 = endereco de inicio da animacao
 
 	li t0, 0 #estado
-        sw t0, 336(a5)
+        sw t0, 312(a5)
         li t0, 0 #alvo
-        sw t0, 340(a5)
+        sw t0, 316(a5)
         li t0, 0 #framehit
-        sw t0, 344(a5)
+        sw t0, 320(a5)
         li t0, 0 #x0
-        sw t0, 348(a5)
+        sw t0, 324(a5)
         li t0, 0 #xf
-        sw t0, 352(a5)
+        sw t0, 328(a5)
 
 	####Separacao de frame
 	la t0, defesasentado #t0=endereco da imagem
@@ -702,15 +697,15 @@
 	sw a4, 112(a1) #a4 = endereco de inicio da animacao
 	
 	li t0, 0 #estado
-        sw t0, 360(a5)
+        sw t0, 336(a5)
         li t0, 0 #alvo
-        sw t0, 364(a5)
+        sw t0, 340(a5)
         li t0, 0 #framehit
-        sw t0, 368(a5)
+        sw t0, 344(a5)
         li t0, 0 #x0
-        sw t0, 372(a5)
+        sw t0, 348(a5)
         li t0, 0 #xf
-        sw t0, 376(a5)
+        sw t0, 352(a5)
 	
 	####Separacao de frame
 	la t0, defesasentado #t0=endereco da imagem
@@ -759,15 +754,15 @@
 	sw a4, 120(a1) #a4 = endereco de inicio da animacao
 	
 	li t0, 0 #estado
-        sw t0, 384(a5)
+        sw t0, 360(a5)
         li t0, 0 #alvo
-        sw t0, 388(a5)
+        sw t0, 364(a5)
         li t0, 0 #framehit
-        sw t0, 392(a5)
+        sw t0, 368(a5)
         li t0, 0 #x0
-        sw t0, 396(a5)
+        sw t0, 372(a5)
         li t0, 0 #xf
-        sw t0, 400(a5)
+        sw t0, 376(a5)
         
 ####Separacao de frame
 	la t0, highkick1 #t0=endereco da imagem
@@ -790,7 +785,6 @@
 	sw t1, 24(a4) #img
 	sw t2, 28(a4) #dx
 	sw t0, 32(a4) #dy
-
 		
 	li t0, 3 #t0 = tamahno da animacao
 	sw t0, 124(a1) #Salvar o tamanho na lista de animacoes
@@ -803,15 +797,15 @@
 	sw a4, 128(a1) #a4 = endereco de inicio da animacao
 	
 	li t0, 0 #estado
-        sw t0, 432(a5)
+        sw t0, 384(a5)
         li t0, 0 #alvo
-        sw t0, 436(a5)
+        sw t0, 388(a5)
         li t0, 0 #framehit
-        sw t0, 440(a5)
+        sw t0, 392(a5)
         li t0, 0 #x0
-        sw t0, 444(a5)
+        sw t0, 396(a5)
         li t0, 0 #xf
-        sw t0, 448(a5)
+        sw t0, 400(a5)
         
 	####Separacao de frame
 	la t0, andar7 #t0=endereco da imagem
@@ -832,15 +826,15 @@
 	sw a4, 136(a1) #a4 = endereco de inicio da animacao
 	
 	li t0, 0 #estado
-        sw t0, 456(a5)
+        sw t0, 408(a5)
         li t0, 0 #alvo
-        sw t0, 460(a5)
+        sw t0, 412(a5)
         li t0, 0 #framehit
-        sw t0, 464(a5)
+        sw t0, 416(a5)
         li t0, 0 #x0
-        sw t0, 468(a5)
+        sw t0, 420(a5)
         li t0, 0 #xf
-        sw t0, 472(a5)
+        sw t0, 424(a5)
         
 	####Separacao de frame
 	la t0, curvar1 #t0=endereco da imagem
@@ -882,15 +876,16 @@
 	sw a4, 144(a1) #a4 = endereco de inicio da animacao
 	
 	li t0, 0 #estado
-        sw t0, 480(a5)
+        sw t0, 432(a5)
         li t0, 0 #alvo
-        sw t0, 484(a5)
+        sw t0, 436(a5)
         li t0, 0 #framehit
-        sw t0, 488(a5)
+        sw t0, 440(a5)
         li t0, 0 #x0
-        sw t0, 492(a5)
+        sw t0, 444(a5)
         li t0, 0 #xf
-        sw t0, 496(a5)
+        sw t0, 448(a5)
+        
 ####Separacao de frame
 	la t0, ola1 #t0=endereco da imagem
 	li t1, 0 #dx
@@ -931,7 +926,6 @@
 	sw t0, 148(a1) #Salvar o tamanho na lista de animacoes
 	
 	
-	
 ########################################################
 	#Animacoes enemy
 	la a1, AnimacoesEnemy #a1= endereï¿½o da lista de animacoes do enemy
@@ -947,7 +941,7 @@
 	la t0, P2andar6 #t0=endereco da imagem
 	sw t0, 8(a4) #Salvar imagem no frame da animacao
 	
-       li t0, 0 #estado
+        li t0, 0 #estado
         sw t0, 0(a5)
         li t0, 0 #alvo
         sw t0, 4(a5)
@@ -967,6 +961,7 @@
 	
 	li t0, 3 #t0 = tamahno da animacao
 	sw t0, 4(a1) #Salvar o tamanho na lista de animacoes
+	
 #High Punch (Soco Alto)
 #jab1,jab2
 	li t4, 12
@@ -994,6 +989,7 @@
 	
 	li t0, 3 #t0 = tamahno da animacao
 	sw t0, 12(a1) #Salvar o tamanho na lista de animacoes
+	
 #Jump
 #voadora2
 	li t4, 12
@@ -1057,6 +1053,18 @@
 	mul t4, t4, t0
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 24(a1) #a4 = endereco de inicio da animacao
+	
+        li t0, 0 #estado
+        sw t0, 72(a5)
+        li t0, 0 #alvo
+        sw t0, 76(a5)
+        li t0, 0 #framehit
+        sw t0, 80(a5)
+        li t0, 0 #x0
+        sw t0, 84(a5)
+        li t0, 0 #xf
+        sw t0, 88(a5)
+        
 	####Separacao de frame
 	la t0, P2cambalhota1 #t0=endereco da imagem
 	li t1, 16 #dx
@@ -1088,12 +1096,25 @@
 		
 	li t0, 4 #t0 = tamahno da animacao
 	sw t0, 28(a1) #Salvar o tamanho na lista de animacoes
+	
 #Walk Back (Mesmo do Andar)
 #andar6, andar5 andar6
 	li t4, 12
 	mul t4, t4, t0
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 32(a1) #a4 = endereco de inicio da animacao
+	
+	li t0, 0 #estado
+        sw t0, 96(a5)
+        li t0, 0 #alvo
+        sw t0, 100(a5)
+        li t0, 0 #framehit
+        sw t0, 104(a5)
+        li t0, 0 #x0
+        sw t0, 108(a5)
+        li t0, 0 #xf
+        sw t0, 112(a5)
+	
 	la t0, P2andar6 #t0=endereco da imagem
 	sw t0, 8(a4) #Salvar imagem no frame da animacao
 	li t1, -16 #dx
@@ -1105,12 +1126,25 @@
 	
 	li t0, 3 #t0 = tamahno da animacao
 	sw t0, 4(a1) #Salvar o tamanho na lista de animacoes
+	
 #Back Somersault (cambalhota para trás)
 #cambalhota3, misc1, cambalhota2, cambalhota1
 	li t4, 12
 	mul t4, t4, t0
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 40(a1) #a4 = endereco de inicio da animacao
+	
+        li t0, 0 #estado
+        sw t0, 120(a5)
+        li t0, 0 #alvo
+        sw t0, 124(a5)
+        li t0, 0 #framehit
+        sw t0, 128(a5)
+        li t0, 0 #x0
+        sw t0, 132(a5)
+        li t0, 0 #xf
+        sw t0, 136(a5)
+	
 	####Separacao de frame
 	la t0, P2cambalhota3 #t0=endereco da imagem
 	li t1, -16 #dx
@@ -1142,12 +1176,25 @@
 		
 	li t0, 4 #t0 = tamahno da animacao
 	sw t0, 44(a1) #Salvar o tamanho na lista de animacoes
+	
 #Crouch (Agaixar)
 #defesasentado
 	li t4, 12
 	mul t4, t4, t0
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 48(a1) #a4 = endereco de inicio da animacao
+	
+        li t0, 0 #estado
+        sw t0, 144(a5)
+        li t0, 0 #alvo
+        sw t0, 148(a5)
+        li t0, 0 #framehit
+        sw t0, 152(a5)
+        li t0, 0 #x0
+        sw t0, 156(a5)
+        li t0, 0 #xf
+        sw t0, 160(a5)
+	
 	####Separacao de frame
 	la t0, P2defesasentado #t0=endereco da imagem
 	li t1, 0 #dx
@@ -1185,6 +1232,18 @@
 	mul t4, t4, t0
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 56(a1) #a4 = endereco de inicio da animacao
+	
+	li t0, 0 #estado
+        sw t0, 168(a5)
+        li t0, 0 #alvo
+        sw t0, 172(a5)
+        li t0, 0 #framehit
+        sw t0, 176(a5)
+        li t0, 0 #x0
+        sw t0, 180(a5)
+        li t0, 0 #xf
+        sw t0, 184(a5)
+	
 	####Separacao de frame
 	la t0, P2jab1 #t0=endereco da imagem
 	li t1, 0 #dx
@@ -1216,6 +1275,18 @@
 	mul t4, t4, t0
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 64(a1) #a4 = endereco de inicio da animacao
+	
+	li t0, 0 #estado
+        sw t0, 192(a5)
+        li t0, 0 #alvo
+        sw t0, 196(a5)
+        li t0, 0 #framehit
+        sw t0, 200(a5)
+        li t0, 0 #x0
+        sw t0, 204(a5)
+        li t0, 0 #xf
+        sw t0, 208(a5)
+	
 	####Separacao de frame
 	la t0, P2highkick1 #t0=endereco da imagem
 	li t1, 0 #dx
@@ -1254,6 +1325,18 @@
 	mul t4, t4, t0
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 72(a1) #a4 = endereco de inicio da animacao
+	
+	li t0, 0 #estado
+        sw t0, 216(a5)
+        li t0, 0 #alvo
+        sw t0, 220(a5)
+        li t0, 0 #framehit
+        sw t0, 224(a5)
+        li t0, 0 #x0
+        sw t0, 228(a5)
+        li t0, 0 #xf
+        sw t0, 232(a5)
+	
 	####Separacao de frame
 	la t0, P2highkick1 #t0=endereco da imagem
 	li t1, 0 #dx
@@ -1292,6 +1375,18 @@
 	mul t4, t4, t0
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 80(a1) #a4 = endereco de inicio da animacao
+	
+	li t0, 0 #estado
+        sw t0, 240(a5)
+        li t0, 0 #alvo
+        sw t0, 244(a5)
+        li t0, 0 #framehit
+        sw t0, 248(a5)
+        li t0, 0 #x0
+        sw t0, 252(a5)
+        li t0, 0 #xf
+        sw t0, 256(a5)
+	
 	####Separacao de frame
 	la t0, P2voadora2 #t0=endereco da imagem
 	li t1, 8 #dx
@@ -1337,6 +1432,18 @@
 	mul t4, t4, t0
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 88(a1) #a4 = endereco de inicio da animacao
+	
+	li t0, 0 #estado
+        sw t0, 264(a5)
+        li t0, 0 #alvo
+        sw t0, 268(a5)
+        li t0, 0 #framehit
+        sw t0, 272(a5)
+        li t0, 0 #x0
+        sw t0, 276(a5)
+        li t0, 0 #xf
+        sw t0, 280(a5)
+	
 	####Separacao de frame
 	la t0, P2prepvoltachuteatras #t0=endereco da imagem
 	li t1, 0 #dx
@@ -1375,6 +1482,18 @@
 	mul t4, t4, t0
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 96(a1) #a4 = endereco de inicio da animacao
+	
+	li t0, 0 #estado
+        sw t0, 288(a5)
+        li t0, 0 #alvo
+        sw t0, 292(a5)
+        li t0, 0 #framehit
+        sw t0, 296(a5)
+        li t0, 0 #x0
+        sw t0, 300(a5)
+        li t0, 0 #xf
+        sw t0, 304(a5)
+	
 	####Separacao de frame
 	la t0, P2chutegirando1 #t0=endereco da imagem
 	li t1, 0 #dx
@@ -1434,6 +1553,18 @@
 	mul t4, t4, t0
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 104(a1) #a4 = endereco de inicio da animacao
+	
+	li t0, 0 #estado
+        sw t0, 312(a5)
+        li t0, 0 #alvo
+        sw t0, 316(a5)
+        li t0, 0 #framehit
+        sw t0, 320(a5)
+        li t0, 0 #x0
+        sw t0, 324(a5)
+        li t0, 0 #xf
+        sw t0, 328(a5)
+	
 	####Separacao de frame
 	la t0, P2defesasentado #t0=endereco da imagem
 	li t1, 0 #dx
@@ -1479,6 +1610,18 @@
 	mul t4, t4, t0
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 112(a1) #a4 = endereco de inicio da animacao
+	
+	li t0, 0 #estado
+        sw t0, 336(a5)
+        li t0, 0 #alvo
+        sw t0, 340(a5)
+        li t0, 0 #framehit
+        sw t0, 344(a5)
+        li t0, 0 #x0
+        sw t0, 348(a5)
+        li t0, 0 #xf
+        sw t0, 352(a5)
+	
 	####Separacao de frame
 	la t0, P2defesasentado #t0=endereco da imagem
 	li t1, 0 #dx
@@ -1524,6 +1667,18 @@
 	mul t4, t4, t0
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 120(a1) #a4 = endereco de inicio da animacao
+	
+	li t0, 0 #estado
+        sw t0, 360(a5)
+        li t0, 0 #alvo
+        sw t0, 364(a5)
+        li t0, 0 #framehit
+        sw t0, 368(a5)
+        li t0, 0 #x0
+        sw t0, 372(a5)
+        li t0, 0 #xf
+        sw t0, 376(a5)
+	
 ####Separacao de frame
 	la t0, P2highkick1 #t0=endereco da imagem
 	li t1, 0 #dx
@@ -1546,7 +1701,6 @@
 	sw t2, 28(a4) #dx
 	sw t0, 32(a4) #dy
 
-		
 	li t0, 3 #t0 = tamahno da animacao
 	sw t0, 124(a1) #Salvar o tamanho na lista de animacoes
 
@@ -1556,6 +1710,18 @@
 	mul t4, t4, t0
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 128(a1) #a4 = endereco de inicio da animacao
+	
+	li t0, 0 #estado
+        sw t0, 384(a5)
+        li t0, 0 #alvo
+        sw t0, 388(a5)
+        li t0, 0 #framehit
+        sw t0, 392(a5)
+        li t0, 0 #x0
+        sw t0, 396(a5)
+        li t0, 0 #xf
+        sw t0, 400(a5)
+        
 	####Separacao de frame
 	la t0, P2andar7 #t0=endereco da imagem
 	li t1, 0 #dx
@@ -1573,6 +1739,18 @@
 	mul t4, t4, t0
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 136(a1) #a4 = endereco de inicio da animacao
+	
+	li t0, 0 #estado
+        sw t0, 408(a5)
+        li t0, 0 #alvo
+        sw t0, 412(a5)
+        li t0, 0 #framehit
+        sw t0, 416(a5)
+        li t0, 0 #x0
+        sw t0, 420(a5)
+        li t0, 0 #xf
+        sw t0, 424(a5)
+        
 	####Separacao de frame
 	la t0, P2curvar1 #t0=endereco da imagem
 	li t1, 0 #dx
@@ -1611,6 +1789,18 @@
 	mul t4, t4, t0
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 144(a1) #a4 = endereco de inicio da animacao
+	
+	li t0, 0 #estado
+        sw t0, 432(a5)
+        li t0, 0 #alvo
+        sw t0, 436(a5)
+        li t0, 0 #framehit
+        sw t0, 440(a5)
+        li t0, 0 #x0
+        sw t0, 444(a5)
+        li t0, 0 #xf
+        sw t0, 448(a5)
+	
 ####Separacao de frame
 	la t0, P2ola1 #t0=endereco da imagem
 	li t1, 0 #dx
