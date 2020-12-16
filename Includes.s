@@ -1,11 +1,11 @@
 .data
-.include "./Imagens/Fundos/abertura.s"
-.include "./Imagens/Fundos/fundo1.s"
-.include "./Imagens/Fundos/fundo2.s"
-.include "./Imagens/Fundos/fundo3.s"
+.include ".\Imagens\Fundos\abertura.s"
+.include ".\Imagens\Fundos\fundo1.s"
+.include ".\Imagens\Fundos\fundo2.s"
+.include ".\Imagens\Fundos\fundo3.s"
 
-.include "./Imagens/yin.s"
-.include "./Imagens/yinyang.s"
+.include ".\Imagens\yin.s"
+.include ".\Imagens\yinyang.s"
 
 .include ".\Imagens\Sprites\Ataques\cambalhota1.s"
 .include ".\Imagens\Sprites\Ataques\cambalhota2.s"
@@ -51,10 +51,10 @@
 .include ".\Imagens\Sprites\miscelaneo\misc2.s"
 .include ".\Imagens\Sprites\Pulo\pulo1.s"
 .include ".\Imagens\Sprites\Pulo\pulo2.s"
-.include "./Imagens/Sprites/Saudacao/ola1.s"
-.include "./Imagens/Sprites/Saudacao/ola2.s"
-.include "./Imagens/Sprites/Saudacao/ola3.s"
-.include "./Imagens/Sprites/Saudacao/ola4.s"
+.include ".\Imagens\Sprites\Saudacao\ola1.s"
+.include ".\Imagens\Sprites\Saudacao\ola2.s"
+.include ".\Imagens\Sprites\Saudacao\ola3.s"
+.include ".\Imagens\Sprites\Saudacao\ola4.s"
 .include ".\Imagens\Sprites\WalkCycle\andar1.s"
 .include ".\Imagens\Sprites\WalkCycle\andar2.s"
 .include ".\Imagens\Sprites\WalkCycle\andar3.s"
@@ -107,10 +107,10 @@
 .include ".\Imagens\Sprites\miscelaneo\P2misc2.s"
 .include ".\Imagens\Sprites\Pulo\P2pulo1.s"
 .include ".\Imagens\Sprites\Pulo\P2pulo2.s"
-.include "./Imagens/Sprites/Saudacao/P2ola1.s"
-.include "./Imagens/Sprites/Saudacao/P2ola2.s"
-.include "./Imagens/Sprites/Saudacao/P2ola3.s"
-.include "./Imagens/Sprites/Saudacao/P2ola4.s"
+.include ".\Imagens\Sprites\Saudacao\P2ola1.s"
+.include ".\Imagens\Sprites\Saudacao\P2ola2.s"
+.include ".\Imagens\Sprites\Saudacao\P2ola3.s"
+.include ".\Imagens\Sprites\Saudacao\P2ola4.s"
 .include ".\Imagens\Sprites\WalkCycle\P2andar1.s"
 .include ".\Imagens\Sprites\WalkCycle\P2andar2.s"
 .include ".\Imagens\Sprites\WalkCycle\P2andar3.s"
@@ -134,16 +134,16 @@
 #Walk Back (Mesmo do Andar)
 #andar7, andar6, andar5, andar6, andar7, andar4, andar3, andar2, andar1
 
-#Back Somersault (cambalhota para trás)
+#Back Somersault (cambalhota para trï¿½s)
 #cambalhota3, misc1, cambalhota2, cambalhota1
 
 #Crouch (Agaixar)
 #defesasentado
 
-#jab (Soco médio) Pra gente vai ser soco baixo
+#jab (Soco mï¿½dio) Pra gente vai ser soco baixo
 #jab1, socoacachado
 
-#Mid Kick (Chute Médio)
+#Mid Kick (Chute Mï¿½dio)
 #highkick1, chutegirando7, midkick
 
 #High Kick (Chute Alto)
@@ -152,13 +152,13 @@
 #Flying kick (voadora)
 #voadora2, voadora1
 
-#High back Kick (Chute alto pra trás)
+#High back Kick (Chute alto pra trï¿½s)
 #prepvoltachuteatras, misc2, chutetras
 
 #Round House (Chute giratorio)
 #chutegirando 1 a 7 
 
-#Backwards sweep (Rasteira pra trás)
+#Backwards sweep (Rasteira pra trï¿½s)
 #defesasentado, prepvoltchuteinferior, chuteesquerdabaixo
 
 #Forward sweep (Rasteira pra frente)

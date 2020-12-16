@@ -486,3 +486,92 @@ Cronzero:la a1, Relogio
 	sw a0(a1)
 CronFim:	
 .end_macro
+
+.macro 	TelaFinal()
+	li a2,0xFF200604
+	li a0, 0
+	sw a0,0(a2)	
+	li a0,0xc7    #limpagem de tela 
+	li a7,148
+	li a1,1
+	ecall	
+	li a0, 1
+	sw a0,0(a2)
+	li t1,0xFF000000
+	li t2,0xFF012C00
+	la s1,fundo3	          #desenho de fundo final
+	addi s1,s1,8	
+LoopFinal:beq t1,t2,ForaFinal	
+	lw t3,0(s1)		
+	sw t3,0(t1)		
+	addi t1,t1,4		
+	addi s1,s1,4
+	j  LoopFinal	
+ForaFinal:li t0, 0xFF10E18C
+	la a0, Vencer
+	lw a0, (a0)	
+	beqz a0,Triste
+	la t1, ola3
+	j DesFin
+Triste:	la t1, ola4
+DesFin:	Desenhar(t0,t1)
+	li a2,0xFF200604	# frame 0 selecionado
+	sw zero,0(a2)
+	la a0,SeuScore      #Frase "Seu score;"
+	li a1, 200
+	li a2, 200
+	li a3, 0xc707
+	li a4, 1
+	li a7, 104
+	ecall
+	la a0,Score
+	lw a0, (a0)
+	li a7,101		#print do Score
+	li a1, 200
+	li a2, 216
+	li a3, 0xc700
+	li a4, 1
+	ecall
+	la a0,Obrigado      #Frase "Obrigado"
+	li a1, 70
+	li a2, 24
+	li a3, 0xc700
+	li a4, 1
+	li a7, 104
+	ecall
+	la a0, Vencer
+	lw a0, (a0)
+	bnez a0, Vitoria   #checa se ganhou
+	la a0, Pena
+	li a1, 40
+	li a2, 200
+	li a3, 0xc700
+	li a4, 1
+	li a7, 104
+	ecall                  #Frase de derrota
+	la a0, Perdeu
+	li a1, 10
+	li a2, 215
+	li a3, 0xc700
+	li a4, 1
+	li a7, 104
+	ecall
+	j FinFin
+Vitoria:la a0, Parabens
+	li a1, 40
+	li a2, 200
+	li a3, 0xc700
+	li a4, 1
+	li a7, 104
+	ecall                  #Frase de derrota
+	la a0, Ganhou
+	li a1, 25
+	li a2, 215
+	li a3, 0xc700
+	li a4, 1
+	li a7, 104
+	ecall	
+FinFin:	li a0, 1
+	li a2,0xFF200604
+	sw a0,0(a2)
+.end_macro
