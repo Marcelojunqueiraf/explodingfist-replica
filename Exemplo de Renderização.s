@@ -50,7 +50,10 @@ Sonica0:li t0 0xFF100000
 	lw t0 4(s2)
 	sw t0 24(s1)
 Loop0:	beqz s0 Fim
-	DesenharFrame(s1 s2)
+	ProcessaFrame(s1 s2)
+	lw a1 8(s1) # Carrega a posicao do obj. da memoria
+	lw t6 12(s1) # Carrega a imagem do obj. da memoria
+	Desenhar(a1 t6)
 	# Refresh Screen
 	li a0 0xFF200604
 	li a1 0

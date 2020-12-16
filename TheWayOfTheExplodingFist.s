@@ -86,22 +86,17 @@ InputLoop:
 	sw t0, 0(t1)
 	
 	Processamento() #Chamar a funï¿½ï¿½o Processamento (Interpretar o input e o resultado da IA. escolher frames. checar hits)
-	### Renderização
-	# Limpa Player
-	la s0 Player
-	la t1 AnimacoesPlayer
-	LimparFrame(s0 t1)
-	Render(s0 t1)
-	# Limpa Enemy
-	la s1 Enemy
-	lw a2 8(s1) # Carrega a posicao do obj. da memoria
-	lw t6 12(s1) # Carrega a imagem do obj. da memoria
-	lw a0 0(t6)
-	lw a1 4(t6)
-	Limpar(a0 a1 a2)
-	# Printa Player
+	la s0, Player
+	la t1, AnimacoesPlayer
+	ProcessaFrame(s0, t1)
+	la s1, Enemy
+	la t1, AnimacoesEnemy
+	ProcessaFrame(s1, t1)
 	lw a1 8(s0) # Carrega a posicao do obj. da memoria
 	lw t6 12(s0) # Carrega a imagem do obj. da memoria
+	Desenhar(a1 t6)
+	lw a1 8(s1) # Carrega a posicao do obj. da memoria
+	lw t6 12(s1) # Carrega a imagem do obj. da memoria
 	Desenhar(a1 t6)
 	# Refresh Screen
 	li a0 0xFF200604
@@ -109,20 +104,6 @@ InputLoop:
 	sw a1 0(a0)
 	li a1 1
 	sw a1 0(a0)
-	# Printa Enemy
-	la t1 AnimacoesEnemy
-	LimparFrame(s1 t1)
-	lw a1 8(s1) # Carrega a posicao do obj. da memoria
-	lw a0 0(t1)
-	add a1 a1 a0
-	lw a0 4(t1)
-	li t6 320
-	mul a0 a0 t6
-	add a1 a1 a0
-	sw a1 8(s1) # Atualiza a posicao do obj. da memoria
-	lw t6 8(t1) # Carrega a imagem do obj. a ser escrita
-	sw t6 12(s1) # Atualiza a imagem do obj. da memoria
-	Desenhar(a1 t6)
 	
 	la a0, Relogio   
 	lw a0, (a0)
