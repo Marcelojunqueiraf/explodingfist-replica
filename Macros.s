@@ -211,7 +211,7 @@ SkipPoint:
 
 
 #Recebe %obj=Objeto, %array=array de animacoes do objeto
-.macro DesenharFrame(%obj, %array)
+.macro LimparFrame(%obj, %array)
 	lw a1, 20(%obj) #a1 = animacao atual
 	li a2, 8
 	mul a1, a1, a2 #a1 = a1*8
@@ -224,7 +224,6 @@ SkipPoint:
 	sw a3, 16(%obj) #Salvar o novo numero de frames na mem�ria
 	add a1, a1, a2 #a1=endereco do frame atual
 	mv t1, a1
-	Render(%obj, t1)	
 	#Alterar X0 e Y0
 .end_macro
 	
@@ -323,7 +322,6 @@ FimB:	Limpar(a1 a2 a3)
 	add a1 a1 a6
 	sw a1 8(%Obj) # Atualiza a posicao do obj. na memoria
 	sw t6 12(%Obj) # Atualiza a imagem do obj. na memoria
-	Desenhar(a1 t6)
 .end_macro
 
 
