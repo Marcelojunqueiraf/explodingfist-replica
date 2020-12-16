@@ -234,15 +234,17 @@ SkipPoint:
 	addi a3, a3, 1 #Adicionar 1 ao frame
 	sw a3, 16(%obj) #Salvar o novo numero de frames na memoria
 	add a1, a1, a2 #a1=endereco do frame atual
-	mv a0, a1
-	li a7, 34
-	ecall
-	li a0, '\n'
-	li a7, 11
-	ecall
 	mv t1, a1
 	Render(%obj t1)
-	#Alterar X0 e Y0
+	# Atualiza X e Y
+	lw a0 0(t1)
+	lw a1 4(t1)
+	lw a2 0(%obj)
+	lw a3 4(%obj)
+	add a2 a2 a0
+	add a3 a3 a1
+	sw a2 0(%obj)
+	sw a3 4(%obj)
 .end_macro
 	
 .macro TelaFinal()

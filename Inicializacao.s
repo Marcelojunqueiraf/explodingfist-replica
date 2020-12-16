@@ -194,7 +194,7 @@
 	####Separacao de frame
 	la t0, defesasentado #t0=endereco da imagem
 	li t1, 0 #dx
-	li t2, 0 #dy
+	li t2, 10 #dy
 	sw t1, 0(a4) #img
 	sw t2, 4(a4) #dx
 	sw t0, 8(a4) #dy	
@@ -212,8 +212,15 @@
 	sw t1, 24(a4) #img
 	sw t2, 28(a4) #dx
 	sw t0, 32(a4) #dy
+	####Separacao de frame
+	la t0, andar7 #t0=endereco da imagem
+	li t1, 0 #dx
+	li t2, -10 #dy
+	sw t1, 36(a4) #img
+	sw t2, 40(a4) #dx
+	sw t0, 44(a4) #dy
 		
-	li t0, 3 #t0 = tamahno da animacao
+	li t0, 4 #t0 = tamahno da animacao
 	sw t0, 52(a1) #Salvar o tamanho na lista de animacoes
 #jab (Soco médio) Pra gente vai ser soco baixo
 #jab1, socoacachado
@@ -231,14 +238,14 @@
 	####Separacao de frame
 	la t0, socoagachado #t0=endereco da imagem
 	li t1, 0 #dx
-	li t2, 0 #dy
+	li t2, 12 #dy
 	sw t1, 12(a4) #img
 	sw t2, 16(a4) #dx
 	sw t0, 20(a4) #dy
 	####Separacao de frame
 	la t0, jab1 #t0=endereco da imagem
 	li t1, 0 #dx
-	li t2, 0 #dy
+	li t2, -12 #dy
 	sw t1, 24(a4) #img
 	sw t2, 28(a4) #dx
 	sw t0, 32(a4) #dy
@@ -389,15 +396,15 @@
 	sw t0, 20(a4) #dy
 	####Separacao de frame
 	la t0, chuteatras #t0=endereco da imagem
-	li t1, 0 #dx
-	li t2, 0 #dy
+	li t1, -12 #dx
+	li t2, 2 #dy
 	sw t1, 24(a4) #img
 	sw t2, 28(a4) #dx
 	sw t0, 32(a4) #dy
 	####Separacao de frame
 	la t0, misc2 #t0=endereco da imagem
-	li t1, 0 #dx
-	li t2, 0 #dy
+	li t1, 12 #dx
+	li t2, -2 #dy
 	sw t1, 36(a4) #img
 	sw t2, 40(a4) #dx
 	sw t0, 44(a4) #dy	
@@ -470,10 +477,10 @@
 	mul t4, t4, t0
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 104(a1) #a4 = endereco de inicio da animacao
-		####Separacao de frame
+	####Separacao de frame
 	la t0, defesasentado #t0=endereco da imagem
 	li t1, 0 #dx
-	li t2, 0 #dy
+	li t2, 10 #dy
 	sw t1, 0(a4) #img
 	sw t2, 4(a4) #dx
 	sw t0, 8(a4) #dy	
@@ -486,20 +493,27 @@
 	sw t0, 20(a4) #dy
 	####Separacao de frame
 	la t0, chuteesquerdabaixo #t0=endereco da imagem
-	li t1, 0 #dx
-	li t2, 0 #dy
+	li t1, -20 #dx
+	li t2, 10 #dy
 	sw t1, 24(a4) #img
 	sw t2, 28(a4) #dx
 	sw t0, 32(a4) #dy
 	####Separacao de frame
 	la t0, prepvoltchuteinferior #t0=endereco da imagem
-	li t1, 0 #dx
-	li t2, 0 #dy
+	li t1, 20 #dx
+	li t2, -10 #dy
 	sw t1, 36(a4) #img
 	sw t2, 40(a4) #dx
 	sw t0, 44(a4) #dy	
+	####Separacao de frame
+	la t0, andar7 #t0=endereco da imagem
+	li t1, 0 #dx
+	li t2, -10 #dy
+	sw t1, 48(a4) #img
+	sw t2, 52(a4) #dx
+	sw t0, 56(a4) #dy	 
 		
-	li t0, 4 #t0 = tamahno da animacao
+	li t0, 5 #t0 = tamahno da animacao
 	sw t0, 108(a1) #Salvar o tamanho na lista de animacoes
 
 #Forward sweep (Rasteira pra frente)
@@ -511,7 +525,7 @@
 	####Separacao de frame
 	la t0, defesasentado #t0=endereco da imagem
 	li t1, 0 #dx
-	li t2, 0 #dy
+	li t2, 10 #dy
 	sw t1, 0(a4) #img
 	sw t2, 4(a4) #dx
 	sw t0, 8(a4) #dy	
@@ -524,20 +538,27 @@
 	sw t0, 20(a4) #dy
 	####Separacao de frame
 	la t0, chutedireitabaixo #t0=endereco da imagem
-	li t1, 0 #dx
-	li t2, 0 #dy
+	li t1, -20 #dx
+	li t2, 10 #dy
 	sw t1, 24(a4) #img
 	sw t2, 28(a4) #dx
 	sw t0, 32(a4) #dy
 	####Separacao de frame
 	la t0, defesasentado #t0=endereco da imagem
-	li t1, 0 #dx
-	li t2, 0 #dy
+	li t1, 20 #dx
+	li t2, -10 #dy
 	sw t1, 36(a4) #img
 	sw t2, 40(a4) #dx
 	sw t0, 44(a4) #dy	
+	####Separacao de frame
+	la t0, andar7 #t0=endereco da imagem
+	li t1, 0 #dx
+	li t2, -10 #dy
+	sw t1, 48(a4) #img
+	sw t2, 52(a4) #dx
+	sw t0, 56(a4) #dy	
 		
-	li t0, 4 #t0 = tamahno da animacao
+	li t0, 5 #t0 = tamahno da animacao
 	sw t0, 116(a1) #Salvar o tamanho na lista de animacoes
 
 #Short jab kick (Chute baixo)
@@ -679,7 +700,7 @@
 	la a1, AnimacoesEnemy #a1= endereï¿½o da lista de animacoes do enemy
 	
 	la a3, Enemy #Setar primeira imagem enemy
-	la t0, andar7 #t0=endereï¿½o da imagem
+	la t0, P2andar7 #t0=endereï¿½o da imagem
 	sw t0, 12(a3) #Img0 = t0
 	
 #Andar
@@ -856,7 +877,7 @@
 	####Separacao de frame
 	la t0, P2defesasentado #t0=endereco da imagem
 	li t1, 0 #dx
-	li t2, 0 #dy
+	li t2, 10 #dy
 	sw t1, 0(a4) #img
 	sw t2, 4(a4) #dx
 	sw t0, 8(a4) #dy	
@@ -874,8 +895,15 @@
 	sw t1, 24(a4) #img
 	sw t2, 28(a4) #dx
 	sw t0, 32(a4) #dy
+	####Separacao de frame
+	la t0, P2andar7 #t0=endereco da imagem
+	li t1, 0 #dx
+	li t2, -10 #dy
+	sw t1, 36(a4) #img
+	sw t2, 40(a4) #dx
+	sw t0, 44(a4) #dy
 		
-	li t0, 3 #t0 = tamahno da animacao
+	li t0, 4 #t0 = tamahno da animacao
 	sw t0, 52(a1) #Salvar o tamanho na lista de animacoes
 #jab (Soco médio) Pra gente vai ser soco baixo
 #jab1, socoacachado
@@ -893,14 +921,14 @@
 	####Separacao de frame
 	la t0, P2socoagachado #t0=endereco da imagem
 	li t1, 0 #dx
-	li t2, 0 #dy
+	li t2, 12 #dy
 	sw t1, 12(a4) #img
 	sw t2, 16(a4) #dx
 	sw t0, 20(a4) #dy
 	####Separacao de frame
 	la t0, P2jab1 #t0=endereco da imagem
 	li t1, 0 #dx
-	li t2, 0 #dy
+	li t2, -12 #dy
 	sw t1, 24(a4) #img
 	sw t2, 28(a4) #dx
 	sw t0, 32(a4) #dy
@@ -1051,15 +1079,15 @@
 	sw t0, 20(a4) #dy
 	####Separacao de frame
 	la t0, P2chuteatras #t0=endereco da imagem
-	li t1, 0 #dx
-	li t2, 0 #dy
+	li t1, -12 #dx
+	li t2, 2 #dy
 	sw t1, 24(a4) #img
 	sw t2, 28(a4) #dx
 	sw t0, 32(a4) #dy
 	####Separacao de frame
 	la t0, P2misc2 #t0=endereco da imagem
-	li t1, 0 #dx
-	li t2, 0 #dy
+	li t1, 12 #dx
+	li t2, -2 #dy
 	sw t1, 36(a4) #img
 	sw t2, 40(a4) #dx
 	sw t0, 44(a4) #dy	
@@ -1135,7 +1163,7 @@
 	####Separacao de frame
 	la t0, P2defesasentado #t0=endereco da imagem
 	li t1, 0 #dx
-	li t2, 0 #dy
+	li t2, 10 #dy
 	sw t1, 0(a4) #img
 	sw t2, 4(a4) #dx
 	sw t0, 8(a4) #dy	
@@ -1148,20 +1176,27 @@
 	sw t0, 20(a4) #dy
 	####Separacao de frame
 	la t0, P2chuteesquerdabaixo #t0=endereco da imagem
-	li t1, 0 #dx
-	li t2, 0 #dy
+	li t1, 20 #dx
+	li t2, 10 #dy
 	sw t1, 24(a4) #img
 	sw t2, 28(a4) #dx
 	sw t0, 32(a4) #dy
 	####Separacao de frame
 	la t0, P2prepvoltchuteinferior #t0=endereco da imagem
-	li t1, 0 #dx
-	li t2, 0 #dy
+	li t1, -20 #dx
+	li t2, -10 #dy
 	sw t1, 36(a4) #img
 	sw t2, 40(a4) #dx
-	sw t0, 44(a4) #dy	
+	sw t0, 44(a4) #dy
+	####Separacao de frame	
+	la t0, P2andar7 #t0=endereco da imagem
+	li t1, 0 #dx
+	li t2, -10 #dy
+	sw t1, 48(a4) #img
+	sw t2, 52(a4) #dx
+	sw t0, 56(a4) #dy	
 		
-	li t0, 4 #t0 = tamahno da animacao
+	li t0, 5 #t0 = tamahno da animacao
 	sw t0, 108(a1) #Salvar o tamanho na lista de animacoes
 
 #Forward sweep (Rasteira pra frente)
@@ -1173,7 +1208,7 @@
 	####Separacao de frame
 	la t0, P2defesasentado #t0=endereco da imagem
 	li t1, 0 #dx
-	li t2, 0 #dy
+	li t2, 10 #dy
 	sw t1, 0(a4) #img
 	sw t2, 4(a4) #dx
 	sw t0, 8(a4) #dy	
@@ -1186,20 +1221,27 @@
 	sw t0, 20(a4) #dy
 	####Separacao de frame
 	la t0, P2chutedireitabaixo #t0=endereco da imagem
-	li t1, 0 #dx
-	li t2, 0 #dy
+	li t1, 20 #dx
+	li t2, 10 #dy
 	sw t1, 24(a4) #img
 	sw t2, 28(a4) #dx
 	sw t0, 32(a4) #dy
 	####Separacao de frame
 	la t0, P2defesasentado #t0=endereco da imagem
-	li t1, 0 #dx
-	li t2, 0 #dy
+	li t1, -20 #dx
+	li t2, -10 #dy
 	sw t1, 36(a4) #img
 	sw t2, 40(a4) #dx
 	sw t0, 44(a4) #dy	
+	####Separacao de frame
+	la t0, P2andar7 #t0=endereco da imagem
+	li t1, 0 #dx
+	li t2, -10 #dy
+	sw t1, 48(a4) #img
+	sw t2, 52(a4) #dx
+	sw t0, 56(a4) #dy	
 		
-	li t0, 4 #t0 = tamahno da animacao
+	li t0, 5 #t0 = tamahno da animacao
 	sw t0, 116(a1) #Salvar o tamanho na lista de animacoes
 
 #Short jab kick (Chute baixo)
