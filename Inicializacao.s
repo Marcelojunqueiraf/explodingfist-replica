@@ -147,7 +147,7 @@
 	sw t0, 32(a4) #Salvar imagem no frame da animacao
 	
 	li t0, 3 #t0 = tamahno da animacao
-	sw t0, 4(a1) #Salvar o tamanho na lista de animacoes
+	sw t0, 36(a1) #Salvar o tamanho na lista de animacoes
 #Back Somersault (cambalhota para trás)
 #cambalhota3, misc1, cambalhota2, cambalhota1
 	li t4, 12

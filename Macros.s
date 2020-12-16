@@ -137,42 +137,42 @@ Skip:
    	j SkipReading
 Skip1: 	li t0, 'e'
    	bne a0, t0, Skip2
-   	li t0, 4
+   	li t0, 8
    	sw t0, (t2)
    	j SkipReading
 Skip2:   li t0, 'w'
    	bne a0, t0, Skip3
-   	li t0, 8
+   	li t0, 16
    	sw t0, (t2)
    	j SkipReading
 Skip3: 	li t0, 'q'
    	bne a0, t0, Skip4
-   	li t0, 12
+   	li t0, 24
    	sw t0, (t2)
    	j SkipReading
 Skip4:   li t0, 'a'
    	bne a0, t0, Skip5
-   	li t0, 16
+   	li t0, 32
    	sw t0, (t2)
    	j SkipReading
 Skip5: 	li t0, 'z'
    	bne a0, t0, Skip6
-   	li t0, 20
+   	li t0, 40
    	sw t0, (t2)
    	j SkipReading
 Skip6:   li t0, 'x'
    	bne a0, t0, Skip7
-   	li t0, 24
+   	li t0, 48
    	sw t0, (t2)
    	j SkipReading
 Skip7: 	li t0, 'c'
    	bne a0, t0, Skip8
-   	li t0, 28
+   	li t0, 56
    	sw t0, (t2)
    	j SkipReading
 Skip8:   li t0, 'f'
    	bne a0, t0, SkipReading
-   	li t0, 32
+   	li t0, 64
    	sw t0, 4(t2)
 SkipReading:
 .end_macro
@@ -183,8 +183,17 @@ SkipReading:
 	la t2, Player
 	lw t0, 16(t2) #t0 = frame atual 
 	lw t1, 24(t2) #t1 = Tamanho da animaï¿½ï¿½o atual
-	blt t0, t1, Skip1 #Se a animaï¿½ï¿½o nï¿½o tiver terminado pule
+	blt t0, t1, Skip1 #Se a animaï¿½ï¿½o naoo tiver terminado pule
+	la t0, Input
+	lw t1, (t0) #direção
+	lw t3, 4(t0) #FireButton
+	add t1, t1, t3 #Soma os dois
+	sw t1, 20(t2) #Muda a Animação
 	sw zero, 16(t2) #Zera o contador (frame atual)
+	la t0, AnimacoesPlayer
+	add t0, t0, t1 #t0 = endereco do endereco da animacao nova
+	lw t0, 4(t0) #t0 = numero de frames da animacao nova
+	sw t0, 24(t2) #Salva o tamanho da animacao em Player
 Skip1:	
 	la t2, Enemy
 	lw t0, 16(t2) #t0 = frame atual
@@ -197,10 +206,11 @@ Skip2:
 	#Pegar input salvo na memï¿½ria
 	la t1, Input
 	lw t0, (t1) #armazenar valor do input
-	li t3, 64
+	li t3, 128
 	sw t3, (t1) #zerar input
 	sw zero, 4(t1)
-	bne t0, zero, SkipPoint #Checar se o input eh 'd'
+	li t6, 'p'
+	bne t0, t6, SkipPoint #Checar se o input eh 'p'
 	la t1, PontuacaoPlayer
 	lw t2, (t1) #Ler Pontuacao Player
 	addi t2, t2, 1 #Adicionar 1
@@ -213,8 +223,6 @@ SkipPoint:
 #Recebe %obj=Objeto, %array=array de animacoes do objeto
 .macro LimparFrame(%obj, %array)
 	lw a1, 20(%obj) #a1 = animacao atual
-	li a2, 8
-	mul a1, a1, a2 #a1 = a1*8
 	add a1, a1, %array #a1 = endereï¿½o do endereco da animacao atual
 	lw a1, 0(a1) #a1 = endereï¿½o da animaï¿½ï¿½o (Array de frames)
 	li a2, 12
