@@ -92,11 +92,9 @@ InputLoop:
 	la s1, Enemy
 	la t1, AnimacoesEnemy
 	ProcessaFrame(s1, t1)
+	# Desenha Player
 	lw a1 8(s0) # Carrega a posicao do obj. da memoria
 	lw t6 12(s0) # Carrega a imagem do obj. da memoria
-	Desenhar(a1 t6)
-	lw a1 8(s1) # Carrega a posicao do obj. da memoria
-	lw t6 12(s1) # Carrega a imagem do obj. da memoria
 	Desenhar(a1 t6)
 	# Refresh Screen
 	li a0 0xFF200604
@@ -104,6 +102,10 @@ InputLoop:
 	sw a1 0(a0)
 	li a1 1
 	sw a1 0(a0)
+	# Desenha Enemy
+	lw a1 8(s1) # Carrega a posicao do obj. da memoria
+	lw t6 12(s1) # Carrega a imagem do obj. da memoria
+	Desenhar(a1 t6)
 	
 	la a0, Relogio   
 	lw a0, (a0)
