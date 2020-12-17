@@ -16,8 +16,8 @@ Ganhou:.string " Voce ganhou!"
 Player: .word 100, 180, 0xFF10E164, 0, 0, 128, 1, 3, 0, 0, 0, 0
 Enemy: .word 168, 180, 0xFF10E1A8, 0, 0, 128, 1, 3, 0, 0, 0, 0
 
-AnimacoesPlayer: .word 0x10001000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4
-AnimacoesEnemy: .word  0x10002000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4
+AnimacoesPlayer: .word 0x10001000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4
+AnimacoesEnemy: .word  0x10002000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4
 Fundos: .word 0x10002000
 Fundo: .word 0
 Fase: .word 0
@@ -34,6 +34,8 @@ IAinimigo: .word 0 #0 se aproximar, 1 se afastar, 2 ataque alto , 3 ataque baixo
 VulnPlayer: .word 0  #0 vulenerável, 1 apenas em baixo, 2 ivulner
 TempoInicial: .word 0
 Relogio: .word 0
+Venceu: .word 0
+Morreu: .word 0
 
 .extern DadosAnimacoesPlayer 576
 .extern DadosAnimacoesEnemy 576
@@ -51,16 +53,7 @@ Menu:	Inicializacao() #Setagem de todos os arrays e valores salvos na memoria
 FaseLoop:
 	DesenharFundo()
 Reset:		#Reset de fase 
-	la a0, Player			#reset de posicao
-	li a1, 0xFF10E114
-	sw a1, 8(a0)
-	li a1, 20
-	sw a1, 0(a0)
-	la a0, Enemy
-	li a1, 0xFF10E1F8
-	sw a1, 8(a0)	
-	li a1, 248
-	sw a1, 0(a0)	
+	ReposicionarJogadores()
 	la t0, PontuacaoPlayer #Endere�o da pontuaacao 0x10000022  #ZerarPontua��o()
 	sw zero, (t0)
 	la t0, PontuacaoEnemy
@@ -74,7 +67,7 @@ Reset:		#Reset de fase
 	sw zero, (a1)
 VidaLoop:
 	Pontos() #Pontuacao (score e pontuacao)
-	#Reposicionar Jogadores()
+	ReposicionarJogadores()
 	#anima��o de sauda��o
 
 	#Função

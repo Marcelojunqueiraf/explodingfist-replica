@@ -925,6 +925,65 @@
 	li t0, 5 #t0 = tamahno da animacao
 	sw t0, 148(a1) #Salvar o tamanho na lista de animacoes
 	
+#Hit
+#hit2, hit1, ht11, hit10
+	li t4, 12
+	mul t4, t4, t0
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
+	sw a4, 152(a1) #a4 = endereco de inicio da animacao
+	
+        
+####Separacao de frame
+	la t0, hit2 #t0=endereco da imagem
+	li t1, 0 #dx
+	li t2, 0 #dy
+	sw t1, 0(a4) #img
+	sw t2, 4(a4) #dx
+	sw t0, 8(a4) #dy	
+	
+	li t0, 0 #estado
+        sw t0, 432(a5)
+        li t0, 0 #alvo
+        sw t0, 436(a5)
+        li t0, 0 #framehit
+        sw t0, 440(a5)
+        li t0, 0 #x0
+        sw t0, 444(a5)
+        li t0, 0 #xf
+        sw t0, 448(a5)
+	
+	####Separacao de frame
+	la t0, hit1 #t0=endereco da imagem
+	li t1, 0 #dx
+	li t2, 0 #dy
+	sw t1, 12(a4) #img
+	sw t2, 16(a4) #dx
+	sw t0, 20(a4) #dy
+	####Separacao de frame
+	la t0, hit11 #t0=endereco da imagem
+	li t1, 0 #dx
+	li t2, 0 #dy
+	sw t1, 24(a4) #img
+	sw t2, 28(a4) #dx
+	sw t0, 32(a4) #dy
+	####Separacao de frame
+	la t0, hit10 #t0=endereco da imagem
+	li t1, 0 #dx
+	li t2, 0 #dy
+	sw t1, 36(a4) #img
+	sw t2, 40(a4) #dx
+	sw t0, 44(a4) #dy	
+	####Separacao de frame
+	la t0, hit10 #t0=endereco da imagem
+	li t1, 0 #dx
+	li t2, 0 #dy
+	sw t1, 48(a4) #img
+	sw t2, 52(a4) #dx
+	sw t0, 56(a4) #dy
+		
+	li t0, 5 #t0 = tamahno da animacao
+	sw t0, 156(a1) #Salvar o tamanho na lista de animacoes
+	
 	
 ########################################################
 	#Animacoes enemy
@@ -1839,5 +1898,62 @@
 		
 	li t0, 5 #t0 = tamahno da animacao
 	sw t0, 148(a1) #Salvar o tamanho na lista de animacoes
+	
+#Hit
+#hit2, hit1, ht11, hit10
+	li t4, 12
+	mul t4, t4, t0
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
+	sw a4, 152(a1) #a4 = endereco de inicio da animacao
+        
+        li t0, 0 #estado
+        sw t0, 432(a5)
+        li t0, 0 #alvo
+        sw t0, 436(a5)
+        li t0, 0 #framehit
+        sw t0, 440(a5)
+        li t0, 0 #x0
+        sw t0, 444(a5)
+        li t0, 0 #xf
+        sw t0, 448(a5)
+        
+####Separacao de frame
+	la t0, P2hit2 #t0=endereco da imagem
+	li t1, 0 #dx
+	li t2, 0 #dy
+	sw t1, 0(a4) #img
+	sw t2, 4(a4) #dx
+	sw t0, 8(a4) #dy	
+	####Separacao de frame
+	la t0, P2hit1 #t0=endereco da imagem
+	li t1, 0 #dx
+	li t2, 0 #dy
+	sw t1, 12(a4) #img
+	sw t2, 16(a4) #dx
+	sw t0, 20(a4) #dy
+	####Separacao de frame
+	la t0, P2hit11 #t0=endereco da imagem
+	li t1, 0 #dx
+	li t2, 0 #dy
+	sw t1, 24(a4) #img
+	sw t2, 28(a4) #dx
+	sw t0, 32(a4) #dy
+	####Separacao de frame
+	la t0, P2hit10 #t0=endereco da imagem
+	li t1, 0 #dx
+	li t2, 0 #dy
+	sw t1, 36(a4) #img
+	sw t2, 40(a4) #dx
+	sw t0, 44(a4) #dy	
+		####Separacao de frame
+	la t0, P2hit10 #t0=endereco da imagem
+	li t1, 0 #dx
+	li t2, 0 #dy
+	sw t1, 48(a4) #img
+	sw t2, 52(a4) #dx
+	sw t0, 56(a4) #dy
+		
+	li t0, 5 #t0 = tamahno da animacao
+	sw t0, 156(a1) #Salvar o tamanho na lista de animacoes
 	
 .end_macro

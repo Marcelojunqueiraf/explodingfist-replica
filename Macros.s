@@ -1,3 +1,66 @@
+.macro 	ReposicionarJogadores()
+	la a2, Player
+	lw a0, 12(a2)
+	lw a1, 4(a0)
+	lw a0, (a0)
+	lw a2, 8(a2)
+	#X, Y, Img
+	Limpar(a0, a1, a2)
+	la a2, Enemy
+	lw a0, 12(a2)
+	lw a1, 4(a0)
+	lw a0, (a0)
+	lw a2, 8(a2)
+	#X, Y, Img
+	Limpar(a0, a1, a2)
+
+	la a0, Player			#reset de posicao
+	li a1, 0xFF10E114
+	sw a1, 8(a0)
+	li a1, 20
+	sw a1, 0(a0)
+	li a1, 0
+	sw a1, 16(a0)
+	li a1, 128
+	sw a1, 20(a0)
+	li a1, 1
+	sw a1, 24(a0)
+	li a1, 3
+	sw a1, 28(a0)
+	li a1, 0
+	sw a1, 32(a0)
+	li a1, 0
+	sw a1, 36(a0)
+	li a1, 0
+	sw a1, 40(a0)
+	li a1, 0
+	sw a1, 44(a0)
+	
+	
+	la a0, Enemy
+	li a1, 0xFF10E1F8
+	sw a1, 8(a0)	
+	li a1, 248
+	sw a1, 0(a0)	
+	li a1, 0
+	sw a1, 16(a0)
+	li a1, 128
+	sw a1, 20(a0)
+	li a1, 1
+	sw a1, 24(a0)
+	li a1, 3
+	sw a1, 28(a0)
+	li a1, 0
+	sw a1, 32(a0)
+	li a1, 0
+	sw a1, 36(a0)
+	li a1, 0
+	sw a1, 40(a0)
+	li a1, 0
+	sw a1, 44(a0)
+.end_macro
+
+
 .macro DesenharFundo()
 	li a2,0xFF200604	# frame 1 selecionado
 	li a0, 1
@@ -183,6 +246,8 @@ SkipReading:
 	lw t0, 16(t2) #t0 = frame atual 
 	lw t1, 36(t2) #t1 = framehit
 	
+	
+
 	bne t0, t1, SkipHit 
 	beqz t0, SkipHit
 	li a0, 'F'
@@ -204,14 +269,65 @@ SkipReading:
 	blt t0, t4, SkipHit #x<x0
 	bgt t0, t5, SkipHit #x>xf
 	#Acertar hit do player no inimigo
+	
+	la t0, Enemy
+	li t1, 152
+	sw zero, 16(t0)
+	sw t1, 20(t0)
+	li t1, 4
+	sw t1, 24(t0)
+	
+	la t0, Player
+	li t1, 144
+	sw zero, 16(t0)
+	sw t1, 20(t0)
+	li t1, 5
+	sw t1, 24(t0)
+	sw zero, 36(t0)
+	
+	la t0, Venceu
+	li t1, 1
+	sw t1, (t0)
+	
 	li a0, 'D'
 	li a7, 11
 	ecall
+	
 	
 SkipHit:
 	lw t0, 16(t2) #t0 = frame atual
 	lw t1, 24(t2) #t1 = Tamanho da animaï¿½ï¿½o atual
 	blt t0, t1, Skip1 #Se a animaï¿½ï¿½o naoo tiver terminado pule
+	la t0, Venceu
+	lw t0, (t0)
+	beqz t0, SkipVic  
+	la t0, PontuacaoPlayer
+	lw t1, (t0)
+	addi t1, t1, 1
+	sw t1, (t0)
+	la t0, Score
+	lw t1, (t0)
+	addi t1, t1, 500
+	sw t1, (t0)
+	
+	la t0, Venceu
+	sw zero, (t0)
+	
+	j ForaGameLoop
+SkipVic:
+	la t0, Morreu
+	lw t0, (t0)
+	beqz t0, SkipPerd  
+	la t0, PontuacaoEnemy
+	lw t1, (t0)
+	addi t1, t1, 1
+	sw t1, (t0)
+	
+	la t0, Morreu
+	sw zero, (t0)
+	
+	j ForaGameLoop
+SkipPerd:
 	la t0, Input
 	lw t1, (t0) #direção
 	
