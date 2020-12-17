@@ -1041,8 +1041,12 @@
 	sw t0, 8(a4) #Salvar imagem no frame da animacao
 	la t0, P2jab2 #t0=endereco da imagem
 	sw t0, 20(a4) #Salvar imagem no frame da animacao
+	li t0, -8 #x0
+        sw t0, 12(a5)
 	la t0, P2jab1 #t0=endereco da imagem
 	sw t0, 32(a4) #Salvar imagem no frame da animacao
+	li t0, 8 #x0
+        sw t0, 24(a5)
 	
 	li t0, 3 #t0 = tamahno da animacao
 	sw t0, 12(a1) #Salvar o tamanho na lista de animacoes
@@ -1695,14 +1699,14 @@
 	sw t0, 20(a4) #dy
 	####Separacao de frame
 	la t0, P2chutedireitabaixo #t0=endereco da imagem
-	li t1, 20 #dx
+	li t1, -60 #dx
 	li t2, 10 #dy
 	sw t1, 24(a4) #img
 	sw t2, 28(a4) #dx
 	sw t0, 32(a4) #dy
 	####Separacao de frame
 	la t0, P2defesasentado #t0=endereco da imagem
-	li t1, -20 #dx
+	li t1, 60 #dx
 	li t2, -10 #dy
 	sw t1, 36(a4) #img
 	sw t2, 40(a4) #dx
