@@ -527,10 +527,10 @@ PertoD2:li a0,45
 	li a1,1
 	li a7,42
 	ecall   #rola int random de 0 a 1
-	beqz a0,  # adiciona 2 pra transformar em ataque / alto(3) ou ou baixo (4)
+	beqz a0,D2chute  # adiciona 2 pra transformar em ataque / alto(3) ou ou baixo (4)
 	li a0, 64
 	j D2store
-	li a0, 960
+D2chute:li a0, 960
 D2store:sw a0,(a4)
 	j Dfim
 AfastarD2:li a0, 256
@@ -543,7 +543,7 @@ D3:	li a0, 40
 	sw zero,(a4)
 	j Dfim
 PertoD3:la a1,Player   #1cima  1tronco 1 em baixp
-	addi a1,28
+	addi a1,a1, 28
 	lw a1, 0(a1)
 	beqz a1, Defesa      #Invul em todos, defesa
 	li a2, ,1
