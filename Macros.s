@@ -563,12 +563,12 @@ Fora:
 	
 	#D1  		IA 1 - Se aproxima até 80, se afasta a partir de 50 ,sempre ataca alto entre as duas distancias
 	#sub a3,a2,a1
-	li a0,80      	#80 de distãncia, número arbitrário, tamanho médio de sprite = 40
+	li a0,30      	#80 de distãncia, número arbitrário, tamanho médio de sprite = 40
 	ble a3,a0,PertoD1
 	li a1,0
 	sw a1,(a4)    #se aproxima caso esteja mais que isso
 	j Dfim 
-PertoD1:li a0,50
+PertoD1:li a0,10
 	ble a3,a0,AfastarD1
 	li a0 ,8 	 #ataque alto 
 	sw a0,(a4)
@@ -578,12 +578,12 @@ AfastarD1:li a0, 32
 	j Dfim
 	
 	#D2 		IA 2 - Se aproxima até 60 , se afasta a partir de 45, ataca alto e baixo randomicamente entre as duas distancias
-D2:	li a0,55
+D2:	li a0,30
 	ble a3,a0,PertoD2
 	li a1,0
 	sw a1,(a4)
 	j Dfim
-PertoD2:li a0,40
+PertoD2:li a0,10
 	ble a3,a0,AfastarD2    
 	la a1,Player   #1cima  1tronco 1 em baixp
 	addi a1,a1, 28
@@ -606,6 +606,8 @@ D3:	li a0, 55
 	sw a1,(a4)
 	j Dfim
 PertoD3:la a1,Player   #1cima  1tronco 1 em baixp
+	li a0,5
+	ble a3,a0,AfastarD3
 	addi a1,a1, 28
 	lw a1, 0(a1)
 	li a2, 1
@@ -621,6 +623,8 @@ Defesa:	li a0, 48
 Baixo:	li a0, 112
 	sw a0, (a4)
 	j Dfim
+AfastarD3:li a0, 24
+	sw a0(a4)
 Dfim:
 .end_macro
 
