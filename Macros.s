@@ -75,8 +75,8 @@
 	lw a0, (a0) #a0 = endereco do array de fundos
 	la a3, Fundo   #carrega contador
 	lw a4,(a3)  #A4 = contador
-	add a0, a0, a4 #a0 = endereco do endere�o fundo a ser renderizado
-	lw a0,(a0) #a0 = endere�o do fundo
+	add a0, a0, a4 #a0 = endereco do endere?o fundo a ser renderizado
+	lw a0,(a0) #a0 = endere?o do fundo
 	addi a0,a0,8	#pula os bytes que indicam o tamanho da imagem
 Loop.Fundos: beq a1,a2,Fora.Fundos
 	lw a5,0(a0)		
@@ -85,10 +85,10 @@ Loop.Fundos: beq a1,a2,Fora.Fundos
 	addi a0,a0,4
 	j Loop.Fundos			
 Fora.Fundos: 
-	addi a4,a4,4 #Selecionar o pr�ximo fundo
+	addi a4,a4,4 #Selecionar o pr?ximo fundo
 	li t0, 12 
-	rem a4, a4, t0 #Se passar do �ltimo fundo, voltar para o primeiro
-	sw a4, (a3) #Escrever o fundo atual na mem�ria
+	rem a4, a4, t0 #Se passar do ?ltimo fundo, voltar para o primeiro
+	sw a4, (a3) #Escrever o fundo atual na mem?ria
 	
 	li a2,0xFF200604	# frame 0 selecionado
 	sw zero,0(a2)
@@ -116,11 +116,11 @@ FORA1:	la a0,Aperte      #texto de apertar 1
 	li a7, 104
 	ecall
 	sw zero,0(s0)
-	li t1,0xFF200000		# carrega o endere�o de controle do KDMMIO
-	#parte da música
+	li t1,0xFF200000		# carrega o endere?o de controle do KDMMIO
+	#parte da m�sica
 	la s0,Numnotas
 	lw s1,0(s0)
-	la s0,Notas		# define o endereço das notas
+	la s0,Notas		# define o endere�o das notas
 	li a2,1			# instrumento
 	li a3,127		# volume
 	li s2,0			#contador da nota
@@ -133,10 +133,10 @@ RESETM:	lw a0,0(s0)		# le o valor da nota
 	ecall	
 	li s3, 2000
 	bgt a1,s3,ACORDE
-	mv a0,a1		# passa a dura��o da nota para a pausa
+	mv a0,a1		# passa a dura??o da nota para a pausa
 	li a7,32		# define a chamada de syscal 
 	ecall			# realiza uma pausa de a0 ms
-ACORDE:	addi s0,s0,8		# incrementa para o endere�o da pr�xima nota
+ACORDE:	addi s0,s0,8		# incrementa para o endere?o da pr?xima nota
 	addi s2,s2,1
 	#terimna parte da musica
 	li t1,0xFF200000
@@ -153,24 +153,24 @@ ACORDE:	addi s0,s0,8		# incrementa para o endere�o da pr�xima nota
 	ecall #a0 = Tempo atual
 	la a5, TempoMusica
 
-	lw a5, (a5) #a5 = Tempo de inicio da pr�xima nota
-	blt a0, a5, Skip #Checa se j� � hora de tocar a nota
+	lw a5, (a5) #a5 = Tempo de inicio da pr?xima nota
+	blt a0, a5, Skip #Checa se j? ? hora de tocar a nota
 
 	la a4, NotaAtual
 	lw a4, (a4) #a4 = nota atual * 8
 
-	add %Musica, %Musica, a4 #%Musica = endere�o na nota a ser tocada
+	add %Musica, %Musica, a4 #%Musica = endere?o na nota a ser tocada
 	lw a0, 0(%Musica) #a0 = nota a ser tocada
 	lw a1, 4(%Musica) #a1 = tempo da nota a ser tocada
 	
-	bge a1, zero, NotNegative #Checa se a dura��o da nota � negativa, ou seja, a musica acabou
+	bge a1, zero, NotNegative #Checa se a dura??o da nota ? negativa, ou seja, a musica acabou
 	la a4, NotaAtual
 	sw zero, (a4) #Zerar Nota atual (Recomeca a musica)
 	j Skip
 NotNegative: 
-	beq a0, zero, Pause #Checa se � uma pausa
+	beq a0, zero, Pause #Checa se ? uma pausa
 	li a2, 1 #Seleciona o instrumento 1
-	li a3, 100 #Volume m�ximo
+	li a3, 100 #Volume m?ximo
 	li a7, 31 #sys call de midi
 	ecall
 Pause:  mv t4, a1
@@ -187,9 +187,9 @@ Skip:
 .end_macro
 
 .macro Input() 
-	li t1, 0xFF200000		# carrega o endere�o de controle do KDMMIO
+	li t1, 0xFF200000		# carrega o endere?o de controle do KDMMIO
 	lw t0,0(t1)			# Le bit de Controle Teclado
-   	andi t0,t0,0x0001		# mascara o bit menos significativo��o volta ao loop
+   	andi t0,t0,0x0001		# mascara o bit menos significativo??o volta ao loop
    	beq zero, t0, SkipReading
    	la t2, Input
    	lw a0,4(t1)			# a0 = valor da tecla
@@ -294,8 +294,8 @@ SkipReading:
 	
 SkipHit:
 	lw t0, 16(t2) #t0 = frame atual
-	lw t1, 24(t2) #t1 = Tamanho da anima��o atual
-	blt t0, t1, Skip1 #Se a anima��o naoo tiver terminado pule
+	lw t1, 24(t2) #t1 = Tamanho da anima??o atual
+	blt t0, t1, Skip1 #Se a anima??o naoo tiver terminado pule
 	la t0, Venceu
 	lw t0, (t0)
 	beqz t0, SkipVic  
@@ -327,7 +327,7 @@ SkipVic:
 	j ForaGameLoop
 SkipPerd:
 	la t0, Input
-	lw t1, (t0) #dire��o
+	lw t1, (t0) #dire??o
 	
 	li t3, 64
 	bgt t1, t3, SkipFire
@@ -335,7 +335,7 @@ SkipPerd:
 	sw zero, 4(t0)
 	add t1, t1, t3 #Soma direcao com firebutton
 SkipFire:
-	sw t1, 20(t2) #Muda a Anima��o
+	sw t1, 20(t2) #Muda a Anima??o
 	sw zero, 16(t2) #Zera o contador (frame atual)
 	la t0, AnimacoesPlayer
 	add t0, t0, t1 #t0 = endereco do endereco da animacao nova
@@ -346,10 +346,10 @@ SkipFire:
 	#t1 = indice animacao*8
 	mv t0, s0
 	li t0, 3
-	mul t0, t1, t0 #t1 = endere�o no dadosAnimacoes
+	mul t0, t1, t0 #t1 = endere?o no dadosAnimacoes
 	la t1, DadosAnimacoesPlayer
 
-	add t0, t0, t1 #t0=endere�o do dado das animacoes
+	add t0, t0, t1 #t0=endere?o do dado das animacoes
 	
 
 	la t2, Player
@@ -414,13 +414,13 @@ Skip1:
 	
 SkipHit2:
 	lw t0, 16(t2) #t0 = frame atual
-	lw t1, 24(t2) #t1 = Tamanho da anima��o atual
-	blt t0, t1, Skip2 #Se a anima��o naoo tiver terminado pule
+	lw t1, 24(t2) #t1 = Tamanho da anima??o atual
+	blt t0, t1, Skip2 #Se a anima??o naoo tiver terminado pule
 	
 	la t0, IAinimigo
-	lw t1, (t0) #dire��o
+	lw t1, (t0) #dire??o
 	
-	sw t1, 20(t2) #Muda a Anima��o
+	sw t1, 20(t2) #Muda a Anima??o
 	sw zero, 16(t2) #Zera o contador (frame atual)
 	la t0, AnimacoesEnemy
 	add t0, t0, t1 #t0 = endereco do endereco da animacao nova
@@ -431,9 +431,9 @@ SkipHit2:
 	#t1 = indice animacao*8
 	mv t0, s0
 	li t0, 3
-	mul t0, t1, t0 #t1 = endere�o no dadosAnimacoes
+	mul t0, t1, t0 #t1 = endere?o no dadosAnimacoes
 	la t1, DadosAnimacoesEnemy
-	add t0, t0, t1 #t0=endere�o do dado das animacoes
+	add t0, t0, t1 #t0=endere?o do dado das animacoes
 	la t2, Enemy
 	lw t3, (t0) #t3 = estados
 	sw t3, 28(t2) # estados
@@ -454,8 +454,8 @@ Skip2:
 #Recebe %obj=Objeto, %array=array de animacoes do objeto
 .macro ProcessaFrame(%obj, %array)
 	lw a1, 20(%obj) #a1 = animacao atual
-	add a1, a1, %array #a1 = endere�o do endereco da animacao atual
-	lw a1, 0(a1) #a1 = endere�o da anima��o (Array de frames)
+	add a1, a1, %array #a1 = endere?o do endereco da animacao atual
+	lw a1, 0(a1) #a1 = endere?o da anima??o (Array de frames)
 	li a2, 12
 	lw a3, 16(%obj) #a3 = numero do frame atual
 	mul a2, a2, a3
@@ -560,8 +560,8 @@ Fora:
 	beq a0,a5,D2
 	li a5,2
 	beq a0,a5,D3	 
-	
-	#D1  		IA 1 - Se aproxima até 80, se afasta a partir de 50 ,sempre ataca alto entre as duas distancias
+
+	#D1  		IA 1 - Se aproxima at� 80, se afasta a partir de 50 ,sempre ataca alto entre as duas distancias
 	#sub a3,a2,a1
 	li a0,30      	#80 de distãncia, número arbitrário, tamanho médio de sprite = 40
 	ble a3,a0,PertoD1
@@ -576,7 +576,7 @@ PertoD1:li a0,10
 AfastarD1:li a0, 32
 	sw a0, (a4)  #se afasta
 	j Dfim
-	
+
 	#D2 		IA 2 - Se aproxima até 60 , se afasta a partir de 45, ataca alto e baixo randomicamente entre as duas distancias
 D2:	li a0,30
 	ble a3,a0,PertoD2
@@ -598,8 +598,9 @@ D2store:sw a0,(a4)
 AfastarD2:li a0, 32
 	sw a0, (a4)  #se afasta
 	j Dfim
-	
-	#D3  		IA 3- Se aproxima até 35~40?(testar), não se afasta,defende, ataca alto ou baixo  dependendo da Vulnerabilidade do player
+
+	#D3  		IA 3- Se aproxima at� 35~40?(testar), n�o se afasta,defende, ataca alto ou baixo  dependendo da Vulnerabilidade do player
+
 D3:	li a0, 55
 	ble a3,a0,PertoD3
 	li a1, 0

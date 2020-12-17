@@ -354,11 +354,11 @@
 	li t0, 3 #t0 = tamahno da animacao
 	sw t0, 60(a1) #Salvar o tamanho na lista de animacoes
 	
-#Mid Kick (Chute Médio)
+#Mid Kick (Chute Medio)
 #highkick1, chutegirando7, midkick
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endereço de início da proxima animacao
+	add a4, a4, t4 #a4=endereço de inicio da proxima animacao
 	sw a4, 64(a1) #a4 = endereco de inicio da animacao
 	
 	li t0, 3 #estado
@@ -932,30 +932,28 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 152(a1) #a4 = endereco de inicio da animacao
 	
+	li t0, 0 #estado
+        sw t0, 456(a5)
+        li t0, 0 #alvo
+        sw t0, 460(a5)
+        li t0, 0 #framehit
+        sw t0, 464(a5)
+        li t0, 0 #x0
+        sw t0, 468(a5)
+        li t0, 0 #xf
+        sw t0, 472(a5)
         
-####Separacao de frame
+	####Separacao de frame
 	la t0, hit2 #t0=endereco da imagem
 	li t1, 0 #dx
-	li t2, 0 #dy
+	li t2, 8 #dy
 	sw t1, 0(a4) #img
 	sw t2, 4(a4) #dx
 	sw t0, 8(a4) #dy	
-	
-	li t0, 0 #estado
-        sw t0, 432(a5)
-        li t0, 0 #alvo
-        sw t0, 436(a5)
-        li t0, 0 #framehit
-        sw t0, 440(a5)
-        li t0, 0 #x0
-        sw t0, 444(a5)
-        li t0, 0 #xf
-        sw t0, 448(a5)
-	
 	####Separacao de frame
 	la t0, hit1 #t0=endereco da imagem
 	li t1, 0 #dx
-	li t2, 0 #dy
+	li t2, 8 #dy
 	sw t1, 12(a4) #img
 	sw t2, 16(a4) #dx
 	sw t0, 20(a4) #dy
@@ -969,7 +967,7 @@
 	####Separacao de frame
 	la t0, hit10 #t0=endereco da imagem
 	li t1, 0 #dx
-	li t2, 0 #dy
+	li t2, 28 #dy
 	sw t1, 36(a4) #img
 	sw t2, 40(a4) #dx
 	sw t0, 44(a4) #dy	
@@ -1034,9 +1032,9 @@
         sw t0, 28(a5)
         li t0, 2 #framehit
         sw t0, 32(a5)
-        li t0, 5 #x0
+        li t0, -32 #x0
         sw t0, 36(a5)
-        li t0, 25 #xf
+        li t0, -12 #xf
         sw t0, 40(a5)
         
 	la t0, P2jab1 #t0=endereco da imagem
@@ -1298,9 +1296,9 @@
         sw t0, 172(a5)
         li t0, 2 #framehit
         sw t0, 176(a5)
-        li t0, 5 #x0
+        li t0, -32 #x0
         sw t0, 180(a5)
-        li t0, 25 #xf
+        li t0, -12 #xf
         sw t0, 184(a5)
 	
 	####Separacao de frame
@@ -1341,9 +1339,9 @@
         sw t0, 196(a5)
         li t0, 3 #framehit
         sw t0, 200(a5)
-        li t0, 10 #x0
+        li t0, -32 #x0
         sw t0, 204(a5)
-        li t0, 30 #xf
+        li t0, -12 #xf
         sw t0, 208(a5)
 	
 	####Separacao de frame
@@ -1391,9 +1389,9 @@
         sw t0, 220(a5)
         li t0, 3 #framehit
         sw t0, 224(a5)
-        li t0, -5 #x0
+        li t0, -32 #x0
         sw t0, 228(a5)
-        li t0, 25 #xf
+        li t0, -12 #xf
         sw t0, 232(a5)
 	
 	####Separacao de frame
@@ -1441,9 +1439,9 @@
         sw t0, 244(a5)
         li t0, 3 #framehit
         sw t0, 248(a5)
-        li t0, 5 #x0
+        li t0, -32 #x0
         sw t0, 252(a5)
-        li t0, 25 #xf
+        li t0, -12 #xf
         sw t0, 256(a5)
 	
 	####Separacao de frame
@@ -1498,9 +1496,9 @@
         sw t0, 268(a5)
         li t0, 3 #framehit
         sw t0, 272(a5)
-        li t0, 5 #x0
+        li t0, 37 #x0
         sw t0, 276(a5)
-        li t0, 25 #xf
+        li t0, 57 #xf
         sw t0, 280(a5)
 	
 	####Separacao de frame
@@ -1548,9 +1546,9 @@
         sw t0, 292(a5)
         li t0, 5 #framehit
         sw t0, 296(a5)
-        li t0, 5 #x0
+        li t0, -32 #x0
         sw t0, 300(a5)
-        li t0, 25 #xf
+        li t0, -12 #xf
         sw t0, 304(a5)
 	
 	####Separacao de frame
@@ -1619,9 +1617,9 @@
         sw t0, 316(a5)
         li t0, 3 #framehit
         sw t0, 320(a5)
-        li t0, 45 #x0
+        li t0, 37 #x0
         sw t0, 324(a5)
-        li t0, 65 #xf
+        li t0, 57 #xf
         sw t0, 328(a5)
 	
 	####Separacao de frame
@@ -1676,9 +1674,9 @@
         sw t0, 340(a5)
         li t0, 3 #framehit
         sw t0, 344(a5)
-        li t0, 5 #x0
+        li t0, -32 #x0
         sw t0, 348(a5)
-        li t0, 25 #xf
+        li t0, -12 #xf
         sw t0, 352(a5)
 	
 	####Separacao de frame
@@ -1733,9 +1731,9 @@
         sw t0, 364(a5)
         li t0, 2 #framehit
         sw t0, 368(a5)
-        li t0, 5 #x0
+        li t0, -32 #x0
         sw t0, 372(a5)
-        li t0, 25 #xf
+        li t0, -12 #xf
         sw t0, 376(a5)
 	
 ####Separacao de frame
@@ -1859,7 +1857,7 @@
         sw t0, 444(a5)
         li t0, 0 #xf
         sw t0, 448(a5)
-	
+        
 ####Separacao de frame
 	la t0, P2ola1 #t0=endereco da imagem
 	li t1, 0 #dx
@@ -1871,9 +1869,9 @@
 	la t0, P2ola2 #t0=endereco da imagem
 	li t1, 0 #dx
 	li t2, 0 #dy
-	sw t0, 12(a4) #img
-	sw t1, 16(a4) #dx
-	sw t2, 20(a4) #dy
+	sw t1, 12(a4) #img
+	sw t2, 16(a4) #dx
+	sw t0, 20(a4) #dy
 	####Separacao de frame
 	la t0, P2ola3 #t0=endereco da imagem
 	li t1, 0 #dx
@@ -1907,27 +1905,27 @@
 	sw a4, 152(a1) #a4 = endereco de inicio da animacao
         
         li t0, 0 #estado
-        sw t0, 432(a5)
+        sw t0, 456(a5)
         li t0, 0 #alvo
-        sw t0, 436(a5)
+        sw t0, 460(a5)
         li t0, 0 #framehit
-        sw t0, 440(a5)
+        sw t0, 464(a5)
         li t0, 0 #x0
-        sw t0, 444(a5)
+        sw t0, 468(a5)
         li t0, 0 #xf
-        sw t0, 448(a5)
+        sw t0, 472(a5)
         
 ####Separacao de frame
 	la t0, P2hit2 #t0=endereco da imagem
 	li t1, 0 #dx
-	li t2, 0 #dy
+	li t2, 8 #dy
 	sw t1, 0(a4) #img
 	sw t2, 4(a4) #dx
 	sw t0, 8(a4) #dy	
 	####Separacao de frame
 	la t0, P2hit1 #t0=endereco da imagem
 	li t1, 0 #dx
-	li t2, 0 #dy
+	li t2, 8 #dy
 	sw t1, 12(a4) #img
 	sw t2, 16(a4) #dx
 	sw t0, 20(a4) #dy
@@ -1941,11 +1939,11 @@
 	####Separacao de frame
 	la t0, P2hit10 #t0=endereco da imagem
 	li t1, 0 #dx
-	li t2, 0 #dy
+	li t2, 28 #dy
 	sw t1, 36(a4) #img
 	sw t2, 40(a4) #dx
 	sw t0, 44(a4) #dy	
-		####Separacao de frame
+	####Separacao de frame
 	la t0, P2hit10 #t0=endereco da imagem
 	li t1, 0 #dx
 	li t2, 0 #dy
