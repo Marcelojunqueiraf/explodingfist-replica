@@ -418,9 +418,9 @@ SkipHit2:
 	blt t0, t1, Skip2 #Se a animaï¿½ï¿½o naoo tiver terminado pule
 	
 	la t0, IAinimigo
-	lw t1, (t0) #direção
+	lw t1, (t0) #direï¿½ï¿½o
 	
-	sw t1, 20(t2) #Muda a Animação
+	sw t1, 20(t2) #Muda a Animaï¿½ï¿½o
 	sw zero, 16(t2) #Zera o contador (frame atual)
 	la t0, AnimacoesEnemy
 	add t0, t0, t1 #t0 = endereco do endereco da animacao nova
@@ -431,9 +431,9 @@ SkipHit2:
 	#t1 = indice animacao*8
 	mv t0, s0
 	li t0, 3
-	mul t0, t1, t0 #t1 = endereço no dadosAnimacoes
+	mul t0, t1, t0 #t1 = endereï¿½o no dadosAnimacoes
 	la t1, DadosAnimacoesEnemy
-	add t0, t0, t1 #t0=endereço do dado das animacoes
+	add t0, t0, t1 #t0=endereï¿½o do dado das animacoes
 	la t2, Enemy
 	lw t3, (t0) #t3 = estados
 	sw t3, 28(t2) # estados
@@ -564,21 +564,23 @@ Fora:
 	sub a3,a2,a1
 	li a0,80      	#80 de distÃ£ncia, nÃºmero arbitrÃ¡rio, tamanho mÃ©dio de sprite = 40
 	ble a3,a0,PertoD1
-	sw zero,(a4)    #se aproxima caso esteja mais que isso
+	li a1,0
+	sw a1,(a4)    #se aproxima caso esteja mais que isso
 	j Dfim 
 PertoD1:li a0,50
 	ble a3,a0,AfastarD1
-	li a0 ,64 	 #ataque alto 
+	li a0 ,8 	 #ataque alto 
 	sw a0,(a4)
 	j Dfim 
-AfastarD1:li a0, 256
+AfastarD1:li a0, 32
 	sw a0, (a4)  #se afasta
 	j Dfim
 	
 	#D2 		IA 2 - Se aproxima atÃ© 60 , se afasta a partir de 45, ataca alto e baixo randomicamente entre as duas distancias
 D2:	li a0,60
 	ble a3,a0,PertoD2
-	sw zero,(a4)
+	li a1,0
+	sw a1,(a4)
 	j Dfim
 PertoD2:li a0,45
 	ble a3,a0,AfastarD2    
@@ -588,19 +590,20 @@ PertoD2:li a0,45
 	li a7,42
 	ecall   #rola int random de 0 a 1
 	beqz a0,D2chute  # adiciona 2 pra transformar em ataque / alto(3) ou ou baixo (4)
-	li a0, 64
+	li a0, 8
 	j D2store
-D2chute:li a0, 960
+D2chute:li a0, 120
 D2store:sw a0,(a4)
 	j Dfim
-AfastarD2:li a0, 256
+AfastarD2:li a0, 32
 	sw a0, (a4)  #se afasta
 	j Dfim
 	
 	#D3  		IA 3- Se aproxima atÃ© 35~40?(testar), nÃ£o se afasta,defende, ataca alto ou baixo  dependendo da Vulnerabilidade do player
 D3:	li a0, 40
 	ble a0,a3,PertoD3
-	sw zero,(a4)
+	li a1, 0
+	sw a1,(a4)
 	j Dfim
 PertoD3:la a1,Player   #1cima  1tronco 1 em baixp
 	addi a1,a1, 28
@@ -608,13 +611,13 @@ PertoD3:la a1,Player   #1cima  1tronco 1 em baixp
 	beqz a1, Defesa      #Invul em todos, defesa
 	li a2, ,1
 	beq a1, a2,Baixo   #defesa em cima, ataca em baixo
-	li a0,960	   #em cima
+	li a0,120	   #em cima
 	sw a0, (a4)
 	j Dfim
-Defesa:	li a0, 384
+Defesa:	li a0, 48
 	sw a0, (a4)
 	j Dfim
-Baixo:	li a0, 64
+Baixo:	li a0, 8
 	sw a0, (a4)
 	j Dfim
 Dfim:
