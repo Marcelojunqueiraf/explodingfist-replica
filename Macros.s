@@ -327,7 +327,7 @@ SkipVic:
 	j ForaGameLoop
 SkipPerd:
 	la t0, Input
-	lw t1, (t0) #direção
+	lw t1, (t0) #direï¿½ï¿½o
 	
 	li t3, 64
 	bgt t1, t3, SkipFire
@@ -335,7 +335,7 @@ SkipPerd:
 	sw zero, 4(t0)
 	add t1, t1, t3 #Soma direcao com firebutton
 SkipFire:
-	sw t1, 20(t2) #Muda a Animação
+	sw t1, 20(t2) #Muda a Animaï¿½ï¿½o
 	sw zero, 16(t2) #Zera o contador (frame atual)
 	la t0, AnimacoesPlayer
 	add t0, t0, t1 #t0 = endereco do endereco da animacao nova
@@ -346,10 +346,10 @@ SkipFire:
 	#t1 = indice animacao*8
 	mv t0, s0
 	li t0, 3
-	mul t0, t1, t0 #t1 = endereço no dadosAnimacoes
+	mul t0, t1, t0 #t1 = endereï¿½o no dadosAnimacoes
 	la t1, DadosAnimacoesPlayer
 
-	add t0, t0, t1 #t0=endereço do dado das animacoes
+	add t0, t0, t1 #t0=endereï¿½o do dado das animacoes
 	
 
 	la t2, Player
@@ -568,10 +568,10 @@ Fora:
 	j Dfim 
 PertoD1:li a0,50
 	ble a3,a0,AfastarD1
-	li a0 ,3  #ataque alto 
+	li a0 ,64 	 #ataque alto 
 	sw a0,(a4)
 	j Dfim 
-AfastarD1:li a0, 1
+AfastarD1:li a0, 256
 	sw a0, (a4)  #se afasta
 	j Dfim
 	
@@ -587,10 +587,13 @@ PertoD2:li a0,45
 	li a1,1
 	li a7,42
 	ecall   #rola int random de 0 a 1
-	addi a0,a0, 2  # adiciona 2 pra transformar em ataque / alto(3) ou ou baixo (4)
-	sw a0,(a4)
+	beqz a0,D2chute  # adiciona 2 pra transformar em ataque / alto(3) ou ou baixo (4)
+	li a0, 64
+	j D2store
+D2chute:li a0, 960
+D2store:sw a0,(a4)
 	j Dfim
-AfastarD2:li a0, 1
+AfastarD2:li a0, 256
 	sw a0, (a4)  #se afasta
 	j Dfim
 	
@@ -599,18 +602,19 @@ D3:	li a0, 40
 	ble a0,a3,PertoD3
 	sw zero,(a4)
 	j Dfim
-PertoD3:la a1,VulnPlayer  #checa a vulnerabilidade
+PertoD3:la a1,Player   #1cima  1tronco 1 em baixp
+	addi a1,a1, 28
 	lw a1, 0(a1)
-	beqz a1, Alto      #nenhuma defesa,ataca alto
-	li a2, 1	
+	beqz a1, Defesa      #Invul em todos, defesa
+	li a2, ,1
 	beq a1, a2,Baixo   #defesa em cima, ataca em baixo
-	li a0,5 	   #ivunerÃ¡vel, defende	
+	li a0,960	   #em cima
 	sw a0, (a4)
 	j Dfim
-Baixo:	li a0, 3
+Defesa:	li a0, 384
 	sw a0, (a4)
 	j Dfim
-Alto:	li a0, 4
+Baixo:	li a0, 64
 	sw a0, (a4)
 	j Dfim
 Dfim:
