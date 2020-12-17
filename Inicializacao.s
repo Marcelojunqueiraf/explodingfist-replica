@@ -23,7 +23,7 @@
 #andar6, andar5, andar6
 	lw a4, 0(a1) #a4 = endereco de inicio da primeira animacao (Saudacao)
 
-        li t0, 0 #estado
+        li t0, 3 #estado
         sw t0, 0(a5)
         li t0, 0 #alvo
         sw t0, 4(a5)
@@ -53,7 +53,7 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 8(a1) #a4 = endereco de inicio da primeira animacao (Saudacao)
 	
-        li t0, 0 #estado
+        li t0, 3 #estado
         sw t0, 24(a5)
         li t0, 0 #alvo
         sw t0, 28(a5)
@@ -81,7 +81,7 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 16(a1) #a4 = endereco de inicio da animacao
 	
-        li t0, 0 #estado
+        li t0, 2 #estado
         sw t0, 48(a5)
         li t0, 0 #alvo
         sw t0, 52(a5)
@@ -138,7 +138,7 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 24(a1) #a4 = endereco de inicio da animacao
 	
-        li t0, 0 #estado
+        li t0, 4 #estado
         sw t0, 72(a5)
         li t0, 0 #alvo
         sw t0, 76(a5)
@@ -218,7 +218,7 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 40(a1) #a4 = endereco de inicio da animacao
 	
-        li t0, 0 #estado
+        li t0, 4 #estado
         sw t0, 120(a5)
         li t0, 0 #alvo
         sw t0, 124(a5)
@@ -268,7 +268,7 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 48(a1) #a4 = endereco de inicio da animacao
 	
-        li t0, 0 #estado
+        li t0, 1 #estado
         sw t0, 144(a5)
         li t0, 0 #alvo
         sw t0, 148(a5)
@@ -318,7 +318,7 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 56(a1) #a4 = endereco de inicio da animacao
 	
-        li t0, 0 #estado
+        li t0, 1 #estado
         sw t0, 168(a5)
         li t0, 0 #alvo
         sw t0, 172(a5)
@@ -361,7 +361,7 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 64(a1) #a4 = endereco de inicio da animacao
 	
-	li t0, 0 #estado
+	li t0, 3 #estado
         sw t0, 192(a5)
         li t0, 0 #alvo
         sw t0, 196(a5)
@@ -411,7 +411,7 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 72(a1) #a4 = endereco de inicio da animacao
 	
-	li t0, 0 #estado
+	li t0, 3 #estado
         sw t0, 216(a5)
         li t0, 0 #alvo
         sw t0, 220(a5)
@@ -461,7 +461,7 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 80(a1) #a4 = endereco de inicio da animacao
 	
-	li t0, 0 #estado
+	li t0, 4 #estado
         sw t0, 240(a5)
         li t0, 0 #alvo
         sw t0, 244(a5)
@@ -518,7 +518,7 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 88(a1) #a4 = endereco de inicio da animacao
 	
-	li t0, 0 #estado
+	li t0, 3 #estado
         sw t0, 264(a5)
         li t0, 0 #alvo
         sw t0, 268(a5)
@@ -568,7 +568,7 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 96(a1) #a4 = endereco de inicio da animacao 
 	
-	li t0, 0 #estado
+	li t0, 3 #estado
         sw t0, 288(a5)
         li t0, 0 #alvo
         sw t0, 292(a5)
@@ -639,7 +639,7 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 104(a1) #a4 = endereco de inicio da animacao
 
-	li t0, 0 #estado
+	li t0, 1 #estado
         sw t0, 312(a5)
         li t0, 0 #alvo
         sw t0, 316(a5)
@@ -696,7 +696,7 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 112(a1) #a4 = endereco de inicio da animacao
 	
-	li t0, 0 #estado
+	li t0, 1 #estado
         sw t0, 336(a5)
         li t0, 0 #alvo
         sw t0, 340(a5)
@@ -753,7 +753,7 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 120(a1) #a4 = endereco de inicio da animacao
 	
-	li t0, 0 #estado
+	li t0, 3 #estado
         sw t0, 360(a5)
         li t0, 0 #alvo
         sw t0, 364(a5)
@@ -796,7 +796,7 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 128(a1) #a4 = endereco de inicio da animacao
 	
-	li t0, 0 #estado
+	li t0, 3 #estado
         sw t0, 384(a5)
         li t0, 0 #alvo
         sw t0, 388(a5)
@@ -941,7 +941,7 @@
 	la t0, P2andar6 #t0=endereco da imagem
 	sw t0, 8(a4) #Salvar imagem no frame da animacao
 	
-        li t0, 0 #estado
+        li t0, 3 #estado
         sw t0, 0(a5)
         li t0, 0 #alvo
         sw t0, 4(a5)
@@ -969,7 +969,7 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 8(a1) #a4 = endereco de inicio da primeira animacao (Saudacao)
 	
-	li t0, 0 #estado
+	li t0, 3 #estado
         sw t0, 24(a5)
         li t0, 0 #alvo
         sw t0, 28(a5)
@@ -997,7 +997,7 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 16(a1) #a4 = endereco de inicio da animacao
 	
-        li t0, 0 #estado
+        li t0, 2 #estado
         sw t0, 48(a5)
         li t0, 0 #alvo
         sw t0, 52(a5)
@@ -1054,7 +1054,7 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 24(a1) #a4 = endereco de inicio da animacao
 	
-        li t0, 0 #estado
+        li t0, 4 #estado
         sw t0, 72(a5)
         li t0, 0 #alvo
         sw t0, 76(a5)
@@ -1134,7 +1134,7 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 40(a1) #a4 = endereco de inicio da animacao
 	
-        li t0, 0 #estado
+        li t0, 4 #estado
         sw t0, 120(a5)
         li t0, 0 #alvo
         sw t0, 124(a5)
@@ -1184,7 +1184,7 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 48(a1) #a4 = endereco de inicio da animacao
 	
-        li t0, 0 #estado
+        li t0, 1 #estado
         sw t0, 144(a5)
         li t0, 0 #alvo
         sw t0, 148(a5)
@@ -1233,7 +1233,7 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 56(a1) #a4 = endereco de inicio da animacao
 	
-	li t0, 0 #estado
+	li t0, 1 #estado
         sw t0, 168(a5)
         li t0, 0 #alvo
         sw t0, 172(a5)
@@ -1276,7 +1276,7 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 64(a1) #a4 = endereco de inicio da animacao
 	
-	li t0, 0 #estado
+	li t0, 3 #estado
         sw t0, 192(a5)
         li t0, 0 #alvo
         sw t0, 196(a5)
@@ -1326,7 +1326,7 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 72(a1) #a4 = endereco de inicio da animacao
 	
-	li t0, 0 #estado
+	li t0, 3 #estado
         sw t0, 216(a5)
         li t0, 0 #alvo
         sw t0, 220(a5)
@@ -1376,7 +1376,7 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 80(a1) #a4 = endereco de inicio da animacao
 	
-	li t0, 0 #estado
+	li t0, 4 #estado
         sw t0, 240(a5)
         li t0, 0 #alvo
         sw t0, 244(a5)
@@ -1433,7 +1433,7 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 88(a1) #a4 = endereco de inicio da animacao
 	
-	li t0, 0 #estado
+	li t0, 3 #estado
         sw t0, 264(a5)
         li t0, 0 #alvo
         sw t0, 268(a5)
@@ -1483,7 +1483,7 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 96(a1) #a4 = endereco de inicio da animacao
 	
-	li t0, 0 #estado
+	li t0, 3 #estado
         sw t0, 288(a5)
         li t0, 0 #alvo
         sw t0, 292(a5)
@@ -1554,7 +1554,7 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 104(a1) #a4 = endereco de inicio da animacao
 	
-	li t0, 0 #estado
+	li t0, 1 #estado
         sw t0, 312(a5)
         li t0, 0 #alvo
         sw t0, 316(a5)
@@ -1611,7 +1611,7 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 112(a1) #a4 = endereco de inicio da animacao
 	
-	li t0, 0 #estado
+	li t0, 1 #estado
         sw t0, 336(a5)
         li t0, 0 #alvo
         sw t0, 340(a5)
@@ -1668,7 +1668,7 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 120(a1) #a4 = endereco de inicio da animacao
 	
-	li t0, 0 #estado
+	li t0, 3 #estado
         sw t0, 360(a5)
         li t0, 0 #alvo
         sw t0, 364(a5)
@@ -1711,7 +1711,7 @@
 	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 128(a1) #a4 = endereco de inicio da animacao
 	
-	li t0, 0 #estado
+	li t0, 3 #estado
         sw t0, 384(a5)
         li t0, 0 #alvo
         sw t0, 388(a5)
