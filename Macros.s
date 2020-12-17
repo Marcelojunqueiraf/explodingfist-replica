@@ -555,13 +555,14 @@ Fora:
 	la a0, Fase    #contador da fase/dificuldade
 	lw a0, (a0)
 	la a4, IAinimigo
-	li a3,1
-	beq a0,a3,D2
-	li a1,2
-	beq a0,a3,D3	 
+	sub a3,a2,a1
+	li a5,1
+	beq a0,a5,D2
+	li a5,2
+	beq a0,a5,D3	 
 	
 	#D1  		IA 1 - Se aproxima até 80, se afasta a partir de 50 ,sempre ataca alto entre as duas distancias
-	sub a3,a2,a1
+	#sub a3,a2,a1
 	li a0,80      	#80 de distãncia, número arbitrário, tamanho médio de sprite = 40
 	ble a3,a0,PertoD1
 	li a1,0
@@ -577,22 +578,21 @@ AfastarD1:li a0, 32
 	j Dfim
 	
 	#D2 		IA 2 - Se aproxima até 60 , se afasta a partir de 45, ataca alto e baixo randomicamente entre as duas distancias
-D2:	li a0,60
+D2:	li a0,55
 	ble a3,a0,PertoD2
 	li a1,0
 	sw a1,(a4)
 	j Dfim
-PertoD2:li a0,45
+PertoD2:li a0,40
 	ble a3,a0,AfastarD2    
-	li a7,40   #seta nvoa seed randômica
-	ecall 
-	li a1,1
-	li a7,42
-	ecall   #rola int random de 0 a 1
-	beqz a0,D2chute  # adiciona 2 pra transformar em ataque / alto(3) ou ou baixo (4)
+	la a1,Player   #1cima  1tronco 1 em baixp
+	addi a1,a1, 28
+	lw a1, 0(a1)
+	li a2, 2
+	ble a1,a2,D2chute  # adiciona 2 pra transformar em ataque / alto(3) ou ou baixo (4)
 	li a0, 8
 	j D2store
-D2chute:li a0, 120
+D2chute:li a0, 112
 D2store:sw a0,(a4)
 	j Dfim
 AfastarD2:li a0, 32
@@ -600,24 +600,25 @@ AfastarD2:li a0, 32
 	j Dfim
 	
 	#D3  		IA 3- Se aproxima até 35~40?(testar), não se afasta,defende, ataca alto ou baixo  dependendo da Vulnerabilidade do player
-D3:	li a0, 40
-	ble a0,a3,PertoD3
+D3:	li a0, 55
+	ble a3,a0,PertoD3
 	li a1, 0
 	sw a1,(a4)
 	j Dfim
 PertoD3:la a1,Player   #1cima  1tronco 1 em baixp
 	addi a1,a1, 28
 	lw a1, 0(a1)
-	beqz a1, Defesa      #Invul em todos, defesa
-	li a2, ,1
-	beq a1, a2,Baixo   #defesa em cima, ataca em baixo
-	li a0,120	   #em cima
+	li a2, 1
+	ble a1,a2, Defesa      #Invul em todos, defesa
+	li a2, 2
+	bge a1, a2,Baixo   #defesa em cima, ataca em baixo
+	li a0,8	   #em cima
 	sw a0, (a4)
 	j Dfim
 Defesa:	li a0, 48
 	sw a0, (a4)
 	j Dfim
-Baixo:	li a0, 8
+Baixo:	li a0, 112
 	sw a0, (a4)
 	j Dfim
 Dfim:
@@ -697,9 +698,9 @@ SENfim:
 	la a1 , TempoInicial
 	lw a1, (a1)
 	sub a0, a0, a1  #diferenca
-	li a1, 61 #transforma em segundos
+	li a1, 1000 #transforma em segundos
 	div a0,a0,a1		
-	li a5, 1000
+	li a5, 61
 	bge a0,a5,Cronzero
 	li a7,101		#print do cronometro
 	li a1, 130
