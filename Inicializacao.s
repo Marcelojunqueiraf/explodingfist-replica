@@ -322,11 +322,11 @@
         sw t0, 168(a5)
         li t0, 2 #alvo
         sw t0, 172(a5)
-        li t0, 0 #framehit
+        li t0, 2 #framehit
         sw t0, 176(a5)
         li t0, 0 #x0
         sw t0, 180(a5)
-        li t0, 0 #xf
+        li t0, 100 #xf
         sw t0, 184(a5)
 
 	####Separacao de frame
@@ -929,7 +929,7 @@
 ########################################################
 	#Animacoes enemy
 	la a1, AnimacoesEnemy #a1= endere�o da lista de animacoes do enemy
-	la a5, DadosAnimacoesPlayer
+	la a5, DadosAnimacoesEnemy
 	
 	la a3, Enemy #Setar primeira imagem enemy
 	la t0, P2andar7 #t0=endere�o da imagem

@@ -182,33 +182,43 @@ SkipReading:
 .text	#Seletor de animacao
 	la t2, Player
 	lw t0, 16(t2) #t0 = frame atual 
-	lw t1, 36(t2)
+	lw t1, 36(t2) #t1 = framehit
 	
 	bne t0, t1, SkipHit 
+	beqz t0, SkipHit
+
 	lw t0, 0(t2) #t0= x do player
 	la t1, Enemy #t1 = endereco enemy
 	lw t3, 0(t1) #t3 = x enemy
 	sub t0, t3, t0 #t0 = posicao relativa
 	lw t4, 32(t2) #t4 = alvo player
-	lw t5, 28(t3) #t5 = estado enemy
-	add t4, t5, t4
+	lw t5, 28(t1) #t5 = estado enemy
+	and t4, t5, t4
 	beq t4, zero, SkipHit
-	lw t4, 40(t1) #t4 = x0
-	lw t5, 44(t1) #t4 = xf
+
+	lw t4, 40(t2) #t4 = x0
+	lw t5, 44(t2) #t4 = xf
+
 	blt t0, t4, SkipHit #x<x0
 	bgt t0, t5, SkipHit #x>xf
 	#Acertar hit do player no inimigo
+	li a0, 'D'
+	li a7, 11
+	ecall
 	
 SkipHit:
+	lw t0, 16(t2) #t0 = frame atual
 	lw t1, 24(t2) #t1 = Tamanho da animaï¿½ï¿½o atual
 	blt t0, t1, Skip1 #Se a animaï¿½ï¿½o naoo tiver terminado pule
 	la t0, Input
 	lw t1, (t0) #direção
+	mv s0, t1
+	
 	li t3, 64
 	bgt t1, t3, SkipFire
 	lw t3, 4(t0) #FireButton
 	sw zero, 4(t0)
-	add t1, t1, t3 #Soma os dois
+	add t1, t1, t3 #Soma direcao com firebutton
 SkipFire:
 	sw t1, 20(t2) #Muda a Animação
 	sw zero, 16(t2) #Zera o contador (frame atual)
@@ -217,21 +227,27 @@ SkipFire:
 	lw t0, 4(t0) #t0 = numero de frames da animacao nova
 	sw t0, 24(t2) #Salva o tamanho da animacao em Player
 	#Dados 
-	#t1 = endereço*3
+	#t1 = indice animacao*8
+	mv t1, s0
+	
 	li t0, 3
 	mul t0, t1, t0 #t1 = endereço no dadosAnimacoes
 	la t1, DadosAnimacoesPlayer
+
 	add t0, t0, t1 #t0=endereço do dado das animacoes
-	sw t3, (t0) #t3 = estados
-	lw t3, 28(t2) # estados
-	sw t3, 4(t0) # alvos
-	lw t3, 32(t2) # alvos
-	sw t3, 8(t0) # framehit
-	lw t3, 36(t2) # framehit
-	sw t3, 12(t0) # x0
-	lw t3, 40(t2) # x0
-	sw t3, 16(t0) # y0
-	lw t3, 44(t2) # y0
+	
+
+	la t2, Player
+	lw t3, (t0) #t3 = estados
+	sw t3, 28(t2) # estados
+	lw t3, 4(t0) # alvos
+	sw t3, 32(t2) # alvos
+	lw t3, 8(t0) # framehit
+	sw t3, 36(t2) # framehit
+	lw t3, 12(t0) # x0
+	sw t3, 40(t2) # x0
+	lw t3, 16(t0) # xf
+	sw t3, 44(t2) # xf
 	 
 Skip1:	
 	la t2, Enemy
