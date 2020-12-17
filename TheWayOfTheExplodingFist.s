@@ -15,6 +15,7 @@ Ganhou:.string " Voce ganhou!"
 #X0, Y0, P0, Img0, Frame, Anim, Size, estado, alvo, framehit, x0, xf
 Player: .word 100, 180, 0xFF10E164, 0, 0, 128, 1, 3, 0, 0, 0, 0
 Enemy: .word 168, 180, 0xFF10E1A8, 0, 0, 128, 1, 3, 0, 0, 0, 0
+
 AnimacoesPlayer: .word 0x10001000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4
 AnimacoesEnemy: .word  0x10002000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4
 Fundos: .word 0x10002000
@@ -50,8 +51,13 @@ Menu:	Inicializacao() #Setagem de todos os arrays e valores salvos na memoria
 FaseLoop:
 	DesenharFundo()
 Reset:		#Reset de fase 
-				#ZerarPontua��o()
-	la t0, PontuacaoPlayer #Endere�o da pontuaacao 0x10000022
+	la a0, Player			#reset de posicao
+	li a1, 0xFF10E114
+	sw a1, 8(a0)
+	la a0, Enemy
+	li a1, 0xFF10E1F8
+	sw a1, 8(a0)		
+	la t0, PontuacaoPlayer #Endere�o da pontuaacao 0x10000022  #ZerarPontua��o()
 	sw zero, (t0)
 	la t0, PontuacaoEnemy
 	sw zero, (t0)
