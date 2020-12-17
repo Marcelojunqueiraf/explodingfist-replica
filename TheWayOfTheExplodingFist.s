@@ -126,6 +126,10 @@ ForaGameLoop:
 	lw t2, (t1) #(fundo,fase, pontua��o player, pontua��o enemy)
 	li t0, 4
 	bge t2, t0, Vitoria
+	la t1, PontuacaoEnemy
+	lw t2, (t1) #(fundo,fase, pontua��o player, pontua��o enemy)
+	li t0, 4
+	bge t2, t0, Derrota
 	j VidaLoop
 FimTempo:la a1, PontuacaoEnemy
 	lw a0, (a1)
