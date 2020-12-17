@@ -59,9 +59,9 @@
         sw t0, 28(a5)
         li t0, 2 #framehit
         sw t0, 32(a5)
-        li t0, 0 #x0
+        li t0, 32 #x0
         sw t0, 36(a5)
-        li t0, 0 #xf
+        li t0, 52 #xf
         sw t0, 40(a5)
 	
 	la t0, jab1 #t0=endereco da imagem
@@ -324,9 +324,9 @@
         sw t0, 172(a5)
         li t0, 2 #framehit
         sw t0, 176(a5)
-        li t0, 0 #x0
+        li t0, 45 #x0
         sw t0, 180(a5)
-        li t0, 100 #xf
+        li t0, 65 #xf
         sw t0, 184(a5)
 
 	####Separacao de frame
@@ -367,9 +367,9 @@
         sw t0, 196(a5)
         li t0, 3 #framehit
         sw t0, 200(a5)
-        li t0, 0 #x0
+        li t0, 55 #x0
         sw t0, 204(a5)
-        li t0, 0 #xf
+        li t0, 75 #xf
         sw t0, 208(a5)
 
 	####Separacao de frame
@@ -417,9 +417,9 @@
         sw t0, 220(a5)
         li t0, 3 #framehit
         sw t0, 224(a5)
-        li t0, 0 #x0
+        li t0, 45 #x0
         sw t0, 228(a5)
-        li t0, 0 #xf
+        li t0, 65 #xf
         sw t0, 232(a5)
 	
 	####Separacao de frame
@@ -467,9 +467,9 @@
         sw t0, 244(a5)
         li t0, 3 #framehit
         sw t0, 248(a5)
-        li t0, 0 #x0
+        li t0, 45 #x0
         sw t0, 252(a5)
-        li t0, 0 #xf
+        li t0, 65 #xf
         sw t0, 256(a5)
 	
 	####Separacao de frame
@@ -524,9 +524,9 @@
         sw t0, 268(a5)
         li t0, 3 #framehit
         sw t0, 272(a5)
-        li t0, 0 #x0
+        li t0, -5 #x0
         sw t0, 276(a5)
-        li t0, 0 #xf
+        li t0, 15 #xf
         sw t0, 280(a5)
 	
 	####Separacao de frame
@@ -574,9 +574,9 @@
         sw t0, 292(a5)
         li t0, 5 #framehit
         sw t0, 296(a5)
-        li t0, 0 #x0
+        li t0, 55 #x0
         sw t0, 300(a5)
-        li t0, 0 #xf
+        li t0, 75 #xf
         sw t0, 304(a5)
         
 	####Separacao de frame
@@ -645,9 +645,9 @@
         sw t0, 316(a5)
         li t0, 3 #framehit
         sw t0, 320(a5)
-        li t0, 0 #x0
+        li t0, -5 #x0
         sw t0, 324(a5)
-        li t0, 0 #xf
+        li t0, 15 #xf
         sw t0, 328(a5)
 
 	####Separacao de frame
@@ -702,9 +702,9 @@
         sw t0, 340(a5)
         li t0, 3 #framehit
         sw t0, 344(a5)
-        li t0, 0 #x0
+        li t0, 55 #x0
         sw t0, 348(a5)
-        li t0, 0 #xf
+        li t0, 75 #xf
         sw t0, 352(a5)
 	
 	####Separacao de frame
@@ -759,9 +759,9 @@
         sw t0, 364(a5)
         li t0, 2 #framehit
         sw t0, 368(a5)
-        li t0, 0 #x0
+        li t0, 40 #x0
         sw t0, 372(a5)
-        li t0, 0 #xf
+        li t0, 60 #xf
         sw t0, 376(a5)
         
 ####Separacao de frame
@@ -975,9 +975,9 @@
         sw t0, 28(a5)
         li t0, 2 #framehit
         sw t0, 32(a5)
-        li t0, 0 #x0
+        li t0, -5 #x0
         sw t0, 36(a5)
-        li t0, 0 #xf
+        li t0, 15 #xf
         sw t0, 40(a5)
         
 	la t0, P2jab1 #t0=endereco da imagem
@@ -1239,9 +1239,9 @@
         sw t0, 172(a5)
         li t0, 2 #framehit
         sw t0, 176(a5)
-        li t0, 0 #x0
+        li t0, -5 #x0
         sw t0, 180(a5)
-        li t0, 0 #xf
+        li t0, 15 #xf
         sw t0, 184(a5)
 	
 	####Separacao de frame
@@ -1284,7 +1284,7 @@
         sw t0, 200(a5)
         li t0, 0 #x0
         sw t0, 204(a5)
-        li t0, 0 #xf
+        li t0, 20 #xf
         sw t0, 208(a5)
 	
 	####Separacao de frame
@@ -1332,9 +1332,9 @@
         sw t0, 220(a5)
         li t0, 3 #framehit
         sw t0, 224(a5)
-        li t0, 0 #x0
+        li t0, -15 #x0
         sw t0, 228(a5)
-        li t0, 0 #xf
+        li t0, 15 #xf
         sw t0, 232(a5)
 	
 	####Separacao de frame
@@ -1382,9 +1382,9 @@
         sw t0, 244(a5)
         li t0, 3 #framehit
         sw t0, 248(a5)
-        li t0, 0 #x0
+        li t0, -5 #x0
         sw t0, 252(a5)
-        li t0, 0 #xf
+        li t0, 15 #xf
         sw t0, 256(a5)
 	
 	####Separacao de frame
@@ -1439,9 +1439,9 @@
         sw t0, 268(a5)
         li t0, 3 #framehit
         sw t0, 272(a5)
-        li t0, 0 #x0
+        li t0, -5 #x0
         sw t0, 276(a5)
-        li t0, 0 #xf
+        li t0, 15 #xf
         sw t0, 280(a5)
 	
 	####Separacao de frame
@@ -1489,9 +1489,9 @@
         sw t0, 292(a5)
         li t0, 5 #framehit
         sw t0, 296(a5)
-        li t0, 0 #x0
+        li t0, -5 #x0
         sw t0, 300(a5)
-        li t0, 0 #xf
+        li t0, 15 #xf
         sw t0, 304(a5)
 	
 	####Separacao de frame
@@ -1560,9 +1560,9 @@
         sw t0, 316(a5)
         li t0, 3 #framehit
         sw t0, 320(a5)
-        li t0, 0 #x0
+        li t0, 55 #x0
         sw t0, 324(a5)
-        li t0, 0 #xf
+        li t0, 75 #xf
         sw t0, 328(a5)
 	
 	####Separacao de frame
@@ -1617,9 +1617,9 @@
         sw t0, 340(a5)
         li t0, 3 #framehit
         sw t0, 344(a5)
-        li t0, 0 #x0
+        li t0, -5 #x0
         sw t0, 348(a5)
-        li t0, 0 #xf
+        li t0, 15 #xf
         sw t0, 352(a5)
 	
 	####Separacao de frame
@@ -1674,9 +1674,9 @@
         sw t0, 364(a5)
         li t0, 2 #framehit
         sw t0, 368(a5)
-        li t0, 0 #x0
+        li t0, -5 #x0
         sw t0, 372(a5)
-        li t0, 0 #xf
+        li t0, 15 #xf
         sw t0, 376(a5)
 	
 ####Separacao de frame
