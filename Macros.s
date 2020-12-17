@@ -177,7 +177,6 @@ Skip8:   li t0, 'f'
 SkipReading:
 .end_macro
 	
-	
 .macro Processamento()
 .text	#Seletor de animacao
 	la t2, Player
@@ -186,6 +185,9 @@ SkipReading:
 	
 	bne t0, t1, SkipHit 
 	beqz t0, SkipHit
+	li a0, 'F'
+	li a7, 11
+	ecall
 
 	lw t0, 0(t2) #t0= x do player
 	la t1, Enemy #t1 = endereco enemy
@@ -212,7 +214,6 @@ SkipHit:
 	blt t0, t1, Skip1 #Se a animaï¿½ï¿½o naoo tiver terminado pule
 	la t0, Input
 	lw t1, (t0) #direção
-	mv s0, t1
 	
 	li t3, 64
 	bgt t1, t3, SkipFire
@@ -224,12 +225,12 @@ SkipFire:
 	sw zero, 16(t2) #Zera o contador (frame atual)
 	la t0, AnimacoesPlayer
 	add t0, t0, t1 #t0 = endereco do endereco da animacao nova
+	mv s0, t0
 	lw t0, 4(t0) #t0 = numero de frames da animacao nova
 	sw t0, 24(t2) #Salva o tamanho da animacao em Player
 	#Dados 
 	#t1 = indice animacao*8
-	mv t1, s0
-	
+	mv t0, s0
 	li t0, 3
 	mul t0, t1, t0 #t1 = endereço no dadosAnimacoes
 	la t1, DadosAnimacoesPlayer
@@ -515,7 +516,7 @@ SENfim:
 	sub a0, a0, a1  #diferenca
 	li a1,1000	#transforma em segundos
 	div a0,a0,a1		
-	li a5, 31
+	li a5, 1000
 	bge a0,a5,Cronzero
 	li a7,101		#print do cronometro
 	li a1, 130
