@@ -560,10 +560,11 @@ Fora:
 	beq a0,a5,D2
 	li a5,2
 	beq a0,a5,D3	 
-	
+
 	#D1  		IA 1 - Se aproxima até 80, se afasta a partir de 50 ,sempre ataca alto entre as duas distancias
 	#sub a3,a2,a1
 	li a0,80      	#80 de distãncia, número arbitrário, tamanho médio de sprite = 40
+
 	ble a3,a0,PertoD1
 	li a1,0
 	sw a1,(a4)    #se aproxima caso esteja mais que isso
@@ -576,8 +577,9 @@ PertoD1:li a0,50
 AfastarD1:li a0, 32
 	sw a0, (a4)  #se afasta
 	j Dfim
-	
+
 	#D2 		IA 2 - Se aproxima até 60 , se afasta a partir de 45, ataca alto e baixo randomicamente entre as duas distancias
+
 D2:	li a0,55
 	ble a3,a0,PertoD2
 	li a1,0
@@ -598,8 +600,9 @@ D2store:sw a0,(a4)
 AfastarD2:li a0, 32
 	sw a0, (a4)  #se afasta
 	j Dfim
-	
+
 	#D3  		IA 3- Se aproxima até 35~40?(testar), não se afasta,defende, ataca alto ou baixo  dependendo da Vulnerabilidade do player
+
 D3:	li a0, 55
 	ble a3,a0,PertoD3
 	li a1, 0
