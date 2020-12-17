@@ -57,7 +57,7 @@
         sw t0, 24(a5)
         li t0, 6 #alvo
         sw t0, 28(a5)
-        li t0, 0 #framehit
+        li t0, 2 #framehit
         sw t0, 32(a5)
         li t0, 0 #x0
         sw t0, 36(a5)
@@ -322,7 +322,7 @@
         sw t0, 168(a5)
         li t0, 2 #alvo
         sw t0, 172(a5)
-        li t0, 0 #framehit
+        li t0, 2 #framehit
         sw t0, 176(a5)
         li t0, 0 #x0
         sw t0, 180(a5)
@@ -365,7 +365,7 @@
         sw t0, 192(a5)
         li t0, 2 #alvo
         sw t0, 196(a5)
-        li t0, 0 #framehit
+        li t0, 3 #framehit
         sw t0, 200(a5)
         li t0, 0 #x0
         sw t0, 204(a5)
@@ -415,7 +415,7 @@
         sw t0, 216(a5)
         li t0, 6 #alvo
         sw t0, 220(a5)
-        li t0, 0 #framehit
+        li t0, 3 #framehit
         sw t0, 224(a5)
         li t0, 0 #x0
         sw t0, 228(a5)
@@ -465,7 +465,7 @@
         sw t0, 240(a5)
         li t0, 6 #alvo
         sw t0, 244(a5)
-        li t0, 0 #framehit
+        li t0, 3 #framehit
         sw t0, 248(a5)
         li t0, 0 #x0
         sw t0, 252(a5)
@@ -522,7 +522,7 @@
         sw t0, 264(a5)
         li t0, 6 #alvo
         sw t0, 268(a5)
-        li t0, 0 #framehit
+        li t0, 3 #framehit
         sw t0, 272(a5)
         li t0, 0 #x0
         sw t0, 276(a5)
@@ -572,7 +572,7 @@
         sw t0, 288(a5)
         li t0, 6 #alvo
         sw t0, 292(a5)
-        li t0, 0 #framehit
+        li t0, 5 #framehit
         sw t0, 296(a5)
         li t0, 0 #x0
         sw t0, 300(a5)
@@ -643,7 +643,7 @@
         sw t0, 312(a5)
         li t0, 1 #alvo
         sw t0, 316(a5)
-        li t0, 0 #framehit
+        li t0, 3 #framehit
         sw t0, 320(a5)
         li t0, 0 #x0
         sw t0, 324(a5)
@@ -700,7 +700,7 @@
         sw t0, 336(a5)
         li t0, 1 #alvo
         sw t0, 340(a5)
-        li t0, 0 #framehit
+        li t0, 3 #framehit
         sw t0, 344(a5)
         li t0, 0 #x0
         sw t0, 348(a5)
@@ -757,7 +757,7 @@
         sw t0, 360(a5)
         li t0, 1 #alvo
         sw t0, 364(a5)
-        li t0, 0 #framehit
+        li t0, 2 #framehit
         sw t0, 368(a5)
         li t0, 0 #x0
         sw t0, 372(a5)
@@ -973,7 +973,7 @@
         sw t0, 24(a5)
         li t0, 6 #alvo
         sw t0, 28(a5)
-        li t0, 0 #framehit
+        li t0, 2 #framehit
         sw t0, 32(a5)
         li t0, 0 #x0
         sw t0, 36(a5)
@@ -1237,7 +1237,7 @@
         sw t0, 168(a5)
         li t0, 2 #alvo
         sw t0, 172(a5)
-        li t0, 0 #framehit
+        li t0, 2 #framehit
         sw t0, 176(a5)
         li t0, 0 #x0
         sw t0, 180(a5)
@@ -1280,7 +1280,7 @@
         sw t0, 192(a5)
         li t0, 2 #alvo
         sw t0, 196(a5)
-        li t0, 0 #framehit
+        li t0, 3 #framehit
         sw t0, 200(a5)
         li t0, 0 #x0
         sw t0, 204(a5)
@@ -1330,7 +1330,7 @@
         sw t0, 216(a5)
         li t0, 6 #alvo
         sw t0, 220(a5)
-        li t0, 0 #framehit
+        li t0, 3 #framehit
         sw t0, 224(a5)
         li t0, 0 #x0
         sw t0, 228(a5)
@@ -1380,7 +1380,7 @@
         sw t0, 240(a5)
         li t0, 6 #alvo
         sw t0, 244(a5)
-        li t0, 0 #framehit
+        li t0, 3 #framehit
         sw t0, 248(a5)
         li t0, 0 #x0
         sw t0, 252(a5)
@@ -1437,7 +1437,7 @@
         sw t0, 264(a5)
         li t0, 6 #alvo
         sw t0, 268(a5)
-        li t0, 0 #framehit
+        li t0, 3 #framehit
         sw t0, 272(a5)
         li t0, 0 #x0
         sw t0, 276(a5)
@@ -1487,7 +1487,7 @@
         sw t0, 288(a5)
         li t0, 6 #alvo
         sw t0, 292(a5)
-        li t0, 0 #framehit
+        li t0, 5 #framehit
         sw t0, 296(a5)
         li t0, 0 #x0
         sw t0, 300(a5)
@@ -1558,7 +1558,7 @@
         sw t0, 312(a5)
         li t0, 1 #alvo
         sw t0, 316(a5)
-        li t0, 0 #framehit
+        li t0, 3 #framehit
         sw t0, 320(a5)
         li t0, 0 #x0
         sw t0, 324(a5)
@@ -1615,7 +1615,7 @@
         sw t0, 336(a5)
         li t0, 1 #alvo
         sw t0, 340(a5)
-        li t0, 0 #framehit
+        li t0, 3 #framehit
         sw t0, 344(a5)
         li t0, 0 #x0
         sw t0, 348(a5)
@@ -1672,7 +1672,7 @@
         sw t0, 360(a5)
         li t0, 1 #alvo
         sw t0, 364(a5)
-        li t0, 0 #framehit
+        li t0, 2 #framehit
         sw t0, 368(a5)
         li t0, 0 #x0
         sw t0, 372(a5)
