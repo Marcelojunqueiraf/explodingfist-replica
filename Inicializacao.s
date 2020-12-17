@@ -367,7 +367,7 @@
         sw t0, 196(a5)
         li t0, 3 #framehit
         sw t0, 200(a5)
-        li t0, 37 #x0
+        li t0, 27 #x0
         sw t0, 204(a5)
         li t0, 57 #xf
         sw t0, 208(a5)
@@ -574,7 +574,7 @@
         sw t0, 292(a5)
         li t0, 5 #framehit
         sw t0, 296(a5)
-        li t0, 37 #x0
+        li t0, 27 #x0
         sw t0, 300(a5)
         li t0, 57 #xf
         sw t0, 304(a5)

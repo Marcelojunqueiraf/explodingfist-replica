@@ -275,7 +275,7 @@ SkipReading:
 	li t1, 152
 	sw zero, 16(t0)
 	sw t1, 20(t0)
-	li t1, 4
+	li t1, 5
 	sw t1, 24(t0)
 	
 	la t0, Player
@@ -405,7 +405,7 @@ Skip1:
 	li t1, 152
 	sw zero, 16(t0)
 	sw t1, 20(t0)
-	li t1, 4
+	li t1, 5
 	sw t1, 24(t0)
 	
 	la t0, Enemy

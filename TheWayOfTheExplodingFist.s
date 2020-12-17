@@ -13,8 +13,8 @@ Parabens: .string "Parabens,"
 Ganhou:.string " Voce ganhou!"
 #0   4   8   12    16     20    24    28      32    36        40  44
 #X0, Y0, P0, Img0, Frame, Anim, Size, estado, alvo, framehit, x0, xf
-Player: .word 100, 180, 0xFF10E164, 0, 0, 128, 1, 3, 0, 0, 0, 0
-Enemy: .word 168, 180, 0xFF10E1A8, 0, 0, 0, 72, 3, 0, 0, 0, 0
+Player: .word 100, 180, 0xFF10E114, 0, 0, 128, 1, 3, 0, 0, 0, 0
+Enemy: .word 168, 180, 0xFF10E1F8, 0, 0, 128, 1, 3, 0, 0, 0, 0
 
 AnimacoesPlayer: .word 0x10001000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4, 0x10000000, 4
 AnimacoesEnemy: .word  0x10001500, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4, 0x10001000, 4
@@ -31,7 +31,6 @@ TempoMusica: .word 0
 NotaAtual: .word 0
 Input: .word 0, 0
 IAinimigo: .word 0 #0 se aproximar, 1 se afastar, 2 ataque alto , 3 ataque baixo, 4 defesa
-VulnPlayer: .word 0  #0 vulenerável, 1 apenas em baixo, 2 ivulner
 TempoInicial: .word 0
 Relogio: .word 0
 Venceu: .word 0
@@ -128,10 +127,6 @@ ForaGameLoop:
 	lw t2, (t1) #(fundo,fase, pontua��o player, pontua��o enemy)
 	li t0, 4
 	bge t2, t0, Vitoria
-	la t1, PontuacaoEnemy
-	lw t2, (t1) #(fundo,fase, pontua��o player, pontua��o enemy)
-	li t0, 4
-	bge t2, t0, Derrota
 	j VidaLoop
 FimTempo:la a1, PontuacaoEnemy
 	lw a0, (a1)
