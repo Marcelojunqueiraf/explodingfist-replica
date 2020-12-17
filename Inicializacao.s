@@ -12,11 +12,11 @@
 	sw zero, (a0)	   #zera contador
 	
 	#Animacoes player
-	la a1, AnimacoesPlayer #a1= endere�o da lista de animacoes do player
+	la a1, AnimacoesPlayer #a1= endereï¿½o da lista de animacoes do player
 	la a5, DadosAnimacoesPlayer
 	
 	la a3, Player #Setar primeira imagem player
-	la t0, ola1 #t0=endere�o da imagem
+	la t0, ola1 #t0=endereï¿½o da imagem
 	sw t0, 12(a3) #Img0 = t0
 	
 #Andar 
@@ -50,7 +50,7 @@
 #jab1,jab2
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 8(a1) #a4 = endereco de inicio da primeira animacao (Saudacao)
 	
         li t0, 3 #estado
@@ -59,9 +59,9 @@
         sw t0, 28(a5)
         li t0, 2 #framehit
         sw t0, 32(a5)
-        li t0, 22 #x0
+        li t0, 14 #x0
         sw t0, 36(a5)
-        li t0, 42 #xf
+        li t0, 34 #xf
         sw t0, 40(a5)
 	
 	la t0, jab1 #t0=endereco da imagem
@@ -78,7 +78,7 @@
 #voadora2
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 16(a1) #a4 = endereco de inicio da animacao
 	
         li t0, 2 #estado
@@ -135,7 +135,7 @@
 #cambalhota1, cambalhota 2, misc1, cambalhota3
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 24(a1) #a4 = endereco de inicio da animacao
 	
         li t0, 4 #estado
@@ -185,7 +185,7 @@
 #andar6, andar5 andar6
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 32(a1) #a4 = endereco de inicio da animacao
 	
         li t0, 0 #estado
@@ -211,11 +211,11 @@
 	li t0, 3 #t0 = tamahno da animacao
 	sw t0, 36(a1) #Salvar o tamanho na lista de animacoes
 	
-#Back Somersault (cambalhota para tr�s)
+#Back Somersault (cambalhota para trás)
 #cambalhota3, misc1, cambalhota2, cambalhota1
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 40(a1) #a4 = endereco de inicio da animacao
 	
         li t0, 4 #estado
@@ -265,7 +265,7 @@
 #defesasentado
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 48(a1) #a4 = endereco de inicio da animacao
 	
         li t0, 1 #estado
@@ -311,11 +311,11 @@
 	li t0, 4 #t0 = tamahno da animacao
 	sw t0, 52(a1) #Salvar o tamanho na lista de animacoes
 	
-#jab (Soco m�dio) Pra gente vai ser soco baixo
+#jab (Soco médio) Pra gente vai ser soco baixo
 #jab1, socoacachado
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 56(a1) #a4 = endereco de inicio da animacao
 	
         li t0, 1 #estado
@@ -324,9 +324,9 @@
         sw t0, 172(a5)
         li t0, 2 #framehit
         sw t0, 176(a5)
-        li t0, 35 #x0
+        li t0, 27 #x0
         sw t0, 180(a5)
-        li t0, 55 #xf
+        li t0, 47 #xf
         sw t0, 184(a5)
 
 	####Separacao de frame
@@ -354,11 +354,11 @@
 	li t0, 3 #t0 = tamahno da animacao
 	sw t0, 60(a1) #Salvar o tamanho na lista de animacoes
 	
-#Mid Kick (Chute M�dio)
+#Mid Kick (Chute Médio)
 #highkick1, chutegirando7, midkick
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 64(a1) #a4 = endereco de inicio da animacao
 	
 	li t0, 3 #estado
@@ -367,9 +367,9 @@
         sw t0, 196(a5)
         li t0, 3 #framehit
         sw t0, 200(a5)
-        li t0, 45 #x0
+        li t0, 37 #x0
         sw t0, 204(a5)
-        li t0, 65 #xf
+        li t0, 57 #xf
         sw t0, 208(a5)
 
 	####Separacao de frame
@@ -408,7 +408,7 @@
 #highkick1, chutediagonalcima, highkick2
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 72(a1) #a4 = endereco de inicio da animacao
 	
 	li t0, 3 #estado
@@ -417,9 +417,9 @@
         sw t0, 220(a5)
         li t0, 3 #framehit
         sw t0, 224(a5)
-        li t0, 35 #x0
+        li t0, 27 #x0
         sw t0, 228(a5)
-        li t0, 55 #xf
+        li t0, 47 #xf
         sw t0, 232(a5)
 	
 	####Separacao de frame
@@ -458,7 +458,7 @@
 #voadora2, voadora1
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 80(a1) #a4 = endereco de inicio da animacao
 	
 	li t0, 4 #estado
@@ -467,9 +467,9 @@
         sw t0, 244(a5)
         li t0, 3 #framehit
         sw t0, 248(a5)
-        li t0, 35 #x0
+        li t0, 27 #x0
         sw t0, 252(a5)
-        li t0, 55 #xf
+        li t0, 47 #xf
         sw t0, 256(a5)
 	
 	####Separacao de frame
@@ -511,11 +511,11 @@
 	li t0, 5 #t0 = tamahno da animacao
 	sw t0, 84(a1) #Salvar o tamanho na lista de animacoes
 
-#High back Kick (Chute alto pra tr�s)
+#High back Kick (Chute alto pra trás)
 #prepvoltachuteatras, misc2, chutetras
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 88(a1) #a4 = endereco de inicio da animacao
 	
 	li t0, 3 #estado
@@ -524,9 +524,9 @@
         sw t0, 268(a5)
         li t0, 3 #framehit
         sw t0, 272(a5)
-        li t0, 5 #x0
+        li t0, -32 #x0
         sw t0, 276(a5)
-        li t0, 25 #xf
+        li t0, -12 #xf
         sw t0, 280(a5)
 	
 	####Separacao de frame
@@ -565,7 +565,7 @@
 #chutegirando 1 a 7 
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 96(a1) #a4 = endereco de inicio da animacao 
 	
 	li t0, 3 #estado
@@ -574,9 +574,9 @@
         sw t0, 292(a5)
         li t0, 5 #framehit
         sw t0, 296(a5)
-        li t0, 45 #x0
+        li t0, 37 #x0
         sw t0, 300(a5)
-        li t0, 65 #xf
+        li t0, 57 #xf
         sw t0, 304(a5)
         
 	####Separacao de frame
@@ -632,11 +632,11 @@
 	li t0, 7 #t0 = tamahno da animacao
 	sw t0, 100(a1) #Salvar o tamanho na lista de animacoes
 
-#Backwards sweep (Rasteira pra tr�s)
+#Backwards sweep (Rasteira pra trás)
 #defesasentado, prepvoltchuteinferior, chuteesquerdabaixo
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 104(a1) #a4 = endereco de inicio da animacao
 
 	li t0, 1 #estado
@@ -645,9 +645,9 @@
         sw t0, 316(a5)
         li t0, 3 #framehit
         sw t0, 320(a5)
-        li t0, 5 #x0
+        li t0, -32 #x0
         sw t0, 324(a5)
-        li t0, 25 #xf
+        li t0, -12 #xf
         sw t0, 328(a5)
 
 	####Separacao de frame
@@ -693,7 +693,7 @@
 #defesasentado, chutedireitabaixo
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 112(a1) #a4 = endereco de inicio da animacao
 	
 	li t0, 1 #estado
@@ -702,9 +702,9 @@
         sw t0, 340(a5)
         li t0, 3 #framehit
         sw t0, 344(a5)
-        li t0, 45 #x0
+        li t0, 37 #x0
         sw t0, 348(a5)
-        li t0, 65 #xf
+        li t0, 57 #xf
         sw t0, 352(a5)
 	
 	####Separacao de frame
@@ -750,7 +750,7 @@
 #highkick1, chuteinferior
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 120(a1) #a4 = endereco de inicio da animacao
 	
 	li t0, 3 #estado
@@ -759,9 +759,9 @@
         sw t0, 364(a5)
         li t0, 2 #framehit
         sw t0, 368(a5)
-        li t0, 30 #x0
+        li t0, 22 #x0
         sw t0, 372(a5)
-        li t0, 50 #xf
+        li t0, 42 #xf
         sw t0, 376(a5)
         
 ####Separacao de frame
@@ -793,7 +793,7 @@
 #Andar7
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 128(a1) #a4 = endereco de inicio da animacao
 	
 	li t0, 3 #estado
@@ -822,7 +822,7 @@
 #curvar1, curvar2, curvar1
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 136(a1) #a4 = endereco de inicio da animacao
 	
 	li t0, 0 #estado
@@ -872,7 +872,7 @@
 #ola1, ola2, ola3, ola4
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 144(a1) #a4 = endereco de inicio da animacao
 	
 	li t0, 0 #estado
@@ -929,7 +929,7 @@
 #hit2, hit1, ht11, hit10
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 152(a1) #a4 = endereco de inicio da animacao
 	
         
@@ -987,11 +987,11 @@
 	
 ########################################################
 	#Animacoes enemy
-	la a1, AnimacoesEnemy #a1= endere�o da lista de animacoes do enemy
+	la a1, AnimacoesEnemy #a1= endereï¿½o da lista de animacoes do enemy
 	la a5, DadosAnimacoesEnemy
 	
 	la a3, Enemy #Setar primeira imagem enemy
-	la t0, P2andar7 #t0=endere�o da imagem
+	la t0, P2andar7 #t0=endereï¿½o da imagem
 	sw t0, 12(a3) #Img0 = t0
 	
 #Andar
@@ -1025,7 +1025,7 @@
 #jab1,jab2
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 8(a1) #a4 = endereco de inicio da primeira animacao (Saudacao)
 	
 	li t0, 3 #estado
@@ -1053,7 +1053,7 @@
 #voadora2
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 16(a1) #a4 = endereco de inicio da animacao
 	
         li t0, 2 #estado
@@ -1110,7 +1110,7 @@
 #cambalhota1, cambalhota 2, misc1, cambalhota3
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 24(a1) #a4 = endereco de inicio da animacao
 	
         li t0, 4 #estado
@@ -1160,7 +1160,7 @@
 #andar6, andar5 andar6
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 32(a1) #a4 = endereco de inicio da animacao
 	
 	li t0, 0 #estado
@@ -1186,17 +1186,17 @@
 	li t0, 3 #t0 = tamahno da animacao
 	sw t0, 36(a1) #Salvar o tamanho na lista de animacoes
 	
-#Back Somersault (cambalhota para tr�s)
+#Back Somersault (cambalhota para trás)
 #cambalhota3, misc1, cambalhota2, cambalhota1
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 40(a1) #a4 = endereco de inicio da animacao
 	
         li t0, 4 #estado
         sw t0, 120(a5)
         li t0, 0 #alvo
-        sw t0, 124(a5)	
+        sw t0, 124(a5)
         li t0, 0 #framehit
         sw t0, 128(a5)
         li t0, 0 #x0
@@ -1240,7 +1240,7 @@
 #defesasentado
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 48(a1) #a4 = endereco de inicio da animacao
 	
         li t0, 1 #estado
@@ -1285,11 +1285,11 @@
 		
 	li t0, 4 #t0 = tamahno da animacao
 	sw t0, 52(a1) #Salvar o tamanho na lista de animacoes
-#jab (Soco m�dio) Pra gente vai ser soco baixo
+#jab (Soco médio) Pra gente vai ser soco baixo
 #jab1, socoacachado
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 56(a1) #a4 = endereco de inicio da animacao
 	
 	li t0, 1 #estado
@@ -1328,11 +1328,11 @@
 	li t0, 3 #t0 = tamahno da animacao
 	sw t0, 60(a1) #Salvar o tamanho na lista de animacoes
 	
-#Mid Kick (Chute M�dio)
+#Mid Kick (Chute Médio)
 #highkick1, chutegirando7, midkick
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 64(a1) #a4 = endereco de inicio da animacao
 	
 	li t0, 3 #estado
@@ -1382,7 +1382,7 @@
 #highkick1, chutediagonalcima, highkick2
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 72(a1) #a4 = endereco de inicio da animacao
 	
 	li t0, 3 #estado
@@ -1432,7 +1432,7 @@
 #voadora2, voadora1
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 80(a1) #a4 = endereco de inicio da animacao
 	
 	li t0, 4 #estado
@@ -1485,11 +1485,11 @@
 	li t0, 5 #t0 = tamahno da animacao
 	sw t0, 84(a1) #Salvar o tamanho na lista de animacoes
 
-#High back Kick (Chute alto pra tr�s)
+#High back Kick (Chute alto pra trás)
 #prepvoltachuteatras, misc2, chutetras
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 88(a1) #a4 = endereco de inicio da animacao
 	
 	li t0, 3 #estado
@@ -1539,7 +1539,7 @@
 #chutegirando 1 a 7 
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 96(a1) #a4 = endereco de inicio da animacao
 	
 	li t0, 3 #estado
@@ -1606,11 +1606,11 @@
 	li t0, 7 #t0 = tamahno da animacao
 	sw t0, 100(a1) #Salvar o tamanho na lista de animacoes
 
-#Backwards sweep (Rasteira pra tr�s)
+#Backwards sweep (Rasteira pra trás)
 #defesasentado, prepvoltchuteinferior, chuteesquerdabaixo
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 104(a1) #a4 = endereco de inicio da animacao
 	
 	li t0, 1 #estado
@@ -1667,7 +1667,7 @@
 #defesasentado, chutedireitabaixo
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 112(a1) #a4 = endereco de inicio da animacao
 	
 	li t0, 1 #estado
@@ -1724,7 +1724,7 @@
 #highkick1, chuteinferior
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 120(a1) #a4 = endereco de inicio da animacao
 	
 	li t0, 3 #estado
@@ -1767,7 +1767,7 @@
 #Andar7
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 128(a1) #a4 = endereco de inicio da animacao
 	
 	li t0, 3 #estado
@@ -1796,7 +1796,7 @@
 #curvar1, curvar2, curvar1
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 136(a1) #a4 = endereco de inicio da animacao
 	
 	li t0, 0 #estado
@@ -1846,7 +1846,7 @@
 #ola1, ola2, ola3, ola4
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 144(a1) #a4 = endereco de inicio da animacao
 	
 	li t0, 0 #estado
@@ -1903,7 +1903,7 @@
 #hit2, hit1, ht11, hit10
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endere�o de in�cio da proxima animacao
+	add a4, a4, t4 #a4=endereço de início da proxima animacao
 	sw a4, 152(a1) #a4 = endereco de inicio da animacao
         
         li t0, 0 #estado
