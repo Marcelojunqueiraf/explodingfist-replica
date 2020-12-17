@@ -54,9 +54,13 @@ Reset:		#Reset de fase
 	la a0, Player			#reset de posicao
 	li a1, 0xFF10E114
 	sw a1, 8(a0)
+	li a1, 20
+	sw a1, 0(a0)
 	la a0, Enemy
 	li a1, 0xFF10E1F8
-	sw a1, 8(a0)		
+	sw a1, 8(a0)	
+	li a1, 248
+	sw a1, 0(a0)	
 	la t0, PontuacaoPlayer #Endere�o da pontuaacao 0x10000022  #ZerarPontua��o()
 	sw zero, (t0)
 	la t0, PontuacaoEnemy
