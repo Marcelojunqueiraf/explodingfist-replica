@@ -117,10 +117,10 @@ FORA1:	la a0,Aperte      #texto de apertar 1
 	ecall
 	sw zero,0(s0)
 	li t1,0xFF200000		# carrega o endere?o de controle do KDMMIO
-	#parte da música
+	#parte da mï¿½sica
 	la s0,Numnotas
 	lw s1,0(s0)
-	la s0,Notas		# define o endereço das notas
+	la s0,Notas		# define o endereï¿½o das notas
 	li a2,1			# instrumento
 	li a3,127		# volume
 	li s2,0			#contador da nota
@@ -234,9 +234,12 @@ Skip7: 	li t0, 'c'
    	sw t0, (t2)
    	j SkipReading
 Skip8:   li t0, 'f'
-   	bne a0, t0, SkipReading
+   	bne a0, t0, Skip9
    	li t0, 64
    	sw t0, 4(t2)
+Skip9:  li t0, 'h'
+   	bne a0, t0, SkipReading
+   	j FaseLoop
 SkipReading:
 .end_macro
 	
@@ -251,7 +254,7 @@ SkipReading:
 	li a0, 'F'
 	li a7, 11
 	ecall
-
+	
 	lw t0, 0(t2) #t0= x do player
 	la t1, Enemy #t1 = endereco enemyw
 	lw t3, 0(t1) #t3 = x enemy
@@ -290,7 +293,12 @@ SkipReading:
 	li a0, 'D'
 	li a7, 11
 	ecall
-	
+	li a0, 60
+	li a1, 1000
+	li a2, 126
+	li a3, 127
+	li a7 31
+	ecall
 	
 SkipHit:
 	lw t0, 16(t2) #t0 = frame atual
@@ -412,6 +420,13 @@ Skip1:
 	li t1, 1
 	sw t1, (t0)
 	
+	ecall
+	li a0, 60
+	li a1, 1000
+	li a2, 126
+	li a3, 127
+	li a7 31
+	ecall
 SkipHit2:
 	lw t0, 16(t2) #t0 = frame atual
 	lw t1, 24(t2) #t1 = Tamanho da anima??o atual
@@ -561,15 +576,14 @@ Fora:
 	li a5,2
 	beq a0,a5,D3	 
 
-	#D1  		IA 1 - Se aproxima até 80, se afasta a partir de 50 ,sempre ataca alto entre as duas distancias
+	#D1  		IA 1 - Se aproxima atï¿½ 80, se afasta a partir de 50 ,sempre ataca alto entre as duas distancias
 	#sub a3,a2,a1
-	li a0,80      	#80 de distãncia, número arbitrário, tamanho médio de sprite = 40
-
+	li a0,30      	#80 de distÃ£ncia, nÃºmero arbitrÃ¡rio, tamanho mÃ©dio de sprite = 40
 	ble a3,a0,PertoD1
 	li a1,0
 	sw a1,(a4)    #se aproxima caso esteja mais que isso
 	j Dfim 
-PertoD1:li a0,50
+PertoD1:li a0,10
 	ble a3,a0,AfastarD1
 	li a0 ,8 	 #ataque alto 
 	sw a0,(a4)
@@ -578,14 +592,13 @@ AfastarD1:li a0, 32
 	sw a0, (a4)  #se afasta
 	j Dfim
 
-	#D2 		IA 2 - Se aproxima até 60 , se afasta a partir de 45, ataca alto e baixo randomicamente entre as duas distancias
-
-D2:	li a0,55
+	#D2 		IA 2 - Se aproxima atÃ© 60 , se afasta a partir de 45, ataca alto e baixo randomicamente entre as duas distancias
+D2:	li a0,30
 	ble a3,a0,PertoD2
 	li a1,0
 	sw a1,(a4)
 	j Dfim
-PertoD2:li a0,40
+PertoD2:li a0,10
 	ble a3,a0,AfastarD2    
 	la a1,Player   #1cima  1tronco 1 em baixp
 	addi a1,a1, 28
@@ -601,7 +614,7 @@ AfastarD2:li a0, 32
 	sw a0, (a4)  #se afasta
 	j Dfim
 
-	#D3  		IA 3- Se aproxima até 35~40?(testar), não se afasta,defende, ataca alto ou baixo  dependendo da Vulnerabilidade do player
+	#D3  		IA 3- Se aproxima atï¿½ 35~40?(testar), nï¿½o se afasta,defende, ataca alto ou baixo  dependendo da Vulnerabilidade do player
 
 D3:	li a0, 55
 	ble a3,a0,PertoD3
@@ -609,6 +622,8 @@ D3:	li a0, 55
 	sw a1,(a4)
 	j Dfim
 PertoD3:la a1,Player   #1cima  1tronco 1 em baixp
+	li a0,5
+	ble a3,a0,AfastarD3
 	addi a1,a1, 28
 	lw a1, 0(a1)
 	li a2, 1
@@ -624,6 +639,8 @@ Defesa:	li a0, 48
 Baixo:	li a0, 112
 	sw a0, (a4)
 	j Dfim
+AfastarD3:li a0, 24
+	sw a0(a4)
 Dfim:
 .end_macro
 
