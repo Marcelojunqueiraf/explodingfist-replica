@@ -354,11 +354,11 @@
 	li t0, 3 #t0 = tamahno da animacao
 	sw t0, 60(a1) #Salvar o tamanho na lista de animacoes
 	
-#Mid Kick (Chute Médio)
+#Mid Kick (Chute Medio)
 #highkick1, chutegirando7, midkick
 	li t4, 12
 	mul t4, t4, t0
-	add a4, a4, t4 #a4=endereço de início da proxima animacao
+	add a4, a4, t4 #a4=endereço de inicio da proxima animacao
 	sw a4, 64(a1) #a4 = endereco de inicio da animacao
 	
 	li t0, 3 #estado
@@ -941,17 +941,17 @@
 	sw t2, 4(a4) #dx
 	sw t0, 8(a4) #dy	
 	
-	li t0, 0 #estado
-        sw t0, 432(a5)
+        li t0, 0 #estado
+        sw t0, 456(a5)
         li t0, 0 #alvo
-        sw t0, 436(a5)
+        sw t0, 460(a5)
         li t0, 0 #framehit
-        sw t0, 440(a5)
+        sw t0, 464(a5)
         li t0, 0 #x0
-        sw t0, 444(a5)
+        sw t0, 468(a5)
         li t0, 0 #xf
-        sw t0, 448(a5)
-	
+        sw t0, 472(a5)
+        
 	####Separacao de frame
 	la t0, hit1 #t0=endereco da imagem
 	li t1, 0 #dx
@@ -980,6 +980,13 @@
 	sw t1, 48(a4) #img
 	sw t2, 52(a4) #dx
 	sw t0, 56(a4) #dy
+	####Separacao de frame
+	la t0, hit10 #t0=endereco da imagem
+	li t1, 0 #dx
+	li t2, 0 #dy
+	sw t1, 60(a4) #img
+	sw t2, 64(a4) #dx
+	sw t0, 68(a4) #dy
 		
 	li t0, 5 #t0 = tamahno da animacao
 	sw t0, 156(a1) #Salvar o tamanho na lista de animacoes
@@ -1907,15 +1914,15 @@
 	sw a4, 152(a1) #a4 = endereco de inicio da animacao
         
         li t0, 0 #estado
-        sw t0, 432(a5)
+        sw t0, 456(a5)
         li t0, 0 #alvo
-        sw t0, 436(a5)
+        sw t0, 460(a5)
         li t0, 0 #framehit
-        sw t0, 440(a5)
+        sw t0, 464(a5)
         li t0, 0 #x0
-        sw t0, 444(a5)
+        sw t0, 468(a5)
         li t0, 0 #xf
-        sw t0, 448(a5)
+        sw t0, 472(a5)
         
 ####Separacao de frame
 	la t0, P2hit2 #t0=endereco da imagem

@@ -248,9 +248,6 @@ SkipReading:
 
 	bne t0, t1, SkipHit 
 	beqz t0, SkipHit
-	li a0, 'F'
-	li a7, 11
-	ecall
 
 	lw t0, 0(t2) #t0= x do player
 	la t1, Enemy #t1 = endereco enemyw
@@ -279,17 +276,13 @@ SkipReading:
 	li t1, 144
 	sw zero, 16(t0)
 	sw t1, 20(t0)
-	li t1, 5
+	li t1, 4
 	sw t1, 24(t0)
 	sw zero, 36(t0)
 	
 	la t0, Venceu
 	li t1, 1
 	sw t1, (t0)
-	
-	li a0, 'D'
-	li a7, 11
-	ecall
 	
 	
 SkipHit:
@@ -316,6 +309,9 @@ SkipVic:
 	la t0, Morreu
 	lw t0, (t0)
 	beqz t0, SkipPerd  
+	li a0, 'M'
+	li a7, 11
+	ecall
 	la t0, PontuacaoEnemy
 	lw t1, (t0)
 	addi t1, t1, 1
@@ -401,10 +397,10 @@ Skip1:
 	sw t1, 24(t0)
 	
 	la t0, Enemy
-	li t1, 144
+	li t1, 0
 	sw zero, 16(t0)
 	sw t1, 20(t0)
-	li t1, 5
+	li t1, 3
 	sw t1, 24(t0)
 	sw zero, 36(t0)
 	
@@ -445,7 +441,6 @@ SkipHit2:
 	sw t3, 40(t2) # x0
 	lw t3, 16(t0) # xf
 	sw t3, 44(t2) # xf
-	 
 Skip2:	
 					
 .end_macro
