@@ -241,12 +241,10 @@ SkipReading:
 .end_macro
 	
 .macro Processamento()
-.text	#Seletor de animacao
+.text	#Seletor de animacao do Player
 	la t2, Player
 	lw t0, 16(t2) #t0 = frame atual 
 	lw t1, 36(t2) #t1 = framehit
-	
-	
 
 	bne t0, t1, SkipHit 
 	beqz t0, SkipHit
@@ -255,7 +253,7 @@ SkipReading:
 	ecall
 
 	lw t0, 0(t2) #t0= x do player
-	la t1, Enemy #t1 = endereco enemy
+	la t1, Enemy #t1 = endereco enemyw
 	lw t3, 0(t1) #t3 = x enemy
 	sub t0, t3, t0 #t0 = posicao relativa
 	lw t4, 32(t2) #t4 = alvo player
@@ -367,27 +365,89 @@ SkipFire:
 	sw t3, 44(t2) # xf
 	 
 Skip1:	
+	li t0, 128
+	la t1, Input
+	sw t0, (t1)
+
+#Seletor de animacao do Enemy
 	la t2, Enemy
+	lw t0, 16(t2) #t0 = frame atual 
+	lw t1, 36(t2) #t1 = framehit
+
+	bne t0, t1, SkipHit2
+	beqz t0, SkipHit2
+
+	lw t0, 0(t2) #t0= x do player
+	la t1, Player #t1 = endereco enemyw
+	lw t3, 0(t1) #t3 = x enemy
+	sub t0, t3, t0 #t0 = posicao relativa
+	lw t4, 32(t2) #t4 = alvo player
+	lw t5, 28(t1) #t5 = estado enemy
+	and t4, t5, t4
+	beq t4, zero, SkipHit2
+
+	lw t4, 40(t2) #t4 = x0
+	lw t5, 44(t2) #t4 = xf
+
+	blt t0, t4, SkipHit2 #x<x0
+	bgt t0, t5, SkipHit2 #x>xf
+	#Acertar hit do player no inimigo
+	
+	la t0, Player
+	li t1, 152
+	sw zero, 16(t0)
+	sw t1, 20(t0)
+	li t1, 4
+	sw t1, 24(t0)
+	
+	la t0, Enemy
+	li t1, 144
+	sw zero, 16(t0)
+	sw t1, 20(t0)
+	li t1, 5
+	sw t1, 24(t0)
+	sw zero, 36(t0)
+	
+	la t0, Morreu
+	li t1, 1
+	sw t1, (t0)
+	
+SkipHit2:
 	lw t0, 16(t2) #t0 = frame atual
 	lw t1, 24(t2) #t1 = Tamanho da animaï¿½ï¿½o atual
-	blt t0, t1, Skip2 #Se a animaï¿½ï¿½o nï¿½o tiver terminado pule
+	blt t0, t1, Skip2 #Se a animaï¿½ï¿½o naoo tiver terminado pule
+	
+	la t0, IAinimigo
+	lw t1, (t0) #direção
+	
+	sw t1, 20(t2) #Muda a Animação
 	sw zero, 16(t2) #Zera o contador (frame atual)
+	la t0, AnimacoesEnemy
+	add t0, t0, t1 #t0 = endereco do endereco da animacao nova
+	mv s0, t0
+	lw t0, 4(t0) #t0 = numero de frames da animacao nova
+	sw t0, 24(t2) #Salva o tamanho da animacao em Player
+	#Dados 
+	#t1 = indice animacao*8
+	mv t0, s0
+	li t0, 3
+	mul t0, t1, t0 #t1 = endereço no dadosAnimacoes
+	la t1, DadosAnimacoesEnemy
+	add t0, t0, t1 #t0=endereço do dado das animacoes
+	la t2, Enemy
+	lw t3, (t0) #t3 = estados
+	sw t3, 28(t2) # estados
+	lw t3, 4(t0) # alvos
+	sw t3, 32(t2) # alvos
+	lw t3, 8(t0) # framehit
+	sw t3, 36(t2) # framehit
+	lw t3, 12(t0) # x0
+	sw t3, 40(t2) # x0
+	lw t3, 16(t0) # xf
+	sw t3, 44(t2) # xf
+	 
 Skip2:	
 					
-	
-	#Pegar input salvo na memï¿½ria
-	la t1, Input
-	lw t0, (t1) #armazenar valor do input
-	li t3, 128
-	sw t3, (t1) #limpar input
-	li t6, 'p'
-	bne t0, t6, SkipPoint #Checar se o input eh 'p'
-	la t1, PontuacaoPlayer
-	lw t2, (t1) #Ler Pontuacao Player
-	addi t2, t2, 1 #Adicionar 1
-	sw t2, (t1) #Salvar pontuacao nova Player
-	j ForaGameLoop
-SkipPoint:
 .end_macro
 
 
@@ -630,7 +690,7 @@ SENfim:
 	la a1 , TempoInicial
 	lw a1, (a1)
 	sub a0, a0, a1  #diferenca
-	li a1,1000	#transforma em segundos
+	li a1, 61 #transforma em segundos
 	div a0,a0,a1		
 	li a5, 1000
 	bge a0,a5,Cronzero
