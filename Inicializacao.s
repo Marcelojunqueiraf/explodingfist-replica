@@ -645,7 +645,7 @@
         sw t0, 316(a5)
         li t0, 3 #framehit
         sw t0, 320(a5)
-        li t0, -32 #x0
+        li t0, -42 #x0
         sw t0, 324(a5)
         li t0, -12 #xf
         sw t0, 328(a5)
@@ -704,7 +704,7 @@
         sw t0, 344(a5)
         li t0, 37 #x0
         sw t0, 348(a5)
-        li t0, 57 #xf
+        li t0, 67 #xf
         sw t0, 352(a5)
 	
 	####Separacao de frame

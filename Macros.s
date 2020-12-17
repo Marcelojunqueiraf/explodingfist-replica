@@ -478,16 +478,29 @@ Skip2:
 	sw a3, 16(%obj) #Salvar o novo numero de frames na memoria
 	add a1, a1, a2 #a1=endereco do frame atual
 	mv t1, a1
-	Render(%obj t1)
+	lw a5 0(t1) # dX
+	lw t5 4(t1) # dY
+	lw a6 8(%obj) # P0
+	lw a7 12(%obj) # S0
+	lw t6 8(t1) # S1
+	# Limpa sprite
+	lw a1 0(a7)
+	lw a2 4(a7)
+	Limpar(a1 a2 a6)
 	# Atualiza X e Y
-	lw a0 0(t1)
-	lw a1 4(t1)
+	li a0 320
+	mul a1 t5 a0 # dY * 320
+	add a1 a1 a6 # + P0
 	lw a2 0(%obj)
-	lw a3 4(%obj)
-	add a2 a2 a0
-	add a3 a3 a1
-	sw a2 0(%obj)
-	sw a3 4(%obj)
+	add a2 a2 a5
+	li a4 269
+	bgt a2 a4 NAttX
+	li a4 3
+	blt a2 a4 NAttX
+	sw a2 0(%obj) # Atualiza a posicao X do obj. na memoria
+	add a1 a1 a5 # + dX
+NAttX:	sw a1 8(%obj) # Atualiza a posicao do obj. na memoria
+	sw t6 12(%obj) # Atualiza a imagem do obj. na memoria
 .end_macro
 	
 .macro TelaFinal()
@@ -539,28 +552,6 @@ LoopY:	addi a1 a1 -1
 	j LoopX
 Fora:
 .end_macro
-
-
-# Macro de renderizar // Recebe %Obj - Endereco do obj. na memoria, %Anim - Endereco da animacao na memoria
-.macro Render(%Obj %Anim) #(dX = t4, dY = t5, P0 = a6, S0 = a7, S1 = t6)
-	lw a5 0(%Anim) # dX
-	lw t5 4(%Anim) # dY
-	lw a6 8(%Obj) # P0
-	lw a7 12(%Obj) # S0
-	lw t6 8(%Anim) # S1
-	# Retangulo Vermelho
-	lw a1 0(a7)
-	lw a2 4(a7)
-	Limpar(a1 a2 a6)
-	# Desenhar proxima sprite
-	li a0 320
-	mul a1 t5 a0
-	add a1 a1 a5
-	add a1 a1 a6
-	sw a1 8(%Obj) # Atualiza a posicao do obj. na memoria
-	sw t6 12(%Obj) # Atualiza a imagem do obj. na memoria
-.end_macro
-
 
 .macro IA()    # IAinimigo -flag- aproximar, afastar, ataque alto, ataque baixo , defesa  , Distancias de aproximar devem ser testadas depois
 	la a0, Player
