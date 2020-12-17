@@ -234,9 +234,12 @@ Skip7: 	li t0, 'c'
    	sw t0, (t2)
    	j SkipReading
 Skip8:   li t0, 'f'
-   	bne a0, t0, SkipReading
+   	bne a0, t0, Skip9
    	li t0, 64
    	sw t0, 4(t2)
+Skip9:  li t0, 'h'
+   	bne a0, t0, SkipReading
+   	j FaseLoop
 SkipReading:
 .end_macro
 	
@@ -251,7 +254,7 @@ SkipReading:
 	li a0, 'F'
 	li a7, 11
 	ecall
-
+	
 	lw t0, 0(t2) #t0= x do player
 	la t1, Enemy #t1 = endereco enemyw
 	lw t3, 0(t1) #t3 = x enemy
@@ -290,7 +293,12 @@ SkipReading:
 	li a0, 'D'
 	li a7, 11
 	ecall
-	
+	li a0, 60
+	li a1, 1000
+	li a2, 126
+	li a3, 127
+	li a7 31
+	ecall
 	
 SkipHit:
 	lw t0, 16(t2) #t0 = frame atual
@@ -412,6 +420,13 @@ Skip1:
 	li t1, 1
 	sw t1, (t0)
 	
+	ecall
+	li a0, 60
+	li a1, 1000
+	li a2, 126
+	li a3, 127
+	li a7 31
+	ecall
 SkipHit2:
 	lw t0, 16(t2) #t0 = frame atual
 	lw t1, 24(t2) #t1 = Tamanho da anima??o atual
